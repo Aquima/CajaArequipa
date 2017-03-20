@@ -1,0 +1,552 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F011B0A81E804917005E5F55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011B0A71E804917005E5F55 /* AppDelegate.swift */; };
+		F011B0AA1E804917005E5F55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011B0A91E804917005E5F55 /* ViewController.swift */; };
+		F011B0AD1E804917005E5F55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F011B0AB1E804917005E5F55 /* Main.storyboard */; };
+		F011B0B01E804917005E5F55 /* cajaarequipa.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F011B0AE1E804917005E5F55 /* cajaarequipa.xcdatamodeld */; };
+		F011B0B21E804917005E5F55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F011B0B11E804917005E5F55 /* Assets.xcassets */; };
+		F011B0B51E804917005E5F55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F011B0B31E804917005E5F55 /* LaunchScreen.storyboard */; };
+		F011B0C01E804917005E5F55 /* cajaarequipaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011B0BF1E804917005E5F55 /* cajaarequipaTests.swift */; };
+		F011B0CB1E804917005E5F55 /* cajaarequipaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011B0CA1E804917005E5F55 /* cajaarequipaUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F011B0BC1E804917005E5F55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F011B09C1E804916005E5F55 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F011B0A31E804917005E5F55;
+			remoteInfo = cajaarequipa;
+		};
+		F011B0C71E804917005E5F55 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F011B09C1E804916005E5F55 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F011B0A31E804917005E5F55;
+			remoteInfo = cajaarequipa;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F011B0A41E804917005E5F55 /* cajaarequipa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cajaarequipa.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F011B0A71E804917005E5F55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F011B0A91E804917005E5F55 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F011B0AC1E804917005E5F55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F011B0AF1E804917005E5F55 /* cajaarequipa.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = cajaarequipa.xcdatamodel; sourceTree = "<group>"; };
+		F011B0B11E804917005E5F55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F011B0B41E804917005E5F55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F011B0B61E804917005E5F55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F011B0BB1E804917005E5F55 /* cajaarequipaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cajaarequipaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F011B0BF1E804917005E5F55 /* cajaarequipaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cajaarequipaTests.swift; sourceTree = "<group>"; };
+		F011B0C11E804917005E5F55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F011B0C61E804917005E5F55 /* cajaarequipaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cajaarequipaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F011B0CA1E804917005E5F55 /* cajaarequipaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cajaarequipaUITests.swift; sourceTree = "<group>"; };
+		F011B0CC1E804917005E5F55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F011B0A11E804917005E5F55 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F011B0B81E804917005E5F55 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F011B0C31E804917005E5F55 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F011B09B1E804916005E5F55 = {
+			isa = PBXGroup;
+			children = (
+				F011B0A61E804917005E5F55 /* cajaarequipa */,
+				F011B0BE1E804917005E5F55 /* cajaarequipaTests */,
+				F011B0C91E804917005E5F55 /* cajaarequipaUITests */,
+				F011B0A51E804917005E5F55 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F011B0A51E804917005E5F55 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F011B0A41E804917005E5F55 /* cajaarequipa.app */,
+				F011B0BB1E804917005E5F55 /* cajaarequipaTests.xctest */,
+				F011B0C61E804917005E5F55 /* cajaarequipaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F011B0A61E804917005E5F55 /* cajaarequipa */ = {
+			isa = PBXGroup;
+			children = (
+				F011B0A71E804917005E5F55 /* AppDelegate.swift */,
+				F011B0A91E804917005E5F55 /* ViewController.swift */,
+				F011B0AB1E804917005E5F55 /* Main.storyboard */,
+				F011B0B11E804917005E5F55 /* Assets.xcassets */,
+				F011B0B31E804917005E5F55 /* LaunchScreen.storyboard */,
+				F011B0B61E804917005E5F55 /* Info.plist */,
+				F011B0AE1E804917005E5F55 /* cajaarequipa.xcdatamodeld */,
+			);
+			path = cajaarequipa;
+			sourceTree = "<group>";
+		};
+		F011B0BE1E804917005E5F55 /* cajaarequipaTests */ = {
+			isa = PBXGroup;
+			children = (
+				F011B0BF1E804917005E5F55 /* cajaarequipaTests.swift */,
+				F011B0C11E804917005E5F55 /* Info.plist */,
+			);
+			path = cajaarequipaTests;
+			sourceTree = "<group>";
+		};
+		F011B0C91E804917005E5F55 /* cajaarequipaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F011B0CA1E804917005E5F55 /* cajaarequipaUITests.swift */,
+				F011B0CC1E804917005E5F55 /* Info.plist */,
+			);
+			path = cajaarequipaUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F011B0A31E804917005E5F55 /* cajaarequipa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F011B0CF1E804917005E5F55 /* Build configuration list for PBXNativeTarget "cajaarequipa" */;
+			buildPhases = (
+				F011B0A01E804917005E5F55 /* Sources */,
+				F011B0A11E804917005E5F55 /* Frameworks */,
+				F011B0A21E804917005E5F55 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = cajaarequipa;
+			productName = cajaarequipa;
+			productReference = F011B0A41E804917005E5F55 /* cajaarequipa.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F011B0BA1E804917005E5F55 /* cajaarequipaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F011B0D21E804917005E5F55 /* Build configuration list for PBXNativeTarget "cajaarequipaTests" */;
+			buildPhases = (
+				F011B0B71E804917005E5F55 /* Sources */,
+				F011B0B81E804917005E5F55 /* Frameworks */,
+				F011B0B91E804917005E5F55 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F011B0BD1E804917005E5F55 /* PBXTargetDependency */,
+			);
+			name = cajaarequipaTests;
+			productName = cajaarequipaTests;
+			productReference = F011B0BB1E804917005E5F55 /* cajaarequipaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F011B0C51E804917005E5F55 /* cajaarequipaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F011B0D51E804917005E5F55 /* Build configuration list for PBXNativeTarget "cajaarequipaUITests" */;
+			buildPhases = (
+				F011B0C21E804917005E5F55 /* Sources */,
+				F011B0C31E804917005E5F55 /* Frameworks */,
+				F011B0C41E804917005E5F55 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F011B0C81E804917005E5F55 /* PBXTargetDependency */,
+			);
+			name = cajaarequipaUITests;
+			productName = cajaarequipaUITests;
+			productReference = F011B0C61E804917005E5F55 /* cajaarequipaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F011B09C1E804916005E5F55 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Next Latinoamérica";
+				TargetAttributes = {
+					F011B0A31E804917005E5F55 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = WB375LT285;
+						ProvisioningStyle = Automatic;
+					};
+					F011B0BA1E804917005E5F55 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = WB375LT285;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F011B0A31E804917005E5F55;
+					};
+					F011B0C51E804917005E5F55 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = WB375LT285;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F011B0A31E804917005E5F55;
+					};
+				};
+			};
+			buildConfigurationList = F011B09F1E804916005E5F55 /* Build configuration list for PBXProject "cajaarequipa" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F011B09B1E804916005E5F55;
+			productRefGroup = F011B0A51E804917005E5F55 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F011B0A31E804917005E5F55 /* cajaarequipa */,
+				F011B0BA1E804917005E5F55 /* cajaarequipaTests */,
+				F011B0C51E804917005E5F55 /* cajaarequipaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F011B0A21E804917005E5F55 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F011B0B51E804917005E5F55 /* LaunchScreen.storyboard in Resources */,
+				F011B0B21E804917005E5F55 /* Assets.xcassets in Resources */,
+				F011B0AD1E804917005E5F55 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F011B0B91E804917005E5F55 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F011B0C41E804917005E5F55 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F011B0A01E804917005E5F55 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F011B0AA1E804917005E5F55 /* ViewController.swift in Sources */,
+				F011B0B01E804917005E5F55 /* cajaarequipa.xcdatamodeld in Sources */,
+				F011B0A81E804917005E5F55 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F011B0B71E804917005E5F55 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F011B0C01E804917005E5F55 /* cajaarequipaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F011B0C21E804917005E5F55 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F011B0CB1E804917005E5F55 /* cajaarequipaUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F011B0BD1E804917005E5F55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F011B0A31E804917005E5F55 /* cajaarequipa */;
+			targetProxy = F011B0BC1E804917005E5F55 /* PBXContainerItemProxy */;
+		};
+		F011B0C81E804917005E5F55 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F011B0A31E804917005E5F55 /* cajaarequipa */;
+			targetProxy = F011B0C71E804917005E5F55 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F011B0AB1E804917005E5F55 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F011B0AC1E804917005E5F55 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F011B0B31E804917005E5F55 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F011B0B41E804917005E5F55 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F011B0CD1E804917005E5F55 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F011B0CE1E804917005E5F55 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F011B0D01E804917005E5F55 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = WB375LT285;
+				INFOPLIST_FILE = cajaarequipa/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nextlatam.cajaarequipa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		F011B0D11E804917005E5F55 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = WB375LT285;
+				INFOPLIST_FILE = cajaarequipa/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nextlatam.cajaarequipa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		F011B0D31E804917005E5F55 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = WB375LT285;
+				INFOPLIST_FILE = cajaarequipaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nextlatam.cajaarequipaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cajaarequipa.app/cajaarequipa";
+			};
+			name = Debug;
+		};
+		F011B0D41E804917005E5F55 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = WB375LT285;
+				INFOPLIST_FILE = cajaarequipaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nextlatam.cajaarequipaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cajaarequipa.app/cajaarequipa";
+			};
+			name = Release;
+		};
+		F011B0D61E804917005E5F55 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = WB375LT285;
+				INFOPLIST_FILE = cajaarequipaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nextlatam.cajaarequipaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = cajaarequipa;
+			};
+			name = Debug;
+		};
+		F011B0D71E804917005E5F55 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = WB375LT285;
+				INFOPLIST_FILE = cajaarequipaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nextlatam.cajaarequipaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = cajaarequipa;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F011B09F1E804916005E5F55 /* Build configuration list for PBXProject "cajaarequipa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F011B0CD1E804917005E5F55 /* Debug */,
+				F011B0CE1E804917005E5F55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F011B0CF1E804917005E5F55 /* Build configuration list for PBXNativeTarget "cajaarequipa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F011B0D01E804917005E5F55 /* Debug */,
+				F011B0D11E804917005E5F55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F011B0D21E804917005E5F55 /* Build configuration list for PBXNativeTarget "cajaarequipaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F011B0D31E804917005E5F55 /* Debug */,
+				F011B0D41E804917005E5F55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F011B0D51E804917005E5F55 /* Build configuration list for PBXNativeTarget "cajaarequipaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F011B0D61E804917005E5F55 /* Debug */,
+				F011B0D71E804917005E5F55 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F011B0AE1E804917005E5F55 /* cajaarequipa.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F011B0AF1E804917005E5F55 /* cajaarequipa.xcdatamodel */,
+			);
+			currentVersion = F011B0AF1E804917005E5F55 /* cajaarequipa.xcdatamodel */;
+			path = cajaarequipa.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F011B09C1E804916005E5F55 /* Project object */;
+}
