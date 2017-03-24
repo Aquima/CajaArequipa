@@ -1,0 +1,6 @@
+framework module Pods_cajaarequipa {
+  umbrella header "Pods-cajaarequipa-umbrella.h"
+
+  export *
+  module * { export * }
+}

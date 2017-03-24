@@ -9,14 +9,25 @@
 import UIKit
 import CoreData
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var splashVC:SplashViewController!
+    
+    var navigatorViewController:NavigationCustomViewController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        window? = UIWindow()
+        splashVC = SplashViewController()
+        navigatorViewController = NavigationCustomViewController.init(rootViewController: splashVC)
+        navigatorViewController.navigationBar.isHidden = true
+        window?.rootViewController = navigatorViewController
+
+        UIApplication.shared.statusBarStyle = .lightContent
+        
         return true
     }
 

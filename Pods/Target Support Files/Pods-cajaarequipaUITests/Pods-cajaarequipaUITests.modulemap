@@ -1,0 +1,6 @@
+framework module Pods_cajaarequipaUITests {
+  umbrella header "Pods-cajaarequipaUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
