@@ -25,6 +25,9 @@
 		F011B0E71E807C27005E5F55 /* NumberExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011B0E51E807C27005E5F55 /* NumberExtensions.swift */; };
 		F03290591E80830C005FC29D /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03290581E80830C005FC29D /* TopView.swift */; };
 		F032905B1E8087AB005FC29D /* LogInForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032905A1E8087AB005FC29D /* LogInForm.swift */; };
+		F0A932401E85AB2C00CEB939 /* Publications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A9323F1E85AB2C00CEB939 /* Publications.swift */; };
+		F0A932441E8609B500CEB939 /* ApiConsume.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A932421E8609B500CEB939 /* ApiConsume.swift */; };
+		F0A932451E8609B500CEB939 /* ApiConsumeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A932431E8609B500CEB939 /* ApiConsumeExtensions.swift */; };
 		F0F8FAB31E8319950009CC52 /* helvetica-rounded-bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F0F8FAB21E8319950009CC52 /* helvetica-rounded-bold.otf */; };
 		F0F8FABD1E832A450009CC52 /* MYRIADPRO-BOLD.OTF in Resources */ = {isa = PBXBuildFile; fileRef = F0F8FAB41E832A450009CC52 /* MYRIADPRO-BOLD.OTF */; };
 		F0F8FABE1E832A450009CC52 /* MYRIADPRO-BOLDCOND.OTF in Resources */ = {isa = PBXBuildFile; fileRef = F0F8FAB51E832A450009CC52 /* MYRIADPRO-BOLDCOND.OTF */; };
@@ -97,6 +100,9 @@
 		F0191C9E2A24EBCAAD81BA10 /* Pods-cajaarequipaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipaUITests/Pods-cajaarequipaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F03290581E80830C005FC29D /* TopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
 		F032905A1E8087AB005FC29D /* LogInForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInForm.swift; sourceTree = "<group>"; };
+		F0A9323F1E85AB2C00CEB939 /* Publications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Publications.swift; sourceTree = "<group>"; };
+		F0A932421E8609B500CEB939 /* ApiConsume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiConsume.swift; sourceTree = "<group>"; };
+		F0A932431E8609B500CEB939 /* ApiConsumeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiConsumeExtensions.swift; sourceTree = "<group>"; };
 		F0F8FAB21E8319950009CC52 /* helvetica-rounded-bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "helvetica-rounded-bold.otf"; sourceTree = "<group>"; };
 		F0F8FAB41E832A450009CC52 /* MYRIADPRO-BOLD.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MYRIADPRO-BOLD.OTF"; sourceTree = "<group>"; };
 		F0F8FAB51E832A450009CC52 /* MYRIADPRO-BOLDCOND.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MYRIADPRO-BOLDCOND.OTF"; sourceTree = "<group>"; };
@@ -197,6 +203,7 @@
 		F011B0A61E804917005E5F55 /* cajaarequipa */ = {
 			isa = PBXGroup;
 			children = (
+				F0A932411E8609B500CEB939 /* ApiConsume */,
 				F0F8FAB01E8319810009CC52 /* Resources */,
 				F011B0E31E807C27005E5F55 /* Extensions */,
 				F011B0DB1E806DB1005E5F55 /* GoogleService-Info.plist */,
@@ -284,6 +291,15 @@
 			path = AuthViews;
 			sourceTree = "<group>";
 		};
+		F0A932411E8609B500CEB939 /* ApiConsume */ = {
+			isa = PBXGroup;
+			children = (
+				F0A932421E8609B500CEB939 /* ApiConsume.swift */,
+				F0A932431E8609B500CEB939 /* ApiConsumeExtensions.swift */,
+			);
+			path = ApiConsume;
+			sourceTree = "<group>";
+		};
 		F0F8FAB01E8319810009CC52 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,6 +331,7 @@
 				F0F8FAD91E83FEFC0009CC52 /* TopBar.swift */,
 				F0F8FADB1E84029F0009CC52 /* MediaProfile.xcassets */,
 				F0F8FADF1E8460AF0009CC52 /* MeProfileInfo.swift */,
+				F0A9323F1E85AB2C00CEB939 /* Publications.swift */,
 			);
 			path = ProfileViews;
 			sourceTree = "<group>";
@@ -619,7 +636,9 @@
 				F0F8FADE1E8409F30009CC52 /* GlobalConstants.swift in Sources */,
 				F0F8FACB1E8361D70009CC52 /* NavigationCustomViewController.swift in Sources */,
 				F032905B1E8087AB005FC29D /* LogInForm.swift in Sources */,
+				F0A932441E8609B500CEB939 /* ApiConsume.swift in Sources */,
 				F011B0E01E807A8F005E5F55 /* RegisterViewController.swift in Sources */,
+				F0A932401E85AB2C00CEB939 /* Publications.swift in Sources */,
 				F011B0E71E807C27005E5F55 /* NumberExtensions.swift in Sources */,
 				F011B0AA1E804917005E5F55 /* ViewController.swift in Sources */,
 				F011B0E21E807AF8005E5F55 /* SplashViewController.swift in Sources */,
@@ -629,6 +648,7 @@
 				F011B0B01E804917005E5F55 /* cajaarequipa.xcdatamodeld in Sources */,
 				F011B0A81E804917005E5F55 /* AppDelegate.swift in Sources */,
 				F0F8FAD31E8391FB0009CC52 /* FavoritedViewController.swift in Sources */,
+				F0A932451E8609B500CEB939 /* ApiConsumeExtensions.swift in Sources */,
 				F0F8FAD11E8391E80009CC52 /* CameraViewController.swift in Sources */,
 				F0F8FADA1E83FEFC0009CC52 /* TopBar.swift in Sources */,
 				F03290591E80830C005FC29D /* TopView.swift in Sources */,

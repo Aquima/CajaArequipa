@@ -7,9 +7,13 @@
 //
 
 import UIKit
-
+import Firebase
+protocol LogInViewControllerDelegate {
+    func successLogIn()
+}
 class LogInViewController: UIViewController,LogInFormDelegate {
 
+    var delegate:LogInViewControllerDelegate!
     var form: LogInForm!
     var top: TopView!
     let screenSize: CGRect = UIScreen.main.bounds
@@ -17,10 +21,9 @@ class LogInViewController: UIViewController,LogInFormDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         createView()
-      //  printFonts()
+      //printFonts()
     }
     func printFonts() {
         let fontFamilyNames = UIFont.familyNames
@@ -41,7 +44,38 @@ class LogInViewController: UIViewController,LogInFormDelegate {
     }
     // MARK: - LogInFormDelegate
     func callLogIn(email:String,password:String){
-        
+        //call firebase rca@g.com 123456
+        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
+            
+            if error != nil {
+                if let errCode = FIRAuthErrorCode(rawValue: error!._code) {
+                    
+                    switch errCode {
+                    case .errorCodeInvalidEmail:
+                        print("invalid email")
+                        
+                    case .errorCodeWrongPassword:
+                        print("invalid password")
+                        
+                        //                    case .error:
+                        //                        print("invalid password")
+                    //
+                    case .errorCodeNetworkError:
+                        print("No Hay internet")
+                    default:
+                        print("Other error!")
+                        
+                    }
+                    
+                }
+            }else{
+                print("signIn successful")
+                self.form.btnEnter.isHidden = false
+                self.delegate.successLogIn()
+                //save session
+            }
+        })
+
     }
     func goToRegister(){
         let registerVC:RegisterViewController = RegisterViewController()
@@ -80,5 +114,5 @@ class LogInViewController: UIViewController,LogInFormDelegate {
         // handling code
         form.resignFirstResponderList()
     }
-
+       
 }

@@ -65,6 +65,7 @@ class MeProfileInfo: UIView {
         lblWebSite.text = "minegocio.com/"
         
         addSubview(contentView)
+        
         contentView.addSubview(imgProfile)
         contentView.addSubview(lblDescription)
         contentView.addSubview(lblWebSite)

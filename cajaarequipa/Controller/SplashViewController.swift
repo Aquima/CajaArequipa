@@ -8,6 +8,7 @@
 
 import UIKit
 import NVActivityIndicatorView
+import Firebase
 
 class SplashViewController: UIViewController {
 
@@ -17,6 +18,7 @@ class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        FIRApp.configure()
         self.drawBody()
         // Do any additional setup after loading the view.
     }
@@ -56,11 +58,15 @@ class SplashViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: when) {
             // Your code with delay
 
-           // let logIn = LogInViewController()
-
-          //  self.navigationController?.pushViewController(logIn, animated: true)
-            
-            self.loadTabController()
+            if FIRAuth.auth()?.currentUser != nil {
+                // User is signed in.
+                self.loadTabController()
+            } else {
+                // No user is signed in.
+                let logIn = LogInViewController()
+                
+                self.navigationController?.pushViewController(logIn, animated: true)
+            }
         }
     }
     override var prefersStatusBarHidden: Bool {

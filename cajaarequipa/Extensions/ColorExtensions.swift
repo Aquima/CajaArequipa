@@ -57,6 +57,7 @@ extension UITextField {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: testStr)
     }
+    
 }
 extension UIButton {
     func borderTextColor(color:String,text:String) {
@@ -86,4 +87,14 @@ extension UILabel {
         self.text = text
     }
 }
-
+extension String {
+    func getIDFromFireBase() -> String {
+        
+        let split = self.components(separatedBy: "@")
+        let firstPart = split[0]
+        let domain:String = split[1]
+        let newDomain = domain.replacingOccurrences(of: ".", with: "_dot_")
+        return firstPart + "_at_" + newDomain
+        
+    }
+}

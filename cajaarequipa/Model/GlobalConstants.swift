@@ -15,6 +15,10 @@ struct GlobalConstants {
         static let grayLight = "e6e6e6"
         static let grayMedium = "f2f2f2"
         static let iron = "0a5599"
+        static let cobalto = "00afb3"
+        static let white = "ffffff"
+        static let linColor = "cccccc"
+        static let cancelRed = "f27065"
     }
     struct font {
         static let myriadProRegular = "MyriadPro-Regular"

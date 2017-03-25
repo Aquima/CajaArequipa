@@ -19,15 +19,16 @@ enum inputRegisterType{
     
 }
 protocol RegisterFormDelegate {
+    
+    func callValidate(document:String)
     func callRegister(email:String,password:String,document:String)
     func goToBack()
 
 }
 class RegisterForm: UIView {
-
     
     var delegate:RegisterFormDelegate?
-    
+    var isPrepareForRegistrate:Bool = false
     let screenSize: CGRect = UIScreen.main.bounds
     let valuePro:CGFloat  = CGFloat(NSNumber.getPropotionalValueDevice())
     
@@ -58,16 +59,22 @@ class RegisterForm: UIView {
         self.backgroundColor = UIColor.white
         //Drawing code
         lblTitleLabel = UILabel()
-        lblTitleLabel.titleColor(color: "002753",text:"REGISTRARSE")
+        lblTitleLabel.titleColor(color: GlobalConstants.color.blue,text:"REGISTRARSE")
         
         txtDocument = UITextField()
         txtDocument.styleForm()
         txtDocument.placeholder = "Numero de DNI"
+        txtDocument.textAlignment = .center
+        txtDocument.keyboardType = .numberPad
+        txtDocument.clearButtonMode = .always
         
         txtDigit = UITextField()
         txtDigit.styleForm()
         txtDigit.placeholder = "Digito Verificador"
-
+        txtDigit.textAlignment = .center
+        txtDigit.keyboardType = .numberPad
+        txtDigit.clearButtonMode = .always
+        
         txtEmail = UITextField()
         txtEmail.styleForm()
         txtEmail.placeholder = "Correo Electrónico"
@@ -84,28 +91,28 @@ class RegisterForm: UIView {
         btnCancel = UIButton()
         
         lineDocument = UIView()
-        lineDocument.backgroundColor = UIColor.init(hexString: "cccccc")
+        lineDocument.backgroundColor = UIColor.init(hexString: GlobalConstants.color.linColor)
         
         lineDigit = UIView()
-        lineDigit.backgroundColor = UIColor.init(hexString: "cccccc")
+        lineDigit.backgroundColor = UIColor.init(hexString: GlobalConstants.color.linColor)
         
         lineEmail = UIView()
-        lineEmail.backgroundColor = UIColor.init(hexString: "cccccc")
+        lineEmail.backgroundColor = UIColor.init(hexString: GlobalConstants.color.linColor)
         
         linePassword = UIView()
-        linePassword.backgroundColor = UIColor.init(hexString: "cccccc")
+        linePassword.backgroundColor = UIColor.init(hexString: GlobalConstants.color.linColor)
         
         lineRePassword = UIView()
-        lineRePassword.backgroundColor = UIColor.init(hexString: "cccccc")
+        lineRePassword.backgroundColor = UIColor.init(hexString: GlobalConstants.color.linColor)
         
-        btnRegister.fillTextColor(color: "002753",text: "Registrar")
-        btnCancel.borderTextColor(color: "f27065", text: "Cancelar")
+        btnRegister.fillTextColor(color:  GlobalConstants.color.blue,text: "Registrar")
+        btnCancel.borderTextColor(color:  GlobalConstants.color.cancelRed , text: "Cancelar")
        
         let frame =  CGRect(x: btnRegister.frame.origin.x + (btnRegister.frame.size.width-35*valuePro)/2, y:  btnRegister.frame.origin.y + (btnRegister.frame.size.height-35*valuePro)/2, width:35*valuePro, height: 35*valuePro)
 
         activityIndicatorView = NVActivityIndicatorView(frame: frame,
                                                         type: NVActivityIndicatorType(rawValue:1)!)
-        activityIndicatorView.color = UIColor.init(hexString: "002753")
+        activityIndicatorView.color = UIColor.init(hexString: GlobalConstants.color.blue)
         activityIndicatorView.stopAnimating()
         
         addSubview(activityIndicatorView)
@@ -126,105 +133,113 @@ class RegisterForm: UIView {
         addSubview(linePassword)
         addSubview(lineRePassword)
         
+        //add Actions
+        txtDocument.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
+        btnRegister.addTarget(self, action: #selector(registerManualValidate(sender:)), for: .touchUpInside)
+        btnCancel.addTarget(self, action: #selector(pressCancelOn(sender:)), for: .touchUpInside)
+  
     }
     func updateView(){
 
         lblTitleLabel.frame = CGRect(x: (screenSize.width-258*valuePro)/2, y: 10*valuePro, width: 258*valuePro, height: 17*valuePro)
-        lblTitleLabel.font = UIFont (name: "HelveticaRounded-Bold", size: 13*valuePro)
+        lblTitleLabel.font = UIFont (name: GlobalConstants.font.helveticaRoundedBold, size: 13*valuePro)
         //--
         txtDocument.frame = CGRect(x: ((screenSize.width-1*valuePro)/2)-111*valuePro, y: 44*valuePro+0*(44*valuePro), width: 101*valuePro, height: 44*valuePro)
-        txtDocument.font = UIFont (name: "MyriadPro-Regular", size: 13*valuePro)
-        txtDocument.textAlignment = .center
+        txtDocument.font = UIFont (name: GlobalConstants.font.myriadProRegular, size: 13*valuePro)
+
         lineDocument.frame = CGRect(x: (screenSize.width-258*valuePro)/2, y: 88*valuePro+0*(44*valuePro), width: 258*valuePro, height: 0.8*valuePro)
         //--
         txtDigit.frame = CGRect(x:((screenSize.width-1*valuePro)/2)+5*valuePro, y: 44*valuePro+0*(44*valuePro), width: 124*valuePro, height: 44*valuePro)
-        txtDigit.font = UIFont (name: "MyriadPro-Regular", size: 13*valuePro)
-        txtDigit.textAlignment = .center
-        
+        txtDigit.font = UIFont (name: GlobalConstants.font.myriadProRegular, size: 13*valuePro)
+ 
         lineDigit.frame = CGRect(x: (screenSize.width-1*valuePro)/2, y: 44*valuePro+0*(44*valuePro), width: 1*valuePro, height: 34*valuePro)
         //--
         txtEmail.frame = CGRect(x: (screenSize.width-212*valuePro)/2, y: 44*valuePro+1*(44*valuePro), width: 212*valuePro, height: 44*valuePro)
-        txtEmail.font = UIFont (name: "MyriadPro-Regular", size: 13*valuePro)
+        txtEmail.font = UIFont (name: GlobalConstants.font.myriadProRegular, size: 13*valuePro)
         
         lineEmail.frame = CGRect(x: (screenSize.width-258*valuePro)/2, y: 88*valuePro+1*(44*valuePro), width: 258*valuePro, height: 0.8*valuePro)
         //--
         txtPassword.frame = CGRect(x: (screenSize.width-212*valuePro)/2, y: 44*valuePro+2*(44*valuePro), width: 212*valuePro, height: 44*valuePro)
-        txtPassword.font = UIFont (name: "MyriadPro-Regular", size: 13*valuePro)
+        txtPassword.font = UIFont (name: GlobalConstants.font.myriadProRegular, size: 13*valuePro)
         txtPassword.isSecureTextEntry = true
         
         linePassword.frame = CGRect(x: (screenSize.width-258*valuePro)/2, y:  88*valuePro+2*(44*valuePro), width: 258*valuePro, height: 0.8*valuePro)
         //--
         txtRePassword.frame = CGRect(x: (screenSize.width-212*valuePro)/2, y: 44*valuePro+3*(44*valuePro), width: 212*valuePro, height: 44*valuePro)
-        txtRePassword.font = UIFont (name: "MyriadPro-Regular", size: 13*valuePro)
+        txtRePassword.font = UIFont (name: GlobalConstants.font.myriadProRegular, size: 13*valuePro)
         txtRePassword.isSecureTextEntry = true
         
         lineRePassword.frame = CGRect(x: (screenSize.width-258*valuePro)/2, y:  88*valuePro+3*(44*valuePro), width: 258*valuePro, height: 0.8*valuePro)
         //--
         btnRegister.frame = CGRect(x: (screenSize.width-258*valuePro)/2, y: 44*valuePro+5.6*(44*valuePro), width: 258*valuePro, height: 44*valuePro)
         btnRegister.layer.cornerRadius = 22*valuePro
-        btnRegister.titleLabel?.font = UIFont (name: "HelveticaRounded-Bold", size: 14*valuePro)
+        btnRegister.titleLabel?.font = UIFont (name: GlobalConstants.font.helveticaRoundedBold, size: 14*valuePro)
         
         btnCancel.frame = CGRect(x: (screenSize.width-258*valuePro)/2, y: 44*valuePro+6.8*(44*valuePro), width: 258*valuePro, height: 44*valuePro)
         btnCancel.layer.cornerRadius = 22*valuePro
-        btnCancel.titleLabel?.font = UIFont (name: "HelveticaRounded-Bold", size: 14*valuePro)
+        btnCancel.titleLabel?.font = UIFont (name: GlobalConstants.font.helveticaRoundedBold, size: 14*valuePro)
         
         inputList.append(txtDocument)
         inputList.append(txtDigit)
         inputList.append(txtEmail)
         inputList.append(txtPassword)
         inputList.append(txtRePassword)
-        
-        //add Actions
-        btnRegister.addTarget(self, action: #selector(registerManualValidate(sender:)), for: .touchUpInside)
-        btnCancel.addTarget(self, action: #selector(pressCancelOn(sender:)), for: .touchUpInside)
-
+ 
     }
     // MARK: - UITextField
-    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
-        switch textField.tag {
-        case inputRegisterType.keyRegisterDocument.hashValue:
-            
-            break
-        case inputRegisterType.keyRegisterDigit.hashValue:
-            
-            break
-        case inputRegisterType.keyRegisterMail.hashValue:
-            
-            break
-        case inputRegisterType.keyRegisterPassword.hashValue:
-            
-            break
-        case inputRegisterType.keyRegisterRePassword.hashValue:
-            
-            break
-        default:
-            return true
+    func textFieldDidChange(textField: UITextField) {
+        //your code
+        if textField.text?.characters.count == 8 {
+            self.delegate?.callValidate(document: textField.text!)
+            self.inputList[ inputRegisterType.keyRegisterDigit.hashValue].becomeFirstResponder()
+
         }
-        return true
     }
+//    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//        
+//        switch textField.tag {
+//        case inputRegisterType.keyRegisterDocument.hashValue:
+//            
+//            break
+//        case inputRegisterType.keyRegisterDigit.hashValue:
+//            
+//            break
+//        case inputRegisterType.keyRegisterMail.hashValue:
+//            
+//            break
+//        case inputRegisterType.keyRegisterPassword.hashValue:
+//            
+//            break
+//        case inputRegisterType.keyRegisterRePassword.hashValue:
+//            
+//            break
+//        default:
+//            return true
+//        }
+//        return true
+//    }
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
          var inputText:UITextField!
         switch textField.tag {
         case inputRegisterType.keyRegisterDocument.hashValue:
-            
+
             inputText = self.inputList[ inputRegisterType.keyRegisterDigit.hashValue]
             inputText.becomeFirstResponder()
             break
         case inputRegisterType.keyRegisterDigit.hashValue:
             
             inputText = self.inputList[ inputRegisterType.keyRegisterMail.hashValue]
-            textField.resignFirstResponder()
+            textField.becomeFirstResponder()
             break
         case inputRegisterType.keyRegisterMail.hashValue:
             
             inputText = self.inputList[ inputRegisterType.keyRegisterPassword.hashValue]
-            textField.resignFirstResponder()
+            textField.becomeFirstResponder()
             break
         case inputRegisterType.keyRegisterPassword.hashValue:
             
             inputText = self.inputList[ inputRegisterType.keyRegisterRePassword.hashValue]
-            textField.resignFirstResponder()
+            textField.becomeFirstResponder()
             break
 
         default:
@@ -264,4 +279,5 @@ class RegisterForm: UIView {
     func pressCancelOn(sender:UIButton){
         delegate?.goToBack()
     }
+    //func validate
 }

@@ -76,7 +76,8 @@ class LogInForm: UIView, UITextFieldDelegate {
         addSubview(btnForget)
         addSubview(lineEmail)
         addSubview(linePassword)
-        
+        txtEmail.text = "rca@g.com"
+        txtPassword.text = "123456"
     }
     func updateView(){
         
