@@ -18,10 +18,19 @@ enum inputRegisterType{
     case keyRegisterRePassword
     
 }
+enum errorRegisterType{
+    
+    case errorRegisterDocument
+    case errorRegisterDigit
+    case errorRegisterMail
+    case errorRegisterPassword
+    
+}
 protocol RegisterFormDelegate {
     
     func callValidate(document:String)
     func callRegister(email:String,password:String,document:String)
+    func showError(error:errorRegisterType)
     func goToBack()
 
 }
@@ -29,6 +38,8 @@ class RegisterForm: UIView {
     
     var delegate:RegisterFormDelegate?
     var isPrepareForRegistrate:Bool = false
+    var isDocumentValid:Bool = false
+  
     let screenSize: CGRect = UIScreen.main.bounds
     let valuePro:CGFloat  = CGFloat(NSNumber.getPropotionalValueDevice())
     
@@ -50,6 +61,7 @@ class RegisterForm: UIView {
     var lineRePassword: UIView!
     
     var inputList:[UITextField] = []
+    var valueVerified:String!
     
     var activityIndicatorView: NVActivityIndicatorView!
     // Only override draw() if you perform custom drawing.
@@ -119,7 +131,7 @@ class RegisterForm: UIView {
         addSubview(lblTitleLabel)
         
         addSubview(txtDocument)
-        addSubview(txtDigit)
+     //   addSubview(txtDigit)
         addSubview(txtEmail)
         addSubview(txtPassword)
         addSubview(txtRePassword)
@@ -128,7 +140,7 @@ class RegisterForm: UIView {
         addSubview(btnCancel)
         
         addSubview(lineDocument)
-        addSubview(lineDigit)
+      //  addSubview(lineDigit)
         addSubview(lineEmail)
         addSubview(linePassword)
         addSubview(lineRePassword)
@@ -191,8 +203,9 @@ class RegisterForm: UIView {
         //your code
         if textField.text?.characters.count == 8 {
             self.delegate?.callValidate(document: textField.text!)
-            self.inputList[ inputRegisterType.keyRegisterDigit.hashValue].becomeFirstResponder()
-
+            self.inputList[ inputRegisterType.keyRegisterMail.hashValue].becomeFirstResponder()
+            valueVerified = validate(document: textField.text!)
+            print(valueVerified)
         }
     }
 //    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -217,20 +230,20 @@ class RegisterForm: UIView {
 //            return true
 //        }
 //        return true
-//    }
+//    }70410195
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
          var inputText:UITextField!
         switch textField.tag {
         case inputRegisterType.keyRegisterDocument.hashValue:
 
-            inputText = self.inputList[ inputRegisterType.keyRegisterDigit.hashValue]
+            inputText = self.inputList[ inputRegisterType.keyRegisterMail.hashValue]
             inputText.becomeFirstResponder()
             break
-        case inputRegisterType.keyRegisterDigit.hashValue:
-            
-            inputText = self.inputList[ inputRegisterType.keyRegisterMail.hashValue]
-            textField.becomeFirstResponder()
-            break
+//        case inputRegisterType.keyRegisterDigit.hashValue:
+//            
+//            inputText = self.inputList[ inputRegisterType.keyRegisterMail.hashValue]
+//            textField.becomeFirstResponder()
+//            break
         case inputRegisterType.keyRegisterMail.hashValue:
             
             inputText = self.inputList[ inputRegisterType.keyRegisterPassword.hashValue]
@@ -264,13 +277,23 @@ class RegisterForm: UIView {
         let document:String = self.inputList[inputRegisterType.keyRegisterDocument.hashValue].text!
         let email:String = self.inputList[inputRegisterType.keyRegisterMail.hashValue].text!
         let password:String = self.inputList[inputRegisterType.keyRegisterPassword.hashValue].text!
-        
-        if document != "" && email != "" && password != "" {
+        let rePassword:String = self.inputList[inputRegisterType.keyRegisterRePassword.hashValue].text!
+        if password != rePassword {
+            // mostrar error en password
+            isPrepareForRegistrate = false
+        }else if email.isValidEmail() == false {
+            isPrepareForRegistrate = false
+        }else if isDocumentValid == false{
+            isPrepareForRegistrate = false
+        }else{
+            isPrepareForRegistrate = true
+        }
+        if document != "" && email != "" && password == rePassword {
             
-            delegate?.callRegister(email: email, password: password, document: document)
+            delegate?.callRegister(email: email.lowercased(), password: password, document: document)
             
         }else{
-            
+          
            // sender.isHidden = false
             
         }
@@ -279,5 +302,24 @@ class RegisterForm: UIView {
     func pressCancelOn(sender:UIButton){
         delegate?.goToBack()
     }
-    //func validate
+    func validate(document:String) -> String{
+        
+        let characters = document.characters.map { String($0) }
+        
+        let multA = Int(characters[0])!*7
+        let multB = Int(characters[1])!*3
+        let multC = Int(characters[2])!*1
+        let multD = Int(characters[3])!*7
+        let multE = Int(characters[4])!*3
+        let multF = Int(characters[5])!*1
+        let multG = Int(characters[6])!*7
+        let multH = Int(characters[7])!*3
+        
+        let suma = multA+multB+multC+multD+multE+multF+multG+multH
+        
+        let convert = String(suma)
+        
+       return String(describing: convert.characters.last)
+        
+    }
 }

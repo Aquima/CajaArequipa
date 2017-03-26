@@ -196,4 +196,5 @@ class LogInForm: UIView, UITextFieldDelegate {
     func pressForgetOn(sender:UIButton){
         delegate?.goToForget()
     }
+    
 }

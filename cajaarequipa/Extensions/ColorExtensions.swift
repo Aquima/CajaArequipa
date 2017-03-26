@@ -50,13 +50,7 @@ extension UITextField {
         self.textColor = UIColor.init(hexString: "39a39c")
     
     }
-    func isValidEmail(testStr:String) -> Bool {
-        // print("validate calendar: \(testStr)")
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluate(with: testStr)
-    }
+
     
 }
 extension UIButton {
@@ -96,5 +90,12 @@ extension String {
         let newDomain = domain.replacingOccurrences(of: ".", with: "_dot_")
         return firstPart + "_at_" + newDomain
         
+    }
+    func isValidEmail() -> Bool {
+        // print("validate calendar: \(testStr)")
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: self)
     }
 }
