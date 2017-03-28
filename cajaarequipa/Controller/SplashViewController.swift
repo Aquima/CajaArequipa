@@ -57,7 +57,7 @@ class SplashViewController: UIViewController {
         let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
             // Your code with delay
-
+           
             if FIRAuth.auth()?.currentUser != nil {
                 // User is signed in.
                 self.loadTabController()

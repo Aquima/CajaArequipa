@@ -8,16 +8,15 @@
 
 import UIKit
 import Firebase
-protocol LogInViewControllerDelegate {
-    func successLogIn()
-}
-class LogInViewController: UIViewController,LogInFormDelegate {
 
-    var delegate:LogInViewControllerDelegate!
+class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewControllerDelegate {
+
     var form: LogInForm!
     var top: TopView!
     let screenSize: CGRect = UIScreen.main.bounds
     let valuePro:CGFloat  = CGFloat(NSNumber.getPropotionalValueDevice())
+    
+    var registerVC:RegisterViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,14 +70,16 @@ class LogInViewController: UIViewController,LogInFormDelegate {
             }else{
                 print("signIn successful")
                 self.form.btnEnter.isHidden = false
-                self.delegate.successLogIn()
-                //save session
+                DispatchQueue.main.async(execute: {
+                    _ = self.navigationController?.popToRootViewController(animated: true)
+                })
             }
         })
 
     }
     func goToRegister(){
-        let registerVC:RegisterViewController = RegisterViewController()
+        registerVC = RegisterViewController()
+        registerVC.delegate = self
         self.present(registerVC, animated: true, completion: nil)
     }
     func goToForget() {
@@ -114,5 +115,14 @@ class LogInViewController: UIViewController,LogInFormDelegate {
         // handling code
         form.resignFirstResponderList()
     }
-       
+    // MARK: - RegisterViewControllerDelegate
+    func completedRegister() {
+        registerVC.dismiss(animated: true, completion: {
+            DispatchQueue.main.async(execute: {
+                _ = self.navigationController?.popToRootViewController(animated: true)
+            })
+        })
+      
+       // self.navigationController.
+    }
 }

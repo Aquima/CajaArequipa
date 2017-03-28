@@ -34,6 +34,12 @@
 	<true/>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleLightContent</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Usaremos su  fotografia para subir a su perfil de usuario</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To scan credit cards.</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Usaremos algunas fotos para publicarlas en nuestra aplicacion </string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -78,21 +78,11 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
     func callValidate(document:String){
         getDocumentStatus(document: document)
     }
-    func callRegister(email:String,password:String,document:String){
+    func callRegister(email:String,password:String,document:String,error:errorRegisterType){
      //   form.resignFirstResponderList()
         //call to firebase
         if form.isPrepareForRegistrate == false {
-            let alert = UIAlertController(title: "Caja Arequipa", message: "Revisar los datos ingresados.", preferredStyle: UIAlertControllerStyle.alert)
-            
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
-                (result : UIAlertAction) -> Void in
-                           
-            }))
-  
-            self.present(alert, animated: true, completion: {
-                
-            })
+           showError(error: error)
         }else{
  
             FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
@@ -100,17 +90,25 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
                 //   self.activityIndicatorView.stopAnimating()
                 // self.btnRegis.isHidden = false
                 if error == nil {
+
+
                     //cuando creo delegar succes completed y  crear email y password al currentUser
                     let post:[String:Any] = ["email": email ,
                                              "name": self.currentName,
                                              "locality": self.currentLocality,
-                                             "document": document
+                                             "document": document,
+                                             "pictureUrl":"",
+                                             "followers":0,
+                                             "follows":0,
+                                             "website":"",
+                                             "description":""
                                              ]
                     
                     var ref: FIRDatabaseReference!
-                    
+                  //  FIRAuth.auth()?.currentUser?.uid ?? String()
                     ref = FIRDatabase.database().reference()
-                    ref.child("users/\(email.getIDFromFireBase())").updateChildValues(post)
+                  //  ref.child("users/\(email.getIDFromFireBase())").updateChildValues(post)
+                    ref.child("users/\(user?.uid ?? String())").updateChildValues(post)
                     self.delegate?.completedRegister()
 
                 }else{
@@ -118,16 +116,9 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
                         
                         switch errCode {
                         case .errorCodeInvalidEmail:
-                            print("invalid email")
-                            
-                        case .errorCodeWrongPassword:
-                            print("invalid password")
-                            
-                            //                    case .error:
-                            //                        print("invalid password")
-                        //
+                            self.showError(error: .errorRegisterExistMail)
                         case .errorCodeNetworkError:
-                            print("No Hay internet")
+                            self.showError(error: .errorRegisterNoNetwork)
                         default:
                             print("Other error!")
                             
@@ -139,25 +130,77 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
         }
     }
     func showError(error: errorRegisterType) {
-        let alert = UIAlertController(title: "Caja Arequipa", message: "Tu documento no se encuentra en nuestra lista de clientes y/o colaboradores. por favor contactanos. \ncentral telefonica:(51)(54) 380670 ", preferredStyle: UIAlertControllerStyle.alert)
         
-        // add an action (button)
-        alert.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
-            (result : UIAlertAction) -> Void in
-            
-            
-        }))
-        alert.addAction(UIAlertAction(title: "Contactar", style: UIAlertActionStyle.default, handler: {
-            (result : UIAlertAction) -> Void in
-            
-            if let url = URL(string: "tel://\(5154380670)") {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-            
-        }))
-        self.present(alert, animated: true, completion: {
+        var message:String?
+        let alertError = UIAlertController()
+        
+        if error == errorRegisterType.errorRegisterDocument {
+            message = "Tu documento no se encuentra en nuestra lista de clientes y/o colaboradores. por favor contactanos. \ncentral telefonica:(51)(54) 380670 "
+            alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
+                (result : UIAlertAction) -> Void in
+                self.form.stopAnimation()
+                
+            }))
+            alertError.addAction(UIAlertAction(title: "Contactar", style: UIAlertActionStyle.default, handler: {
+                (result : UIAlertAction) -> Void in
+                self.form.stopAnimation()
+                if let url = URL(string: "tel://\(5154380670)") {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+                
+            }))
+        }else if error == errorRegisterType.errorRegisterDocumentRegistrated {
+             message = "Tu documento ya se encuentra registrado."
+            alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
+                (result : UIAlertAction) -> Void in
+                self.form.stopAnimation()
+                
+            }))
+
+        }else if error == errorRegisterType.errorRegisterMail {
+            message = "El formato del correo electronico ingresado no es correcto."
+            alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
+                (result : UIAlertAction) -> Void in
+                self.form.stopAnimation()
+                
+            }))
+        }else if error == errorRegisterType.errorRegisterPassword{
+            message = "Sus contraseñas no coinciden."
+            alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
+                (result : UIAlertAction) -> Void in
+                self.form.stopAnimation()
+                
+            }))
+        }else if error == errorRegisterType.errorRegisterDigit{
+            message = "Ingrese el noveno digito de su DNI XXXXXXXX - D"
+            alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
+                (result : UIAlertAction) -> Void in
+                self.form.stopAnimation()
+                
+            }))
+        }else if error == errorRegisterType.errorRegisterExistMail{
+            message = "El correo electronico ingresado ya se encuentra registrado."
+            alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
+                (result : UIAlertAction) -> Void in
+                self.form.stopAnimation()
+                
+            }))
+        }else if error == errorRegisterType.errorRegisterNoNetwork{
+            message = "Problemas de conexion por favor intentelo mas tarde."
+            alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
+                (result : UIAlertAction) -> Void in
+                self.form.stopAnimation()
+                
+            }))
+        }
+        
+        alertError.message = message
+        alertError.title = "Caja Arequipa"
+     ///   alertError.preferredStyle = UIAlertControllerStyle.alert
+        self.present(alertError, animated: true, completion: {
             
         })
+        
     }
     func goToBack(){
    //     form.resignFirstResponderList()
@@ -174,6 +217,7 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
 //            }
             if snapshot.hasChildren() == true {
                 //show error
+                self.form.currentError = .errorRegisterDocumentRegistrated
                 self.form.isDocumentValid = false
             }else{
                 let notificationName = Notification.Name("endDocumentStatus")
@@ -201,6 +245,8 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
                 // validate token != nil
                 if dictionary["buscarPersonaResult"] != nil {
                     
+                    self.form.currentError = .errorRegisterDocument
+        
                     let objectPerson:NSDictionary = dictionary["buscarPersonaResult"] as! NSDictionary
                     
                     if (objectPerson.object(forKey: "Status") as! String) == "1" {
@@ -212,24 +258,12 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
                         self.form.isDocumentValid = true
                     }else{
                         self.form.isDocumentValid = false
+                        self.form.currentError = .errorRegisterDocument
                         // show error this document state: in use
                     }
-                    
-                    
+    
                 }else{
-                    let alert = UIAlertController(title: "Caja Arequipa", message: "Problemas de conexion por favor intentelo mas tarde.", preferredStyle: UIAlertControllerStyle.alert)
-                    
-                    // add an action (button)
-                    alert.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
-                        (result : UIAlertAction) -> Void in
-                        
-
-                    }))
- 
-                    // show the alert
-                    self.present(alert, animated: true, completion: {
-                        
-                    })
+                    self.showError(error: .errorRegisterNoNetwork)
                 }
                 
             }

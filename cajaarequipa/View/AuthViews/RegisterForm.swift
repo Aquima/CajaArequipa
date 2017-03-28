@@ -24,13 +24,17 @@ enum errorRegisterType{
     case errorRegisterDigit
     case errorRegisterMail
     case errorRegisterPassword
+    case errorRegisterDocumentRegistrated
+    case errorRegisterExistMail
+    case errorRegisterIncorrectPassword
+    case errorRegisterNoNetwork
+    case none
     
 }
 protocol RegisterFormDelegate {
     
     func callValidate(document:String)
-    func callRegister(email:String,password:String,document:String)
-    func showError(error:errorRegisterType)
+    func callRegister(email:String,password:String,document:String, error:errorRegisterType)
     func goToBack()
 
 }
@@ -62,6 +66,8 @@ class RegisterForm: UIView {
     
     var inputList:[UITextField] = []
     var valueVerified:String!
+    
+    var currentError:errorRegisterType = errorRegisterType.none
     
     var activityIndicatorView: NVActivityIndicatorView!
     // Only override draw() if you perform custom drawing.
@@ -278,26 +284,23 @@ class RegisterForm: UIView {
         let email:String = self.inputList[inputRegisterType.keyRegisterMail.hashValue].text!
         let password:String = self.inputList[inputRegisterType.keyRegisterPassword.hashValue].text!
         let rePassword:String = self.inputList[inputRegisterType.keyRegisterRePassword.hashValue].text!
-        if password != rePassword {
-            // mostrar error en password
+        if isDocumentValid == false{
+         //   currentError = errorRegisterType.errorRegisterDocument
             isPrepareForRegistrate = false
         }else if email.isValidEmail() == false {
+            currentError = errorRegisterType.errorRegisterMail
             isPrepareForRegistrate = false
-        }else if isDocumentValid == false{
+        }else if password != rePassword {
+            // mostrar error en password
+            currentError = errorRegisterType.errorRegisterPassword
             isPrepareForRegistrate = false
-        }else{
+        }else  {
             isPrepareForRegistrate = true
-        }
-        if document != "" && email != "" && password == rePassword {
-            
-            delegate?.callRegister(email: email.lowercased(), password: password, document: document)
-            
-        }else{
-          
-           // sender.isHidden = false
-            
+            currentError = errorRegisterType.none
         }
         
+        delegate?.callRegister(email: email.lowercased(), password: password, document: document, error: currentError)
+    
     }
     func pressCancelOn(sender:UIButton){
         delegate?.goToBack()
@@ -321,5 +324,9 @@ class RegisterForm: UIView {
         
        return String(describing: convert.characters.last)
         
+    }
+    func stopAnimation(){
+        activityIndicatorView.stopAnimating()
+        btnRegister.isHidden = false
     }
 }

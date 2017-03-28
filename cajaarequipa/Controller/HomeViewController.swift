@@ -15,8 +15,8 @@ class HomeViewController: BoxViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
-         try! FIRAuth.auth()!.signOut()
-        
+        //try! FIRAuth.auth()!.signOut()
+     //   print( FIRAuth.auth()?.currentUser?.uid ?? String())
     }
 
     override func didReceiveMemoryWarning() {
