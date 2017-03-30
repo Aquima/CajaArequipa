@@ -36,8 +36,9 @@ class MeProfileInfo: UIView {
         imgProfile.frame = CGRect(x: 24*valuePro, y: 20*valuePro, width: 82*valuePro, height: 82*valuePro)
         imgProfile.layer.cornerRadius = imgProfile.frame.size.height/2
         imgProfile.layer.masksToBounds = true
+     //   imgProfile.contentMode = .scaleAspectFit
         imgProfile.backgroundColor = UIColor.init(hexString: GlobalConstants.color.linColor)
-        
+       
         lblFollowers = UILabel()
         lblFollowers.frame = CGRect(x: 128*valuePro, y: 20*valuePro, width: 60*valuePro, height: 35*valuePro)
         lblFollowers.textAlignment = .center
@@ -83,6 +84,9 @@ class MeProfileInfo: UIView {
     }
     
     func updateView(user:User){
+      //  let urlimage = "https://firebasestorage.googleapis.com/v0/b/caja-arequipa.appspot.com/o/wL5pK9CT0tOLf7rA4dRelRQKzhh2?alt=media"
+        imgProfile.sd_setImage(with: URL.init(string:user.pictureUrl), placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
+      //   imgProfile.sd_setImage(with: URL.init(string:urlimage), placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
         
         followers = user.followers.stringValue
         follows = user.follows.stringValue

@@ -8,8 +8,11 @@ target 'cajaarequipa' do
   pod 'Firebase/Database'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Storage'
   pod 'NVActivityIndicatorView'
   pod 'SDWebImage'
+  pod 'Fusuma'
+  
   target 'cajaarequipaTests' do
     inherit! :search_paths
     # Pods for testing

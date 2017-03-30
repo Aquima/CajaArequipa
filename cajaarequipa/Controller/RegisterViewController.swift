@@ -145,7 +145,11 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
                 (result : UIAlertAction) -> Void in
                 self.form.stopAnimation()
                 if let url = URL(string: "tel://\(5154380670)") {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        // Fallback on earlier versions
+                    }
                 }
                 
             }))

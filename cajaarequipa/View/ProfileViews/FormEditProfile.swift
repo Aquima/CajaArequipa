@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
+
 protocol FormEditProfileDelegate {
+    
     func goCamPro(sender:UIButton)
+    func saveInfo(describe:String,website:String,email:String)
+
 }
 class FormEditProfile: UIView {
 
@@ -33,6 +38,11 @@ class FormEditProfile: UIView {
     var lineEmail: UIView!
     
     var contentView:UIView!
+    
+    var inputList:[UITextField] = []
+ 
+    var activityIndicatorView: NVActivityIndicatorView!
+    var activityIndicatorPhotoView: NVActivityIndicatorView!
     
     func drawBody(barHeight:CGFloat){
         
@@ -61,20 +71,24 @@ class FormEditProfile: UIView {
         txtDescribe.textAlignment = .center
         txtDescribe.keyboardType = .default
         txtDescribe.clearButtonMode = .always
+        txtDescribe.textColor = UIColor.init(hexString: GlobalConstants.color.iron)
         
         txtWebSite = UITextField()
         txtWebSite.styleForm()
         txtWebSite.placeholder = "Pagina Web"
         txtWebSite.textAlignment = .center
-        txtWebSite.keyboardType = .default
+        txtWebSite.keyboardType = .webSearch
         txtWebSite.clearButtonMode = .always
+        txtWebSite.textColor = UIColor.init(hexString: GlobalConstants.color.blue)
+        txtWebSite.autocorrectionType = .no
         
         txtEmail = UITextField()
         txtEmail.styleForm()
         txtEmail.placeholder = "Correo Electronico"
         txtEmail.textAlignment = .center
-        txtEmail.keyboardType = .default
+        txtEmail.keyboardType = .emailAddress
         txtEmail.clearButtonMode = .always
+        txtEmail.autocorrectionType = .no
         
         lineDescribe = UIView()
         lineDescribe.backgroundColor = UIColor.init(hexString: GlobalConstants.color.linColor)
@@ -85,7 +99,27 @@ class FormEditProfile: UIView {
         lineEmail = UIView()
         lineEmail.backgroundColor = UIColor.init(hexString: GlobalConstants.color.linColor)
   
+        btnSaveChanges = UIButton()
+        btnSaveChanges.fillTextColor(color: GlobalConstants.color.blue, text: "Guardar Cambios")
+        btnSaveChanges.addTarget(self, action: #selector(saveInfo(sender:)), for: .touchUpInside)
+        
+        let frame =  CGRect(x: btnSaveChanges.frame.origin.x + (btnSaveChanges.frame.size.width-35*valuePro)/2, y:  btnSaveChanges.frame.origin.y + (btnSaveChanges.frame.size.height-35*valuePro)/2, width:35*valuePro, height: 35*valuePro)
+        
+        activityIndicatorView = NVActivityIndicatorView(frame: frame,
+                                                        type: NVActivityIndicatorType(rawValue:1)!)
+        activityIndicatorView.color = UIColor.init(hexString: GlobalConstants.color.blue)
+        activityIndicatorView.stopAnimating()
+        
+        let framePhoto =  CGRect(x: imgProfile.frame.origin.x + (imgProfile.frame.size.width-35*valuePro)/2, y:  imgProfile.frame.origin.y + (imgProfile.frame.size.height-35*valuePro)/2, width:35*valuePro, height: 35*valuePro)
+        activityIndicatorPhotoView = NVActivityIndicatorView(frame: framePhoto,
+                                                        type: NVActivityIndicatorType(rawValue:29)!)
+        activityIndicatorPhotoView.color = UIColor.init(hexString: GlobalConstants.color.cobalto)
+        activityIndicatorPhotoView.stopAnimating()
+        
         addSubview(contentView)
+        
+        contentView.addSubview(activityIndicatorPhotoView)
+        contentView.addSubview(activityIndicatorView)
         
         contentView.addSubview(imgProfile)
         contentView.addSubview(lblName)
@@ -98,9 +132,16 @@ class FormEditProfile: UIView {
         contentView.addSubview(lineWebSite)
         contentView.addSubview(lineEmail)
         
+        contentView.addSubview(btnSaveChanges)
+        
+
+        //- Add Elements to Texfield Array
+        inputList.append(txtDescribe)
+        inputList.append(txtWebSite)
+        inputList.append(txtEmail)
     }
     func updateViewWithData(user:User){
-        
+        imgProfile.sd_setImage(with: URL.init(string:user.pictureUrl), placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
         lblName.text = user.name
         txtEmail.text = user.email
         txtWebSite.text = user.website
@@ -121,7 +162,6 @@ class FormEditProfile: UIView {
         
         let spaceHeight = 44*valuePro
         let startSpaceHeight = 148*valuePro
-
         //--
         txtDescribe.frame = CGRect(x: (contentView.frame.size.width-220*valuePro)/2, y: startSpaceHeight+0*(spaceHeight), width: 220*valuePro, height: 44*valuePro)
         txtDescribe.font = UIFont (name: GlobalConstants.font.myriadProRegular, size: 13*valuePro)
@@ -138,9 +178,47 @@ class FormEditProfile: UIView {
         
         lineEmail.frame = CGRect(x: (contentView.frame.size.width-258*valuePro)/2, y: startSpaceHeight+3*(spaceHeight), width: 258*valuePro, height: 0.8*valuePro)
 
+        btnSaveChanges.frame = CGRect(x: (contentView.frame.size.width-258*valuePro)/2, y: self.frame.size.height-(26+37)*valuePro, width: 258*valuePro, height: 37*valuePro)
+        btnSaveChanges.layer.cornerRadius = 37*valuePro/2
+        btnSaveChanges.titleLabel?.font = UIFont (name: GlobalConstants.font.myriadProRegular, size: 12*valuePro)
+        
+    }
+    func resignFirstResponderList(){
+        
+        for inputUX in self.inputList {
+            let inputTxt = inputUX
+            inputTxt.resignFirstResponder()
+        }
+        
+    }
+    // MARK - Actions
+    func saveInfo(sender:UIButton) {
+        sender.isHidden = true
+        let frame =  CGRect(x: sender.frame.origin.x + (sender.frame.size.width-35*valuePro)/2, y:  sender.frame.origin.y + (sender.frame.size.height-35*valuePro)/2, width:35*valuePro, height: 35*valuePro)
+        activityIndicatorView.frame = frame
+        //validate all fields
+        
+        activityIndicatorView.startAnimating()
+        self.delegate?.saveInfo(describe: txtDescribe.text!, website: txtWebSite.text!, email: txtEmail.text!)
     }
     func pressCam(sender:UIButton) {
+        sender.isHidden = true
+        imgProfile.isHidden = true
+        let frame =  CGRect(x: imgProfile.frame.origin.x + (imgProfile.frame.size.width-35*valuePro)/2, y:  imgProfile.frame.origin.y + (imgProfile.frame.size.height-35*valuePro)/2, width:35*valuePro, height: 35*valuePro)
+        activityIndicatorPhotoView.frame = frame
+        //validate all fields
+        
+        activityIndicatorPhotoView.startAnimating()
         self.delegate?.goCamPro(sender: sender)
+    }
+    func stopPhotoAnimation(){
+        activityIndicatorPhotoView.stopAnimating()
+        btnChangePhoto.isHidden = false
+        imgProfile.isHidden = false
+    }
+    func stopAnimation(){
+        activityIndicatorView.stopAnimating()
+        btnSaveChanges.isHidden = false
     }
 
 }

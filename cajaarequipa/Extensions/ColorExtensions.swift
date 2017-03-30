@@ -47,13 +47,14 @@ extension UITextField {
         
         self.textAlignment = .left
         self.backgroundColor = UIColor.clear
-        self.textColor = UIColor.init(hexString: "39a39c")
+        self.textColor = UIColor.init(hexString: GlobalConstants.color.cobalto)
     
     }
 
     
 }
 extension UIButton {
+
     func borderTextColor(color:String,text:String) {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.init(hexString: color).cgColor
@@ -97,5 +98,21 @@ extension String {
         
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
+    }
+}
+extension UIImage {
+    func resized(withPercentage percentage: CGFloat) -> UIImage? {
+        let canvasSize = CGSize(width: size.width * percentage, height: size.height * percentage)
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: canvasSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+    func resized(toWidth width: CGFloat) -> UIImage? {
+        let canvasSize = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: canvasSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
     }
 }

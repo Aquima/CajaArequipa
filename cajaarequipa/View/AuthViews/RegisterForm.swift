@@ -142,6 +142,10 @@ class RegisterForm: UIView {
         addSubview(txtPassword)
         addSubview(txtRePassword)
         
+        inputList.append(txtEmail)
+        inputList.append(txtPassword)
+        inputList.append(txtRePassword)
+        
         addSubview(btnRegister)
         addSubview(btnCancel)
         
@@ -214,29 +218,7 @@ class RegisterForm: UIView {
             print(valueVerified)
         }
     }
-//    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//        
-//        switch textField.tag {
-//        case inputRegisterType.keyRegisterDocument.hashValue:
-//            
-//            break
-//        case inputRegisterType.keyRegisterDigit.hashValue:
-//            
-//            break
-//        case inputRegisterType.keyRegisterMail.hashValue:
-//            
-//            break
-//        case inputRegisterType.keyRegisterPassword.hashValue:
-//            
-//            break
-//        case inputRegisterType.keyRegisterRePassword.hashValue:
-//            
-//            break
-//        default:
-//            return true
-//        }
-//        return true
-//    }70410195
+
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
          var inputText:UITextField!
         switch textField.tag {

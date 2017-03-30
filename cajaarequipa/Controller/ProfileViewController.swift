@@ -16,6 +16,8 @@ class ProfileViewController: BoxViewController,TopBarDelegate {
     var publications:Publications!
     var currentUser:User!
     
+    var listPhotos:[Photos] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         currentUser = User()
@@ -27,6 +29,29 @@ class ProfileViewController: BoxViewController,TopBarDelegate {
         ref.child("users").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.childChanged, with:  { (snapshot) -> Void in
             self.updateValues()
         })
+        ref.child("photos").child((FIRAuth.auth()?.currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? Dictionary<String, Any>
+            for key in (value?.keys)! {
+                
+                let itemPhoto:Dictionary = (value?[key] as? Dictionary<String, Any>)!
+                 print(itemPhoto)
+                let photoItem = Photos()
+                photoItem.translateToModel(data: itemPhoto)
+                self.listPhotos.append(photoItem)
+                
+            }
+            
+            self.publications.lblTitle.text = "\(self.listPhotos.count) Publicaciones"
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+
+        ref.child("photos").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.childChanged, with:  { (snapshot) -> Void in
+           
+        })
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,8 +98,10 @@ class ProfileViewController: BoxViewController,TopBarDelegate {
         // _ = self.navigationController?.popToRootViewController(animated: true)
     }
     func pressRight(sender: UIButton) {
+        
         let editProfileVC = EditProfileViewController()
         editProfileVC.currentUser = self.currentUser
         self.navigationController?.pushViewController(editProfileVC, animated: true)
+        
     }
 }

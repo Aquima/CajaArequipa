@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class EditProfileViewController: BoxViewController,TopBarDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate,FormEditProfileDelegate  {
+
+
 
     var topBar:TopBar!
     var form:FormEditProfile!
@@ -44,16 +47,19 @@ class EditProfileViewController: BoxViewController,TopBarDelegate, UINavigationC
         form.updateViewWithData(user: currentUser)
         view.addSubview(form)
 
+        let tapForm = UITapGestureRecognizer(target: self, action:#selector(handleTap(sender:)))
+
+        form.addGestureRecognizer(tapForm)
     }
     // MARK: - TopBarDelegate
-    func pressLeft(sender: UIButton) {
+    internal func pressLeft(sender: UIButton) {
          _ = self.navigationController?.popToRootViewController(animated: true)
     }
-    func pressRight(sender: UIButton) {
+    internal func pressRight(sender: UIButton) {
        // editing icon
     }
     // MARK: - Actions
-    func goCamPro(sender: UIButton){
+    internal func goCamPro(sender: UIButton){
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
             
             imagePicker.delegate = self
@@ -64,15 +70,71 @@ class EditProfileViewController: BoxViewController,TopBarDelegate, UINavigationC
             
         }
     }
+    internal func saveInfo(describe: String, website: String, email: String) {
+        //cuando creo delegar succes completed y  crear email y password al currentUser
+        let post:[String:Any] = ["email": email ,
+                                 "website":website,
+                                 "description":describe
+        ]
+        
+        var ref: FIRDatabaseReference!
+        //  FIRAuth.auth()?.currentUser?.uid ?? String()
+        ref = FIRDatabase.database().reference()
+        //  ref.child("users/\(email.getIDFromFireBase())").updateChildValues(post)
+        ref.child("users/\((FIRAuth.auth()?.currentUser?.uid)!)").updateChildValues(post, withCompletionBlock:  { (error:Error?, ref:FIRDatabaseReference!) in
+            print("This never prints in the console")
+            self.form.stopAnimation()
+            _ = self.navigationController?.popToRootViewController(animated: true)
+        })
+    }
     // MARK: - UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             form.imgProfile.image = image
-            form.imgProfile.contentMode = .scaleAspectFit
+        //    form.imgProfile.contentMode = .scaleAspectFit
 
          //call storage
             
             self.dismiss(animated: true, completion: nil)
+            
+            var data = Data()
+          //  image.resized(withPercentage: 0.3)
+            data = UIImageJPEGRepresentation(image.resized(withPercentage: 0.3)!, 0.8)!
+            //create reference
+            let storage = FIRStorage.storage()
+            let storageRef = storage.reference()
+            
+            // set upload path
+            let filePath = "profile/\(FIRAuth.auth()!.currentUser!.uid)"
+            let metaData = FIRStorageMetadata()
+            metaData.contentType = "image/jpg"
+
+            storageRef.child(filePath).put(data, metadata: metaData){(metaData,error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }else{
+                    //storage DownloadURL
+                    let downloadURL = metaData!.downloadURL()!.absoluteString
+
+                    let post:[String:Any] = ["pictureUrl": downloadURL]
+                    
+                    var ref: FIRDatabaseReference!
+                    ref = FIRDatabase.database().reference()
+                    ref.child("users/\((FIRAuth.auth()?.currentUser?.uid)!)").updateChildValues(post, withCompletionBlock:  { (error:Error?, ref:FIRDatabaseReference!) in
+                        print("This never prints in the console")
+                        self.form.stopPhotoAnimation()
+                        
+                    })
+                }
+                
+            }
+        }else{
+            self.form.stopPhotoAnimation()
         }
+    }
+    func handleTap(sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        form.resignFirstResponderList()
     }
 }

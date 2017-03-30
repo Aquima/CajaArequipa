@@ -196,5 +196,8 @@ class LogInForm: UIView, UITextFieldDelegate {
     func pressForgetOn(sender:UIButton){
         delegate?.goToForget()
     }
-    
+    func stopAnimation(){
+        activityIndicatorView.stopAnimating()
+        btnRegister.isHidden = false
+    }
 }
