@@ -11,7 +11,6 @@ target 'cajaarequipa' do
   pod 'Firebase/Storage'
   pod 'NVActivityIndicatorView'
   pod 'SDWebImage'
-  pod 'Fusuma'
   
   target 'cajaarequipaTests' do
     inherit! :search_paths
