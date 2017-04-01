@@ -37,7 +37,7 @@ class FooterPhoto: UIView,UITextFieldDelegate {
         let paddingView = UIView(frame:CGRect(x: 0, y: 0, width: 30, height: 30))
         txtFooter.leftView = paddingView;
         txtFooter.leftViewMode =  .always
-        txtFooter.placeholder="Escribe un pie de foto"
+        txtFooter.placeholder="Escribe un titulo para la foto"
         
 //        let paddingRightView = UIView(frame:CGRect(x: 0, y: 0, width: 30, height: 30))
 //        txtFooter.rightView = paddingRightView;

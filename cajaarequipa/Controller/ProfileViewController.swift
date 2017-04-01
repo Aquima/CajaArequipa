@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ProfileViewController: BoxViewController,TopBarDelegate {
+class ProfileViewController: BoxViewController ,TopBarDelegate{
 
     var topBar:TopBar!
     var meProfileInfo:MeProfileInfo!
@@ -29,29 +29,26 @@ class ProfileViewController: BoxViewController,TopBarDelegate {
         ref.child("users").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.childChanged, with:  { (snapshot) -> Void in
             self.updateValues()
         })
-        ref.child("photos").child((FIRAuth.auth()?.currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? Dictionary<String, Any>
-            for key in (value?.keys)! {
-                
-                let itemPhoto:Dictionary = (value?[key] as? Dictionary<String, Any>)!
-                 print(itemPhoto)
-                let photoItem = Photos()
-                photoItem.translateToModel(data: itemPhoto)
-                self.listPhotos.append(photoItem)
-                
-            }
-            
-            self.publications.lblTitle.text = "\(self.listPhotos.count) Publicaciones"
-            
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-
-        ref.child("photos").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.childChanged, with:  { (snapshot) -> Void in
-           
-        })
-
+//        ref.child("photos").child((FIRAuth.auth()?.currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            let value = snapshot.value as? Dictionary<String, Any>
+//            for key in (value?.keys)! {
+//                
+//                let itemPhoto:Dictionary = (value?[key] as? Dictionary<String, Any>)!
+//                 print(itemPhoto)
+//                let photoItem = Photos()
+//                photoItem.translateToModel(data: itemPhoto)
+//                self.listPhotos.append(photoItem)
+//                self.publications.updateWithData(list: self.listPhotos)
+//             //   self.childAdded()
+//            }
+//            
+//            self.publications.lblTitle.text = "\(self.listPhotos.count) Publicaciones"
+//            
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
+        self.childAdded()
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,7 +66,7 @@ class ProfileViewController: BoxViewController,TopBarDelegate {
             let value = snapshot.value as? NSDictionary
             self.currentUser.translateToModel(data: value! )
             self.meProfileInfo.updateView(user:self.currentUser)
-            self.topBar.lblTitle.text = self.currentUser.name
+            self.topBar.lblTitle.text = self.currentUser.name.getFirstName()
             // ...
         }) { (error) in
             print(error.localizedDescription)
@@ -92,16 +89,38 @@ class ProfileViewController: BoxViewController,TopBarDelegate {
         publications.drawBody(barHeight: (self.tabBarController?.tabBar.frame.size.height)!, title: "0 Publicaciones")
         view.addSubview(publications)
         
+        
+        
     }
-    // MARK: -TopBarDelegate
+    // MARK: - TopBarDelegate
     func pressLeft(sender: UIButton) {
         // _ = self.navigationController?.popToRootViewController(animated: true)
+        let discoveryVC:DiscoveryViewController = DiscoveryViewController()
+        self.navigationController?.pushViewController(discoveryVC, animated: true)
+        
     }
+    
     func pressRight(sender: UIButton) {
         
         let editProfileVC = EditProfileViewController()
         editProfileVC.currentUser = self.currentUser
         self.navigationController?.pushViewController(editProfileVC, animated: true)
         
+    }
+    // MARK: - firebase
+    func childAdded(){
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        ref.child("photos").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.childAdded, with:  { (snapshot) -> Void in
+           // let snap:FIRDataSnapshot
+            let itemPhoto = (snapshot.value as? Dictionary<String, Any>)!
+
+            let photoItem = Photos()
+            photoItem.translateToModel(data: itemPhoto)
+            self.listPhotos.append(photoItem)
+            self.publications.updateWithData(list: self.listPhotos)
+            
+            self.publications.lblTitle.text = "\(self.listPhotos.count) Publicaciones"
+        })
     }
 }

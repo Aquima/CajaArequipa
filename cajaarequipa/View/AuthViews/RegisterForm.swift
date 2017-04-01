@@ -85,6 +85,7 @@ class RegisterForm: UIView {
         txtDocument.textAlignment = .center
         txtDocument.keyboardType = .numberPad
         txtDocument.clearButtonMode = .always
+        txtDocument.autocorrectionType = .no
         
         txtDigit = UITextField()
         txtDigit.styleForm()
@@ -92,18 +93,23 @@ class RegisterForm: UIView {
         txtDigit.textAlignment = .center
         txtDigit.keyboardType = .numberPad
         txtDigit.clearButtonMode = .always
+        txtDigit.autocorrectionType = .no
         
         txtEmail = UITextField()
         txtEmail.styleForm()
         txtEmail.placeholder = "Correo Electrónico"
+        txtEmail.autocorrectionType = .no
+        
         
         txtPassword = UITextField()
         txtPassword.styleForm()
         txtPassword.placeholder = "Contraseña"
+        txtPassword.autocorrectionType = .no
         
         txtRePassword = UITextField()
         txtRePassword.styleForm()
         txtRePassword.placeholder = "Repetir Contraseña"
+        txtRePassword.autocorrectionType = .no
         
         btnRegister = UIButton()
         btnCancel = UIButton()
@@ -141,10 +147,7 @@ class RegisterForm: UIView {
         addSubview(txtEmail)
         addSubview(txtPassword)
         addSubview(txtRePassword)
-        
-        inputList.append(txtEmail)
-        inputList.append(txtPassword)
-        inputList.append(txtRePassword)
+
         
         addSubview(btnRegister)
         addSubview(btnCancel)
@@ -216,9 +219,16 @@ class RegisterForm: UIView {
             self.inputList[ inputRegisterType.keyRegisterMail.hashValue].becomeFirstResponder()
             valueVerified = validate(document: textField.text!)
             print(valueVerified)
+        }else if((textField.text?.characters.count)! >= 8){
+            self.isDocumentValid = false
+            textField.text = ""
         }
     }
-
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        guard let text = textField.text else { return true }
+//        let newLength = text.characters.count + string.characters.count - range.length
+//        return newLength <= 8
+//    }
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
          var inputText:UITextField!
         switch textField.tag {
@@ -227,11 +237,11 @@ class RegisterForm: UIView {
             inputText = self.inputList[ inputRegisterType.keyRegisterMail.hashValue]
             inputText.becomeFirstResponder()
             break
-//        case inputRegisterType.keyRegisterDigit.hashValue:
+//      case inputRegisterType.keyRegisterDigit.hashValue:
 //            
-//            inputText = self.inputList[ inputRegisterType.keyRegisterMail.hashValue]
-//            textField.becomeFirstResponder()
-//            break
+//          inputText = self.inputList[ inputRegisterType.keyRegisterMail.hashValue]
+//          textField.becomeFirstResponder()
+//          break
         case inputRegisterType.keyRegisterMail.hashValue:
             
             inputText = self.inputList[ inputRegisterType.keyRegisterPassword.hashValue]
@@ -267,16 +277,21 @@ class RegisterForm: UIView {
         let password:String = self.inputList[inputRegisterType.keyRegisterPassword.hashValue].text!
         let rePassword:String = self.inputList[inputRegisterType.keyRegisterRePassword.hashValue].text!
         if isDocumentValid == false{
-         //   currentError = errorRegisterType.errorRegisterDocument
+
             isPrepareForRegistrate = false
+            
         }else if email.isValidEmail() == false {
+
             currentError = errorRegisterType.errorRegisterMail
             isPrepareForRegistrate = false
+            
         }else if password != rePassword {
-            // mostrar error en password
+
             currentError = errorRegisterType.errorRegisterPassword
             isPrepareForRegistrate = false
+            
         }else  {
+            
             isPrepareForRegistrate = true
             currentError = errorRegisterType.none
         }

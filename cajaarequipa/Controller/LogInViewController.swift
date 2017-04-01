@@ -50,19 +50,17 @@ class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewContro
                 if let errCode = FIRAuthErrorCode(rawValue: error!._code) {
                     
                     switch errCode {
-                    case .errorCodeInvalidEmail:
-                        print("invalid email")
+
                         
                     case .errorCodeWrongPassword:
-                        print("invalid password")
-                        
-                        //                    case .error:
-                        //                        print("invalid password")
-                    //
+                       self.showError(error: .errorLogInPassword)
+                    case .errorCodeInvalidEmail:
+                        self.showError(error: .errorLogInMail)
                     case .errorCodeNetworkError:
-                        print("No Hay internet")
+                        self.showError(error: .errorLogInNetwork)
                     default:
                         print("Other error!")
+                        self.form.stopAnimation()
                         
                     }
                     
@@ -125,4 +123,48 @@ class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewContro
       
        // self.navigationController.
     }
+    func showError(error: errorLogInType) {
+        
+        var message:String?
+        let alertError = UIAlertController()
+        
+       if error == errorLogInType.errorLogInPassword {
+            message = "La contraseña ingresada no es correcta."
+            alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
+                (result : UIAlertAction) -> Void in
+                self.form.stopAnimation()
+                
+            }))
+            
+        }else if error == errorLogInType.errorLogInMail {
+            message = "El correo electronico ingresado no esta registrado."
+            alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
+                (result : UIAlertAction) -> Void in
+                self.form.stopAnimation()
+                
+            }))
+        }else if error == errorLogInType.errorLogInNetwork{
+        message = "Problemas de conexion por favor intentelo mas tarde."
+            alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
+                (result : UIAlertAction) -> Void in
+                self.form.stopAnimation()
+                
+            }))
+       }else if error == errorLogInType.none{
+        message = "Intentelo mas tarde."
+        alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
+            (result : UIAlertAction) -> Void in
+                self.form.stopAnimation()
+            
+        }))
+        }
+        
+        alertError.message = message
+        alertError.title = "Caja Arequipa"
+        self.present(alertError, animated: true, completion: {
+              //  self.form.stopAnimation()
+        })
+        
+    }
+
 }

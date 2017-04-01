@@ -73,6 +73,8 @@ class SplashViewController: UIViewController {
         return true
     }
     func loadTabController(){
+        let notificationName = Notification.Name("goIntro")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.goIntro), name: notificationName, object: nil)
         
        // let notificationName = Notification.Name("goSplash")
      //   NotificationCenter.default.addObserver(self, selector: #selector(self.goIntro), name: notificationName, object: nil)
@@ -82,7 +84,7 @@ class SplashViewController: UIViewController {
         homeVC.tabBarItem = iconHome
         iconHome.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         
-        let nav1 = UINavigationController.init(rootViewController: homeVC)
+        let nav1 = NavigationCustomViewController.init(rootViewController: homeVC)
         nav1.navigationBar.isHidden = true
         
         let searchVC = SearchViewController()
@@ -92,14 +94,14 @@ class SplashViewController: UIViewController {
        // let tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "more")
         iconSearch.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         
-        let nav2 = UINavigationController.init(rootViewController: searchVC)
+        let nav2 = NavigationCustomViewController.init(rootViewController: searchVC)
         nav2.navigationBar.isHidden = true
         
         let cameraVC = CameraViewController()
      //   let iconCamera = UITabBarItem(title: "", image: #imageLiteral(resourceName: "cameraIcon"), selectedImage: #imageLiteral(resourceName: "cameraIcon"))
      //   cameraVC.tabBarItem = iconCamera
         
-        let nav3 = UINavigationController.init(rootViewController: cameraVC)
+        let nav3 = NavigationCustomViewController.init(rootViewController: cameraVC)
         nav3.navigationBar.isHidden = true
         
         let favoritedVC = FavoritedViewController()
@@ -107,7 +109,7 @@ class SplashViewController: UIViewController {
         favoritedVC.tabBarItem = iconFavorited
         iconFavorited.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         
-        let nav4 = UINavigationController.init(rootViewController: favoritedVC)
+        let nav4 = NavigationCustomViewController.init(rootViewController: favoritedVC)
         nav4.navigationBar.isHidden = true
         
         let profileVC = ProfileViewController()
@@ -115,7 +117,7 @@ class SplashViewController: UIViewController {
         profileVC.tabBarItem = iconProfile
         iconProfile.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         
-        let nav5 = UINavigationController.init(rootViewController: profileVC)
+        let nav5 = NavigationCustomViewController.init(rootViewController: profileVC)
         nav5.navigationBar.isHidden = true
         
         let tabBarVC:UITabBarController = UITabBarController()
@@ -127,5 +129,9 @@ class SplashViewController: UIViewController {
         tabBarVC.tabBar.addSubview(imgView)
         self.navigationController?.pushViewController(tabBarVC, animated: true)
         
+    }
+    func goIntro(notification:Notification){
+        NotificationCenter.default.removeObserver(self, name: notification.name, object: nil)
+        _ = self.navigationController?.popToRootViewController(animated: true)
     }
 }

@@ -97,7 +97,7 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
                                              "name": self.currentName,
                                              "locality": self.currentLocality,
                                              "document": document,
-                                             "pictureUrl":"",
+                                             "pictureurl":"",
                                              "followers":0,
                                              "follows":0,
                                              "website":"",
@@ -144,7 +144,8 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
             alertError.addAction(UIAlertAction(title: "Contactar", style: UIAlertActionStyle.default, handler: {
                 (result : UIAlertAction) -> Void in
                 self.form.stopAnimation()
-                if let url = URL(string: "tel://\(5154380670)") {
+                let phoneStr:String = "5154380670"
+                if let url = URL(string: "tel://\(phoneStr)") {
                     if #available(iOS 10.0, *) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     } else {
@@ -216,9 +217,7 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
         let ref = FIRDatabase.database().reference().child("users").queryOrdered(byChild: "document").queryEqual(toValue : document)
         
         ref.observe(.value, with:{ (snapshot: FIRDataSnapshot) in
-//            for snap in snapshot.children {
-//                print((snap as! FIRDataSnapshot).key)
-//            }
+
             if snapshot.hasChildren() == true {
                 //show error
                 self.form.currentError = .errorRegisterDocumentRegistrated

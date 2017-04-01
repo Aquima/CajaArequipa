@@ -52,8 +52,7 @@ class PostViewController: BoxViewController,TopBarDelegate {
         sender.isHidden = true
         //go To publish
         // self.tabBarController?.tabBar.isHidden = false
-        self.tabBarController?.tabBar.isHidden = false
-        tabBarController?.selectedIndex = 0
+
         var data = Data()
         //  image.resized(withPercentage: 0.3)
         data = UIImageJPEGRepresentation(currentImage.resized(withPercentage: 0.3)!, 0.8)!
@@ -66,7 +65,7 @@ class PostViewController: BoxViewController,TopBarDelegate {
         let photoRef = ref.child("photos/\((FIRAuth.auth()?.currentUser?.uid)!)")
         let key = photoRef.childByAutoId()
         // set upload path
-        let filePath = "photos/\(key.key)"
+        let filePath = "photos/\((FIRAuth.auth()?.currentUser?.uid)!)/\(key.key)"
         let metaData = FIRStorageMetadata()
         metaData.contentType = "image/jpg"
         
@@ -78,7 +77,7 @@ class PostViewController: BoxViewController,TopBarDelegate {
                 //storage DownloadURL
                 let downloadURL = metaData!.downloadURL()!.absoluteString
                 self.currentMessage = self.footerPhoto.txtFooter.text
-                let post:[String:Any] = ["pictureUrl": downloadURL,
+                let post:[String:Any] = ["pictureurl": downloadURL,
                                          "comments":0,
                                          "likes":0,
                                          "description":self.currentMessage]
@@ -92,8 +91,9 @@ class PostViewController: BoxViewController,TopBarDelegate {
             }
             
         }
-
-       
+        _ = self.navigationController?.popToRootViewController(animated: true)
+        self.tabBarController?.tabBar.isHidden = false
+        tabBarController?.selectedIndex = 0
 
     }
     

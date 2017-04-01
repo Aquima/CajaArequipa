@@ -13,7 +13,8 @@ protocol FormEditProfileDelegate {
     
     func goCamPro(sender:UIButton)
     func saveInfo(describe:String,website:String,email:String)
-
+    func logOut()
+    
 }
 class FormEditProfile: UIView {
 
@@ -28,6 +29,7 @@ class FormEditProfile: UIView {
     var btnChangePhoto:UIButton!
     var btnChangePassword:UIButton!
     var btnSaveChanges:UIButton!
+    var btnLogOut:UIButton!
     
     var txtDescribe: UITextField!
     var txtWebSite: UITextField!
@@ -103,6 +105,10 @@ class FormEditProfile: UIView {
         btnSaveChanges.fillTextColor(color: GlobalConstants.color.blue, text: "Guardar Cambios")
         btnSaveChanges.addTarget(self, action: #selector(saveInfo(sender:)), for: .touchUpInside)
         
+        btnLogOut = UIButton()
+        btnLogOut.borderTextColor(color: GlobalConstants.color.cancelRed, text: "Cerrar Sesión")
+        btnLogOut.addTarget(self, action: #selector(pressLogOut(sender:)), for: .touchUpInside)
+        
         let frame =  CGRect(x: btnSaveChanges.frame.origin.x + (btnSaveChanges.frame.size.width-35*valuePro)/2, y:  btnSaveChanges.frame.origin.y + (btnSaveChanges.frame.size.height-35*valuePro)/2, width:35*valuePro, height: 35*valuePro)
         
         activityIndicatorView = NVActivityIndicatorView(frame: frame,
@@ -133,16 +139,18 @@ class FormEditProfile: UIView {
         contentView.addSubview(lineEmail)
         
         contentView.addSubview(btnSaveChanges)
-        
+        contentView.addSubview(btnLogOut)
 
         //- Add Elements to Texfield Array
         inputList.append(txtDescribe)
         inputList.append(txtWebSite)
         inputList.append(txtEmail)
+        
     }
     func updateViewWithData(user:User){
+        
         imgProfile.sd_setImage(with: URL.init(string:user.pictureUrl), placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
-        lblName.text = user.name
+        lblName.text = user.name.getFirstName()
         txtEmail.text = user.email
         txtWebSite.text = user.website
         txtDescribe.text = user.describe
@@ -182,6 +190,11 @@ class FormEditProfile: UIView {
         btnSaveChanges.layer.cornerRadius = 37*valuePro/2
         btnSaveChanges.titleLabel?.font = UIFont (name: GlobalConstants.font.myriadProRegular, size: 12*valuePro)
         
+        btnLogOut.frame = CGRect(x: (contentView.frame.size.width-258*valuePro)/2, y: self.frame.size.height-(26+37+47)*valuePro, width: 258*valuePro, height: 37*valuePro)
+        btnLogOut.layer.cornerRadius = 37*valuePro/2
+        btnLogOut.titleLabel?.font = UIFont (name: GlobalConstants.font.myriadProRegular, size: 12*valuePro)
+
+        
     }
     func resignFirstResponderList(){
         
@@ -211,6 +224,9 @@ class FormEditProfile: UIView {
         activityIndicatorPhotoView.startAnimating()
         self.delegate?.goCamPro(sender: sender)
     }
+    func pressLogOut(sender:UIButton) {
+        self.delegate?.logOut()
+    }
     func stopPhotoAnimation(){
         activityIndicatorPhotoView.stopAnimating()
         btnChangePhoto.isHidden = false
@@ -220,5 +236,5 @@ class FormEditProfile: UIView {
         activityIndicatorView.stopAnimating()
         btnSaveChanges.isHidden = false
     }
-
+   
 }

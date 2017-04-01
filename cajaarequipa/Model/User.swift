@@ -24,7 +24,7 @@ class User: NSObject {
         document = data["document"] as! String
         locality = data["locality"] as! String
         email = data["email"] as! String
-        pictureUrl = data["pictureUrl"] as! String
+        pictureUrl = data["pictureurl"] as! String
         name = data["name"] as! String
         follows = data["follows"] as! NSNumber
         followers = data["followers"] as! NSNumber

@@ -9,7 +9,14 @@
 import UIKit
 import NVActivityIndicatorView
 import Firebase
+enum errorLogInType{
 
+    case errorLogInMail
+    case errorLogInPassword
+    case errorLogInNetwork
+    case none
+    
+}
 enum inputType{
     case keyMail
     case keyPassword
@@ -41,6 +48,8 @@ class LogInForm: UIView, UITextFieldDelegate {
     var inputList:[UITextField] = []
     
     var activityIndicatorView: NVActivityIndicatorView!
+    
+    var currentError:errorLogInType = errorLogInType.none
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     func drawBody(){
@@ -52,9 +61,13 @@ class LogInForm: UIView, UITextFieldDelegate {
         txtEmail = UITextField()
         txtEmail.styleForm()
         txtEmail.placeholder = "Correo Electrónico"
+        txtEmail.clearButtonMode = .always
+        
         txtPassword = UITextField()
         txtPassword.styleForm()
         txtPassword.placeholder = "Contraseña"
+        txtPassword.clearButtonMode = .always
+        
         btnEnter = UIButton()
         btnRegister = UIButton()
         btnForget = UIButton()
@@ -64,9 +77,9 @@ class LogInForm: UIView, UITextFieldDelegate {
         linePassword = UIView()
         linePassword.backgroundColor = UIColor.init(hexString: "cccccc")
         
-        btnRegister.borderTextColor(color: "5297D1",text: "Resgitrarse")
-        btnEnter.fillTextColor(color: "002753", text: "Iniciar Sesión")
-        btnForget.titleTextColor(color: "002753", text: "¿Olvido su contraseña?")
+        btnRegister.borderTextColor(color: GlobalConstants.color.deactivateBlue,text: "Registrarse")
+        btnEnter.fillTextColor(color: GlobalConstants.color.blue, text: "Iniciar Sesión")
+        btnForget.titleTextColor(color: GlobalConstants.color.blue, text: "¿Olvidó su contraseña?")
         
         addSubview(lblTitleLabel)
         addSubview(txtEmail)
@@ -76,7 +89,7 @@ class LogInForm: UIView, UITextFieldDelegate {
         addSubview(btnForget)
         addSubview(lineEmail)
         addSubview(linePassword)
-        txtEmail.text = "rca@g.com"
+       // txtEmail.text = "rca@g.com"
         txtPassword.text = "123456"
     }
     func updateView(){
@@ -200,4 +213,5 @@ class LogInForm: UIView, UITextFieldDelegate {
         activityIndicatorView.stopAnimating()
         btnRegister.isHidden = false
     }
+  
 }

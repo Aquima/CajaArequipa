@@ -58,7 +58,7 @@ extension UIButton {
     func borderTextColor(color:String,text:String) {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.init(hexString: color).cgColor
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.clear
 
         self.setTitleColor(UIColor.init(hexString:color), for: .normal)
         self.setTitle(text, for: .normal)
@@ -90,6 +90,18 @@ extension String {
         let domain:String = split[1]
         let newDomain = domain.replacingOccurrences(of: ".", with: "_dot_")
         return firstPart + "_at_" + newDomain
+        
+    }
+    func getFirstName() -> String {
+        
+        let split = self.components(separatedBy: " ")
+        let firstName = split.last
+        if split.count == 4 {
+            return split[2] + " "  + firstName!
+        }else{
+            return firstName!
+        }
+        
         
     }
     func isValidEmail() -> Bool {
