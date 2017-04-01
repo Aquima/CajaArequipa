@@ -34,7 +34,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate {
         view.addSubview(topBar)
         
         discoveryList = DiscoveryList()
-        discoveryList.drawBody(barHeight: <#T##CGFloat#>)
+        discoveryList.drawBody(barHeight:(self.tabBarController?.tabBar.frame.size.height)!)
         view.addSubview(discoveryList)
         
     }
