@@ -7,16 +7,19 @@
 //
 
 import UIKit
+import Firebase
 
 class DiscoveryViewController: BoxViewController,TopBarDelegate {
 
     var topBar:TopBar!
     var discoveryList:DiscoveryList!
+    var sendData:[User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         self.createView()
+        childAddUsers()
     }
    
     override func didReceiveMemoryWarning() {
@@ -47,6 +50,29 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate {
         
     }
     
-
+    // Retrive User
+    func childAddUsers(){
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        ref.child("users").observe(.childAdded, with:  { (snapshot) -> Void in
+            // let snap:FIRDataSnapshot
+            // print(snapshot.key)
+            
+            let snapDictionary = (snapshot.value as? Dictionary<String, Any>)!
+            
+            let userItem:User = User()
+            userItem.key = snapshot.key
+            userItem.translateToModel(data: snapDictionary)
+            ref.child("following").child(userItem.key).observe(.value, with: {(snapshot) -> Void in
+                
+            })
+            ref.queryEqual(toValue: userItem.key).observe(.value, with: {(snapshot) -> Void in
+                
+            })
+            self.sendData.append(userItem)
+            self.discoveryList.updateWithData(list: self.sendData)
+            
+        })
+    }
 
 }

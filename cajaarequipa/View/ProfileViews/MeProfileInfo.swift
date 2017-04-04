@@ -85,7 +85,7 @@ class MeProfileInfo: UIView {
     
     func updateView(user:User){
       //  let urlimage = "https://firebasestorage.googleapis.com/v0/b/caja-arequipa.appspot.com/o/wL5pK9CT0tOLf7rA4dRelRQKzhh2?alt=media"
-        imgProfile.sd_setImage(with: URL.init(string:user.pictureUrl), placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
+        imgProfile.sd_setImage(with: user.pictureUrl, placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
       //   imgProfile.sd_setImage(with: URL.init(string:urlimage), placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
         
         followers = user.followers.stringValue

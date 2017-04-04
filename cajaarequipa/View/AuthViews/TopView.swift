@@ -28,7 +28,9 @@ class TopView: UIView {
         
         imageView = UIImageView(image: #imageLiteral(resourceName: "logo"))
         imageView.frame = CGRect(x: (self.frame.size.width-183*valuePro)/2, y:(self.frame.size.height-78*valuePro)/2, width: 183*valuePro, height: 78*valuePro)
-        self.addSubview(imageView)
+        addSubview(imageView)
         
+  
+
     }
 }

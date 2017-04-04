@@ -104,6 +104,13 @@ extension String {
         
         
     }
+    func getLastName() -> String {
+        
+        let split = self.components(separatedBy: " ")
+
+        return split[0] + " "  + split[1]
+   
+    }
     func isValidEmail() -> Bool {
         // print("validate calendar: \(testStr)")
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"

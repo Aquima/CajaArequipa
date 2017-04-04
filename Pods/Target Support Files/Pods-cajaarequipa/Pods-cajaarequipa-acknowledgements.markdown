@@ -3,31 +3,31 @@ This application makes use of the following third party libraries:
 
 ## Firebase
 
-Copyright 2017 Google
+Copyright 2016 Google
 
 ## FirebaseAnalytics
 
-Copyright 2017 Google
+Copyright 2016 Google
 
 ## FirebaseAuth
 
-Copyright 2017 Google
+Copyright 2016 Google
 
 ## FirebaseCore
 
-Copyright 2017 Google
+Copyright 2016 Google
 
 ## FirebaseDatabase
 
-Copyright 2017 Google
+Copyright 2016 Google
 
 ## FirebaseInstanceID
 
-Copyright 2017 Google
+Copyright 2016 Google
 
 ## FirebaseStorage
 
-Copyright 2017 Google
+Copyright 2016 Google
 
 ## GTMSessionFetcher
 
@@ -234,6 +234,14 @@ Copyright 2017 Google
    See the License for the specific language governing permissions and
    limitations under the License.
 
+
+## GoogleInterchangeUtilities
+
+Copyright 2016 Google
+
+## GoogleSymbolUtilities
+
+Copyright 2016 Google
 
 ## GoogleToolboxForMac
 
@@ -445,7 +453,7 @@ Copyright 2017 Google
 
 The MIT License (MIT)
 
-Copyright (c) 2016 Vinh Nguyen
+Copyright (c) 2016 Nguyen Vinh
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

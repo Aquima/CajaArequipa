@@ -12,8 +12,7 @@ import Firebase
 class Photos: NSObject {
     var pictureUrl:URL?
     func translateToModel(data:Dictionary<String, Any>){
-        pictureUrl = URL(string: data["pictureurl"] as! String)
-        
+        pictureUrl = URL(string: data["pictureurl"] as! String)        
     }
 //    func translateToModel(snap:){
 //        pictureUrl = URL(string: data["pictureurl"] as! String)

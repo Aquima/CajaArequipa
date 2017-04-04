@@ -149,7 +149,7 @@ class FormEditProfile: UIView {
     }
     func updateViewWithData(user:User){
         
-        imgProfile.sd_setImage(with: URL.init(string:user.pictureUrl), placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
+        imgProfile.sd_setImage(with: user.pictureUrl, placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
         lblName.text = user.name.getFirstName()
         txtEmail.text = user.email
         txtWebSite.text = user.website

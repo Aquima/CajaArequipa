@@ -20,7 +20,9 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
     var currentData:[User] = []
     
     func drawBody(barHeight:CGFloat){
-        self.tableView = UITableView(frame: CGRect(x:  (self.frame.size.width-293*valuePro)/2, y: 85*valuePro, width:293*valuePro, height: self.frame.size.height-114))
+        
+        self.frame =  CGRect(x:  (screenSize.width-320*valuePro)/2, y: 58*valuePro, width:320*valuePro, height: screenSize.height-barHeight-58*valuePro)
+        self.tableView = UITableView(frame: CGRect(x:  (screenSize.width-320*valuePro)/2, y: 0, width:320*valuePro, height: self.frame.size.height-10*valuePro))
         self.tableView.backgroundColor = UIColor.init(hexString: "ffffff")
         self.tableView.separatorColor = UIColor.clear
         
@@ -28,6 +30,7 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.addSubview(self.tableView)
+        
     }
     // MARK: - TableView Datasource
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -59,5 +62,9 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
 //        }
 //        self.navigationController?.pushViewController(causeDetailVC, animated: true)
     }
-
+    // MARK: - Firebase
+    func updateWithData(list:[User]){
+        currentData = list
+        tableView.reloadData()
+    }
 }

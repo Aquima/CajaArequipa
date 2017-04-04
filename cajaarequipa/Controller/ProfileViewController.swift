@@ -48,7 +48,11 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
 //        }) { (error) in
 //            print(error.localizedDescription)
 //        }
-        self.childAdded()
+        
+        let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.childAdded()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,7 +67,7 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
         ref = FIRDatabase.database().reference()
         ref.child("users").child((FIRAuth.auth()?.currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
-            let value = snapshot.value as? NSDictionary
+            let value = snapshot.value as? Dictionary<String,Any>
             self.currentUser.translateToModel(data: value! )
             self.meProfileInfo.updateView(user:self.currentUser)
             self.topBar.lblTitle.text = self.currentUser.name.getFirstName()
@@ -88,9 +92,7 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
         publications = Publications()
         publications.drawBody(barHeight: (self.tabBarController?.tabBar.frame.size.height)!, title: "0 Publicaciones")
         view.addSubview(publications)
-        
-        
-        
+       
     }
     // MARK: - TopBarDelegate
     func pressLeft(sender: UIButton) {
