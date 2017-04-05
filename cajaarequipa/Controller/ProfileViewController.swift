@@ -24,32 +24,8 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
         // Do any additional setup after loading the view.
         createView()
         updateValues()
-        var ref: FIRDatabaseReference!
-        ref = FIRDatabase.database().reference()
-        ref.child("users").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.childChanged, with:  { (snapshot) -> Void in
-            self.updateValues()
-        })
-//        ref.child("photos").child((FIRAuth.auth()?.currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
-//            // Get user value
-//            let value = snapshot.value as? Dictionary<String, Any>
-//            for key in (value?.keys)! {
-//                
-//                let itemPhoto:Dictionary = (value?[key] as? Dictionary<String, Any>)!
-//                 print(itemPhoto)
-//                let photoItem = Photos()
-//                photoItem.translateToModel(data: itemPhoto)
-//                self.listPhotos.append(photoItem)
-//                self.publications.updateWithData(list: self.listPhotos)
-//             //   self.childAdded()
-//            }
-//            
-//            self.publications.lblTitle.text = "\(self.listPhotos.count) Publicaciones"
-//            
-//        }) { (error) in
-//            print(error.localizedDescription)
-//        }
-        
-        let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
+  
+        let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.childAdded()
         }
@@ -61,6 +37,7 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
     }
     override func viewWillAppear(_ animated: Bool) {
        
+
     }
     func updateValues(){
         var ref: FIRDatabaseReference!
@@ -71,10 +48,21 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
             self.currentUser.translateToModel(data: value! )
             self.meProfileInfo.updateView(user:self.currentUser)
             self.topBar.lblTitle.text = self.currentUser.name.getFirstName()
+            self.listenerChanges()
             // ...
         }) { (error) in
             print(error.localizedDescription)
         }
+    }
+    func listenerChanges(){
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        ref.child("users").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.childChanged, with:  { (snapshot) -> Void in
+            self.updateValues()
+            ref.removeAllObservers()
+        })
+        
+
     }
     // MARK: - Navigation
     func createView(){
@@ -107,6 +95,7 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
         let editProfileVC = EditProfileViewController()
         editProfileVC.currentUser = self.currentUser
         self.navigationController?.pushViewController(editProfileVC, animated: true)
+        
         
     }
     // MARK: - firebase

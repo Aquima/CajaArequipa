@@ -8,16 +8,21 @@
 
 import UIKit
 protocol DiscoveryListDelegate {
-    
+     func checkFollowing(indexPath: IndexPath, user:User)
+     func updateCheckFollowing(indexPath: IndexPath, user:User)
+     func loadNewUsers(offset : Int,user:User)
 }
 class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
 
-    var delegate: DiscoveryList?
+    var delegate: DiscoveryListDelegate?
     let screenSize: CGRect = UIScreen.main.bounds
     let valuePro:CGFloat  = CGFloat(NSNumber.getPropotionalValueDevice())
     
     var tableView: UITableView!
     var currentData:[User] = []
+    
+    var pageNumber = 1
+    var isLoading = false
     
     func drawBody(barHeight:CGFloat){
         
@@ -44,6 +49,7 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView:         UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:UserTableViewCell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell") as! UserTableViewCell
         cell.loadWithUser(user: currentData[indexPath.row])
+        delegate?.checkFollowing(indexPath: indexPath,user:currentData[indexPath.row])
         return cell
     }
     // MARK: - TableView Delegate
@@ -53,18 +59,23 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
         return 92*valuePro;
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Do here
-//        let cause:EntityCause = currentData.object(at: indexPath.row) as! EntityCause//self.fetchedResultsController.object(at: indexPath)
-//        let causeDetailVC:DetailCauseViewController = DetailCauseViewController()
-//        causeDetailVC.uid = cause.id
-//        if currentType == 1 && self.isExplorerSession == false {
-//            causeDetailVC.isExplorerSession = false
-//        }
-//        self.navigationController?.pushViewController(causeDetailVC, animated: true)
+        delegate?.updateCheckFollowing(indexPath: indexPath, user: currentData[indexPath.row])
     }
     // MARK: - Firebase
     func updateWithData(list:[User]){
         currentData = list
         tableView.reloadData()
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        if (maxOffset - offset) <= 0 {
+            if (!self.isLoading) {
+                self.isLoading = true
+                //load new data (new 10 movies)
+                pageNumber = pageNumber + 1
+                self.delegate?.loadNewUsers(offset: pageNumber, user: currentData.last!)
+            }
+        }
     }
 }

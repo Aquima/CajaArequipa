@@ -17,8 +17,8 @@ class User: NSObject {
     var document:String!
     var locality:String!
     var website:String!
-    var follows:NSNumber!
-    var followers:NSNumber!
+    var follows:Int!
+    var followers:Int!
     var isFollowing:Bool = false
     func translateToModel(data:Dictionary<String, Any>){
         
@@ -30,8 +30,8 @@ class User: NSObject {
         //  pictureUrl = data["pictureurl"] as! String
         pictureUrl = URL(string: data["pictureurl"] as! String)
         name = data["name"] as! String
-        follows = data["follows"] as! NSNumber
-        followers = data["followers"] as! NSNumber
+        follows = data["follows"] as! Int
+        followers = data["followers"] as! Int
 
     }
 //    func translatefromSanp(snap:FIRDataSnapshot){

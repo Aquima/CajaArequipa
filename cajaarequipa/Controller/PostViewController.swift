@@ -81,11 +81,9 @@ class PostViewController: BoxViewController,TopBarDelegate {
                                          "comments":0,
                                          "likes":0,
                                          "description":self.currentMessage]
-
+                
                 key.updateChildValues(post, withCompletionBlock:  { (error:Error?, ref:FIRDatabaseReference!) in
-                    print("This never prints in the console")
-                    
-                    sender.isHidden = false
+                sender.isHidden = false
                     
                 })
             }

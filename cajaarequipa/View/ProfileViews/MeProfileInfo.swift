@@ -88,8 +88,8 @@ class MeProfileInfo: UIView {
         imgProfile.sd_setImage(with: user.pictureUrl, placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
       //   imgProfile.sd_setImage(with: URL.init(string:urlimage), placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
         
-        followers = user.followers.stringValue
-        follows = user.follows.stringValue
+        followers = String(user.followers)
+        follows = String(user.follows)
         lblFollowers.attributedText = followersInfo
         lblFollowing.attributedText = followingInfo
         lblDescription.text = user.describe

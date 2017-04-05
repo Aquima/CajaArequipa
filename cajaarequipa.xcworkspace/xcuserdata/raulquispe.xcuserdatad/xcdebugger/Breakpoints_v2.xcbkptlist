@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/View/CameraView/CustomCameraView.swift"
-            timestampString = "512603673.879088"
+            filePath = "cajaarequipa/View/DiscoveryView/DiscoveryList.swift"
+            timestampString = "513053761.177102"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "flipButtonPressed()"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "scrollViewDidScroll(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,62 +25,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/View/CameraView/CustomCameraView.swift"
-            timestampString = "512603673.879088"
+            filePath = "cajaarequipa/Controller/DiscoveryViewController.swift"
+            timestampString = "513054260.609731"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
-            landmarkName = "flipButtonPressed()"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "loadNewUsers(offset:user:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/Controller/CameraViewController.swift"
-            timestampString = "512592631.739533"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/Controller/RegisterViewController.swift"
-            timestampString = "512754399.685808"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
-            landmarkName = "showError(error:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/View/AuthViews/RegisterForm.swift"
-            timestampString = "512770654.345955"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
-            landmarkName = "registerManualValidate(sender:)"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "cajaarequipa.DiscoveryViewController.(loadNewUsers (offset : Swift.Int, user : cajaarequipa.User) -&gt; ()).(closure #1)"
+                  moduleName = "cajaarequipa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/DiscoveryViewController.swift"
+                  timestampString = "513054275.253367"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "142"
+                  endingLineNumber = "142"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "cajaarequipa.DiscoveryViewController.(loadNewUsers (offset : Swift.Int, user : cajaarequipa.User) -&gt; ()).(closure #1)"
+                  moduleName = "cajaarequipa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/DiscoveryViewController.swift"
+                  timestampString = "513054275.255481"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "142"
+                  endingLineNumber = "142"
+                  offsetFromSymbolStart = "2520">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

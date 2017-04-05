@@ -17,7 +17,7 @@ class UserTableViewCell: UITableViewCell {
     var lblName:UILabel!
     var lblUsername:UILabel!
     var lblFollowers:UILabel!
-    var followers:String = ""
+  //  var followers:String = ""
     var btnFollow:UIButton!
     
     override func awakeFromNib() {
@@ -62,7 +62,7 @@ class UserTableViewCell: UITableViewCell {
         btnFollow.layer.cornerRadius = 5*valuePro
         btnFollow.layer.masksToBounds = true
           view.addSubview(btnFollow)
-        
+        btnFollow.fillTextColor(color: GlobalConstants.color.cobalto, text: "Seguir")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -72,31 +72,50 @@ class UserTableViewCell: UITableViewCell {
     }
     func loadWithUser(user:User){
         
-        followers = user.followers.stringValue
+        //followers = user.followers.stringValue
         imgView.sd_setImage(with: user.pictureUrl, placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
         imgView.sd_setImage(with: user.pictureUrl, placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
         lblName.text = user.name.getFirstName()
         lblUsername.text = user.name.getLastName()
-        followers = user.followers.stringValue
-        lblFollowers.attributedText = followersInfo
+     //   followers = user.followers.stringValue
+
+        lblFollowers.attributedText = updateAtributes(followers: String(user.followers))
+       
+    }
+    func checkFollow(user:User){
         if user.isFollowing == false {
             btnFollow.fillTextColor(color: GlobalConstants.color.cobalto, text: "Seguir")
         }else{
-            btnFollow.borderTextColor(color: GlobalConstants.color.grayLight, text: "Siguiendo")
+            btnFollow.borderTextColor(color: GlobalConstants.color.linColor, text: "Siguiendo")
         }
+    //    lblFollowers.attributedText = nil
+        lblFollowers.attributedText = updateAtributes(followers: String(user.followers))
     }
-    var followersInfo: NSAttributedString {
-        let attributedInformation = NSAttributedString(string: followers, attributes: [NSFontAttributeName: UIFont(name: GlobalConstants.font.helveticaRoundedBold, size: 13*valuePro)!,NSForegroundColorAttributeName: UIColor.black])
-        
-        let attributedString = NSMutableAttributedString(attributedString: attributedInformation)
-        attributedString.append(followerRegular)
-        
-        return attributedString
-    }
-    var followerRegular: NSAttributedString {
+//    var followersInfo: NSAttributedString {
+//        let attributedInformation = NSAttributedString(string: followers, attributes: [NSFontAttributeName: UIFont(name: GlobalConstants.font.helveticaRoundedBold, size: 13*valuePro)!,NSForegroundColorAttributeName: UIColor.black])
+//        
+//        let attributedString = NSMutableAttributedString(attributedString: attributedInformation)
+//        attributedString.append(followerRegular)
+//        
+//        return attributedString
+//    }
+//    var followerRegular: NSAttributedString {
+//        let attributedInformation = NSAttributedString(string: "\nseguidores", attributes: [NSFontAttributeName: UIFont(name: GlobalConstants.font.myriadProRegular, size: 12*valuePro)!,NSForegroundColorAttributeName: UIColor.black])
+//        
+//        let attributedString = NSMutableAttributedString(attributedString: attributedInformation)
+//        
+//        return attributedString
+//    }
+    func updateAtributes(followers:String) -> NSAttributedString{
         let attributedInformation = NSAttributedString(string: "\nseguidores", attributes: [NSFontAttributeName: UIFont(name: GlobalConstants.font.myriadProRegular, size: 12*valuePro)!,NSForegroundColorAttributeName: UIColor.black])
         
-        let attributedString = NSMutableAttributedString(attributedString: attributedInformation)
+        let followerRegular = NSMutableAttributedString(attributedString: attributedInformation)
+        
+        let attributedInformationCompose = NSAttributedString(string: followers, attributes: [NSFontAttributeName: UIFont(name: GlobalConstants.font.helveticaRoundedBold, size: 13*valuePro)!,NSForegroundColorAttributeName: UIColor.black])
+        
+        let attributedString = NSMutableAttributedString(attributedString: attributedInformationCompose)
+        attributedString.append(followerRegular)
+        
         
         return attributedString
     }
