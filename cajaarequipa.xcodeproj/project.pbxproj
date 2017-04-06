@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		13AF7C54725528644333A512 /* Pods_cajaarequipa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9441BC5C522297FF2FEEB6FA /* Pods_cajaarequipa.framework */; };
+		1B530D8E1E96B32800E02296 /* ListTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B530D8D1E96B32700E02296 /* ListTimeline.swift */; };
 		486B0DB2788EE7BDE40FDFEC /* Pods_cajaarequipaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745E5F6E62CB945070D4C77D /* Pods_cajaarequipaUITests.framework */; };
 		852852706EDE0174E42F847C /* Pods_cajaarequipaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65EA6B9F44FF3F761DDF6B3 /* Pods_cajaarequipaTests.framework */; };
 		F011B0A81E804917005E5F55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011B0A71E804917005E5F55 /* AppDelegate.swift */; };
@@ -87,6 +88,7 @@
 /* Begin PBXFileReference section */
 		0749F2812CC7FE3A477CE55D /* Pods-cajaarequipaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipaTests/Pods-cajaarequipaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		18E5C93DD0FFBCF392445CE1 /* Pods-cajaarequipa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipa.release.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipa/Pods-cajaarequipa.release.xcconfig"; sourceTree = "<group>"; };
+		1B530D8D1E96B32700E02296 /* ListTimeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTimeline.swift; sourceTree = "<group>"; };
 		745E5F6E62CB945070D4C77D /* Pods_cajaarequipaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cajaarequipaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89D8291F308BD7921772B1F0 /* Pods-cajaarequipaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipaTests/Pods-cajaarequipaTests.release.xcconfig"; sourceTree = "<group>"; };
 		9441BC5C522297FF2FEEB6FA /* Pods_cajaarequipa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cajaarequipa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +188,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B530D8C1E96ACFA00E02296 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				1B530D8D1E96B32700E02296 /* ListTimeline.swift */,
+			);
+			path = Timeline;
+			sourceTree = "<group>";
+		};
 		3CEE441DDFA29A1245C4FCF4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +293,7 @@
 		F011B0D91E804A65005E5F55 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1B530D8C1E96ACFA00E02296 /* Timeline */,
 				F09AF7381E8F9C8C004EDF85 /* DiscoveryView */,
 				F0506BA81E8D42B60012C33A /* PostView */,
 				F0506B9F1E8CB1DE0012C33A /* CameraView */,
@@ -716,6 +727,7 @@
 				F0B176821E89A2840056BA98 /* User.swift in Sources */,
 				F0506BA51E8CF9CF0012C33A /* OptionsCamera.swift in Sources */,
 				F0F8FAD71E83F73E0009CC52 /* BoxViewController.swift in Sources */,
+				1B530D8E1E96B32800E02296 /* ListTimeline.swift in Sources */,
 				F011B0DE1E807A54005E5F55 /* LogInViewController.swift in Sources */,
 				F0506BAC1E8DC1D80012C33A /* Photos.swift in Sources */,
 				F09AF7341E8F03E5004EDF85 /* PhotosCollectionViewCell.swift in Sources */,

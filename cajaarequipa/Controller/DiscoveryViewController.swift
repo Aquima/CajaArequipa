@@ -140,7 +140,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
             let postFollowers:[String:Any] = [uid:true]
             ref.child("followers").child(user.key).updateChildValues(postFollowers)
             
-            self.timelineFromUsers(keyUser: user.key)
+            self.timelineFromUsers(user: user)
             
             user.followers = (user.followers + 1)
             user.follows = (user.follows + 1)
@@ -185,17 +185,20 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
         //ref.removeAllObservers()
     }
     // MARK: - Timeline
-    func timelineFromUsers(keyUser:String){
+    func timelineFromUsers(user:User){
         let uid = FIRAuth.auth()!.currentUser!.uid
         let ref = FIRDatabase.database().reference()
         //this a reference from get photos
-        ref.child("photos").child(keyUser).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+       
+        ref.child("photos").child(user.key).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
             
             if let following = snapshot.value as? [String : AnyObject] {
                 for (keyPhoto , data) in following {
-                    let postTimeline = data as? Dictionary<String,Any>
-                    //let postFollowers:[String:Any] = [uid:true]
-                    ref.child("timeline").child(uid).child(keyPhoto).updateChildValues(postTimeline!)
+                    var postTimeline:Dictionary<String,Any> = (data as? Dictionary<String,Any>)!
+                    let userData:Dictionary<String,Any> = ["pictureurl":user.pictureUrl.absoluteString,
+                                                           "name":user.name]
+                    postTimeline["user"] = userData
+                    ref.child("timeline").child(uid).child(keyPhoto).updateChildValues(postTimeline)
                     
                 }
             }
@@ -212,7 +215,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
         ref.child("photos").child(keyUser).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
             
             if let following = snapshot.value as? [String : AnyObject] {
-                for (keyPhoto , data) in following {
+                for (keyPhoto , _) in following {
                    
                     ref.child("timeline").child(uid).child(keyPhoto).removeValue()
                     
