@@ -25,10 +25,7 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
         createView()
         updateValues()
   
-        let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            self.childAdded()
-        }
+       
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,6 +52,10 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
         }
     }
     func listenerChanges(){
+        let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.childAdded()
+        }
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         ref.child("users").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.childChanged, with:  { (snapshot) -> Void in

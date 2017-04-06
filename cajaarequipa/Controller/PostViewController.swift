@@ -62,10 +62,11 @@ class PostViewController: BoxViewController,TopBarDelegate {
         
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
-        let photoRef = ref.child("photos/\((FIRAuth.auth()?.currentUser?.uid)!)")
-        let key = photoRef.childByAutoId()
+        let keyUser:String = (FIRAuth.auth()?.currentUser?.uid)!
+        let photoRef = ref.child("photos/\(keyUser)")
+        let keyPhoto = photoRef.childByAutoId()
         // set upload path
-        let filePath = "photos/\((FIRAuth.auth()?.currentUser?.uid)!)/\(key.key)"
+        let filePath = "photos/\(keyUser)/\(keyPhoto.key)"
         let metaData = FIRStorageMetadata()
         metaData.contentType = "image/jpg"
         
@@ -82,10 +83,12 @@ class PostViewController: BoxViewController,TopBarDelegate {
                                          "likes":0,
                                          "description":self.currentMessage]
                 
-                key.updateChildValues(post, withCompletionBlock:  { (error:Error?, ref:FIRDatabaseReference!) in
+                keyPhoto.updateChildValues(post, withCompletionBlock:  { (error:Error?, ref:FIRDatabaseReference!) in
                 sender.isHidden = false
-                    
+                    self.postToTimeline(uidPhoto: keyPhoto.key, post: post)
+                    //self.timelineFromUsers(keyUser: keyUser)
                 })
+                
             }
             
         }
@@ -94,6 +97,43 @@ class PostViewController: BoxViewController,TopBarDelegate {
         tabBarController?.selectedIndex = 0
 
     }
+    func postToTimeline(uidPhoto:String,post:Dictionary<String,Any>) {
+        
+        let uid = FIRAuth.auth()!.currentUser!.uid
+        let ref = FIRDatabase.database().reference()
+        ref.child("following").child(uid).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+            
+            if let following = snapshot.value as? [String : AnyObject] {
+                for (key , _) in following {
+                   
+                    //let postFollowers:[String:Any] = [uid:true]
+                    ref.child("timeline").child(key).child(uidPhoto).updateChildValues(post)
+                   
+                }
+            }
+            
+        })
+        
+        ref.removeAllObservers()
+        
+    }
+//    func timelineFromUsers(keyUser:String){
+//        //   let uid = FIRAuth.auth()!.currentUser!.uid
+//        let ref = FIRDatabase.database().reference()
+//        ref.child("photos").child(keyUser).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+//            
+//            if let following = snapshot.value as? [String : AnyObject] {
+//                for (keyPhoto , data) in following {
+//                    let postTimeline = data as? Dictionary<String,Any>
+//                    //let postFollowers:[String:Any] = [uid:true]
+//                    ref.child("timeline").child(keyUser).child(keyPhoto).updateChildValues(postTimeline)
+//                    
+//                }
+//            }
+//            
+//        })
+//        
+//        ref.removeAllObservers()
+//    }
     
-
 }

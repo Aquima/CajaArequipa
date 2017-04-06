@@ -22,7 +22,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         self.createView()
-        childAddUsers()
+        retriveUsers()
     }
    
     override func didReceiveMemoryWarning() {
@@ -55,7 +55,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
     }
     
     // Retrive User
-    func childAddUsers(){
+    func retriveUsers(){
        
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
@@ -88,7 +88,6 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
   
         })
         
-
     }
     func checkFollowing(indexPath: IndexPath, user:User) {
         
@@ -128,6 +127,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
                 user.followers = (user.followers - 1)
 
             }
+            self.removeTimelineFromUsers(keyUser: user.key)
             self.discoveryList.tableView.isScrollEnabled = false
             let cell:UserTableViewCell = self.discoveryList.tableView.cellForRow(at: indexPath) as! UserTableViewCell
             cell.checkFollow(user: user)
@@ -139,6 +139,8 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
             
             let postFollowers:[String:Any] = [uid:true]
             ref.child("followers").child(user.key).updateChildValues(postFollowers)
+            
+            self.timelineFromUsers(keyUser: user.key)
             
             user.followers = (user.followers + 1)
             user.follows = (user.follows + 1)
@@ -155,6 +157,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
     }
 
     func loadNewUsers(offset : Int,user:User){
+        self.discoveryList.isLoading = true
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         ref.child("users").queryOrderedByKey().queryStarting(atValue: user.key).queryLimited(toFirst: UInt(offset)*5).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
@@ -181,6 +184,44 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
         })
         //ref.removeAllObservers()
     }
-
+    // MARK: - Timeline
+    func timelineFromUsers(keyUser:String){
+        let uid = FIRAuth.auth()!.currentUser!.uid
+        let ref = FIRDatabase.database().reference()
+        //this a reference from get photos
+        ref.child("photos").child(keyUser).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+            
+            if let following = snapshot.value as? [String : AnyObject] {
+                for (keyPhoto , data) in following {
+                    let postTimeline = data as? Dictionary<String,Any>
+                    //let postFollowers:[String:Any] = [uid:true]
+                    ref.child("timeline").child(uid).child(keyPhoto).updateChildValues(postTimeline!)
+                    
+                }
+            }
+            
+        })
+        
+        ref.removeAllObservers()
+    }
+    // MARK: - Timeline
+    func removeTimelineFromUsers(keyUser:String){
+        let uid = FIRAuth.auth()!.currentUser!.uid
+        let ref = FIRDatabase.database().reference()
+        //this a reference from get photos
+        ref.child("photos").child(keyUser).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+            
+            if let following = snapshot.value as? [String : AnyObject] {
+                for (keyPhoto , data) in following {
+                   
+                    ref.child("timeline").child(uid).child(keyPhoto).removeValue()
+                    
+                }
+            }
+            
+        })
+        
+        ref.removeAllObservers()
+    }
 
 }

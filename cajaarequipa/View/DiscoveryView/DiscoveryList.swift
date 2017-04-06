@@ -77,5 +77,7 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
             self.delegate?.loadNewUsers(offset: pageNumber, user: currentData.last!)
         }
     }
+   
+    
 
 }
