@@ -59,8 +59,9 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
        
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
+        ref.child("users").queryOrderedByKey().queryLimited(toFirst: 5).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
         
-        ref.child("users").queryOrderedByKey().queryLimited(toFirst: 5).observe(.value, with:  { (snapshot) -> Void in
+       
             if (snapshot.value is NSNull) {
                 print("user data not found")
             } else {
@@ -68,10 +69,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
                 for child in snapshot.children {
                     let data = child as! FIRDataSnapshot
                     let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
-                    // let snapDictionary = (child.value as? Dictionary<String, Any>)!
-                    // print(data)
-                    //  let snapDictionary = ((child as AnyObject).value as? Dictionary<String, Any>)!
-                    
+
                     let userItem:User = User()
                     userItem.key = data.key
                     userItem.translateToModel(data: snapDictionary)
@@ -84,13 +82,12 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
                     self.sendData.append(userItem)
                     
                 }
-                    self.discoveryList.updateWithData(list: self.sendData)
+                self.discoveryList.updateWithData(list: self.sendData)
+                ref.removeAllObservers()
             }
-            
   
-            
         })
-        ref.removeAllObservers()
+        
 
     }
     func checkFollowing(indexPath: IndexPath, user:User) {
@@ -124,6 +121,9 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
         if user.isFollowing == true {
             user.isFollowing = false
             ref.child("following").child(uid).child(user.key).removeValue()
+            
+            ref.child("followers").child(user.key).child(uid).removeValue()
+
             if  user.followers > 1 {
                 user.followers = (user.followers - 1)
 
@@ -133,9 +133,13 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
             cell.checkFollow(user: user)
             self.discoveryList.tableView.isScrollEnabled = true
         }else{
-             let post:[String:Any] = [user.key:true]
+            let post:[String:Any] = [user.key:true]
             user.isFollowing = true
             ref.child("following").child(uid).updateChildValues(post)
+            
+            let postFollowers:[String:Any] = [uid:true]
+            ref.child("followers").child(user.key).updateChildValues(postFollowers)
+            
             user.followers = (user.followers + 1)
             user.follows = (user.follows + 1)
             self.discoveryList.tableView.isScrollEnabled = false
@@ -153,7 +157,8 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
     func loadNewUsers(offset : Int,user:User){
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
-        ref.child("users").queryOrderedByKey().queryStarting(atValue: user.key).queryLimited(toFirst: UInt(offset)*5).observe(.value, with:  { (snapshot) -> Void in
+        ref.child("users").queryOrderedByKey().queryStarting(atValue: user.key).queryLimited(toFirst: UInt(offset)*5).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
+
             if (snapshot.value is NSNull) {
                 print("user data not found")
             } else {
@@ -170,10 +175,11 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
                     
                 }
                 self.discoveryList.updateWithData(list: self.sendData)
+                ref.removeAllObservers()
             }
  
         })
-        ref.removeAllObservers()
+        //ref.removeAllObservers()
     }
 
 

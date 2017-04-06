@@ -63,22 +63,12 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     // MARK: - Firebase
     func updateWithData(list:[User]){
-        self.isLoading = false
+        
         currentData = list
         tableView.reloadData()
+        self.isLoading = false
     }
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offset = scrollView.contentOffset.y
-//        let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
-//        if (maxOffset - offset) <= 0 {
-//            if (!self.isLoading) {
-//                self.isLoading = true
-//                //load new data (new 10 movies)
-//                pageNumber = pageNumber + 1
-//                self.delegate?.loadNewUsers(offset: pageNumber, user: currentData.last!)
-//            }
-//        }
-//    }
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == self.currentData.count-1 && self.isLoading == false {
             self.isLoading = true
@@ -87,11 +77,5 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
             self.delegate?.loadNewUsers(offset: pageNumber, user: currentData.last!)
         }
     }
-//    - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//    if (indexPath.section == [self.venues count]-1 && self.page!=0 && self.requestMoreVenues && !self.stop) {
-//    [self getNearbyVenuesFromBederrAPI];
-//    }
-//    
-//    }
+
 }
