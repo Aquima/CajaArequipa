@@ -99,7 +99,7 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
                                              "document": document,
                                              "pictureurl":"",
                                              "followers":0,
-                                             "follows":0,
+                                             "following":0,
                                              "website":"",
                                              "description":""
                                              ]

@@ -101,14 +101,13 @@ extension String {
         }else{
             return firstName!
         }
-        
-        
+      
     }
     func getLastName() -> String {
         
         let split = self.components(separatedBy: " ")
 
-        return split[0] + " "  + split[1]
+        return split.first! + " "  + split[1]
    
     }
     func isValidEmail() -> Bool {

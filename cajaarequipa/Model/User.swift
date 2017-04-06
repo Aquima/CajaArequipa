@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class User: NSObject {
     var key:String!
@@ -21,28 +22,15 @@ class User: NSObject {
     var followers:Int!
     var isFollowing:Bool = false
     func translateToModel(data:Dictionary<String, Any>){
-        
-        describe = data["description"] as! String
-        website = data["website"] as! String
-        document = data["document"] as! String
-        locality = data["locality"] as! String
-        email = data["email"] as! String
-        //  pictureUrl = data["pictureurl"] as! String
-        pictureUrl = URL(string: data["pictureurl"] as! String)
-        name = data["name"] as! String
-        follows = data["follows"] as! Int
-        followers = data["followers"] as! Int
-
+        describe = (data["description"] != nil) ? data["description"] as! String : "Descripción"
+        website = (data["website"] != nil) ? data["website"] as! String : "Pagina Web"
+        document = (data["document"] != nil) ? data["document"] as! String : ""
+        locality = (data["locality"] != nil) ? data["locality"] as! String : ""
+        email = (data["email"] != nil) ? data["email"] as! String : ""
+        name = (data["name"] != nil) ? data["name"] as! String : ""
+        follows = (data["following"] != nil) ? data["following"] as! Int : 0
+        followers = (data["followers"] != nil) ? data["followers"] as! Int : 0
+        pictureUrl = (data["pictureurl"] != nil) ? URL(string: data["pictureurl"] as! String) : nil
     }
-//    func translatefromSanp(snap:FIRDataSnapshot){
-//        describe = snap.childSnapshotForPath("description").exists
-//        website = data["website"] as! String
-//        document = data["document"] as! String
-//        locality = data["locality"] as! String
-//        email = data["email"] as! String
-//        pictureUrl = data["pictureurl"] as! String
-//        name = data["name"] as! String
-//        follows = data["follows"] as! NSNumber
-//        followers = data["followers"] as! NSNumber
-//    }
+   
 }

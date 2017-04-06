@@ -56,26 +56,42 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
     
     // Retrive User
     func childAddUsers(){
+       
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
-
-        ref.child("users").queryOrderedByKey().queryLimited(toLast: 5).observe(.childAdded, with:  { (snapshot) -> Void in
-
-            let snapDictionary = (snapshot.value as? Dictionary<String, Any>)!
+        
+        ref.child("users").queryOrderedByKey().queryLimited(toFirst: 5).observe(.value, with:  { (snapshot) -> Void in
+            if (snapshot.value is NSNull) {
+                print("user data not found")
+            } else {
+                
+                for child in snapshot.children {
+                    let data = child as! FIRDataSnapshot
+                    let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
+                    // let snapDictionary = (child.value as? Dictionary<String, Any>)!
+                    // print(data)
+                    //  let snapDictionary = ((child as AnyObject).value as? Dictionary<String, Any>)!
+                    
+                    let userItem:User = User()
+                    userItem.key = data.key
+                    userItem.translateToModel(data: snapDictionary)
+                    ref.child("following").child(userItem.key).observe(.value, with: {(snapshot) -> Void in
+                        
+                    })
+                    ref.queryEqual(toValue: userItem.key).observe(.value, with: {(snapshot) -> Void in
+                        
+                    })
+                    self.sendData.append(userItem)
+                    
+                }
+                    self.discoveryList.updateWithData(list: self.sendData)
+            }
             
-            let userItem:User = User()
-            userItem.key = snapshot.key
-            userItem.translateToModel(data: snapDictionary)
-            ref.child("following").child(userItem.key).observe(.value, with: {(snapshot) -> Void in
-                
-            })
-            ref.queryEqual(toValue: userItem.key).observe(.value, with: {(snapshot) -> Void in
-                
-            })
-            self.sendData.append(userItem)
-            self.discoveryList.updateWithData(list: self.sendData)
+  
             
         })
+        ref.removeAllObservers()
+
     }
     func checkFollowing(indexPath: IndexPath, user:User) {
         
@@ -110,22 +126,23 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
             ref.child("following").child(uid).child(user.key).removeValue()
             if  user.followers > 1 {
                 user.followers = (user.followers - 1)
-                let postUser:[String:Any] = ["followers":user.followers]
-                ref.child("users").child(user.key).updateChildValues(postUser)
+
             }
+            self.discoveryList.tableView.isScrollEnabled = false
             let cell:UserTableViewCell = self.discoveryList.tableView.cellForRow(at: indexPath) as! UserTableViewCell
             cell.checkFollow(user: user)
+            self.discoveryList.tableView.isScrollEnabled = true
         }else{
-            let post:[String:Any] = [user.key:true]
+             let post:[String:Any] = [user.key:true]
             user.isFollowing = true
             ref.child("following").child(uid).updateChildValues(post)
             user.followers = (user.followers + 1)
             user.follows = (user.follows + 1)
-            let postUser:[String:Any] = ["followers":user.followers,
-                                         "follows":user.follows]
-            ref.child("users").child(user.key).updateChildValues(postUser)
+            self.discoveryList.tableView.isScrollEnabled = false
             let cell:UserTableViewCell = self.discoveryList.tableView.cellForRow(at: indexPath) as! UserTableViewCell
             cell.checkFollow(user: user)
+            self.discoveryList.tableView.isScrollEnabled = true
+            
         }
        
 
@@ -136,24 +153,27 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
     func loadNewUsers(offset : Int,user:User){
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
-        
-        ref.child("users").queryOrderedByKey().queryLimited(toLast: 5).queryStarting(atValue: user.key).observe(.value, with:  { (snapshot) -> Void in
-            
-            let snapDictionary = (snapshot.value as? Dictionary<String, Any>)!
-            
-            let userItem:User = User()
-            userItem.key = snapshot.key
-            userItem.translateToModel(data: snapDictionary)
-            ref.child("following").child(userItem.key).observe(.value, with: {(snapshot) -> Void in
-                
-            })
-            ref.queryEqual(toValue: userItem.key).observe(.value, with: {(snapshot) -> Void in
-                
-            })
-            self.sendData.append(userItem)
-            self.discoveryList.updateWithData(list: self.sendData)
-            
+        ref.child("users").queryOrderedByKey().queryStarting(atValue: user.key).queryLimited(toFirst: UInt(offset)*5).observe(.value, with:  { (snapshot) -> Void in
+            if (snapshot.value is NSNull) {
+                print("user data not found")
+            } else {
+                self.sendData.removeLast()
+                for child in snapshot.children {
+                    let data = child as! FIRDataSnapshot
+                    let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
+         
+                    let userItem:User = User()
+                    userItem.key = data.key
+                    userItem.translateToModel(data: snapDictionary)
+
+                    self.sendData.append(userItem)
+                    
+                }
+                self.discoveryList.updateWithData(list: self.sendData)
+            }
+ 
         })
+        ref.removeAllObservers()
     }
 
 
