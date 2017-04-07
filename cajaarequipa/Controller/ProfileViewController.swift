@@ -20,12 +20,15 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentUser = User()
+    //    currentUser = User()
         // Do any additional setup after loading the view.
         createView()
-        updateValues()
-  
-       
+        listenerPhotoAdded()
+        
+        self.currentUser = ApiConsume.sharedInstance.currentUser
+        self.meProfileInfo.updateView(user:self.currentUser)
+        self.topBar.lblTitle.text = self.currentUser.name.getFirstName()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,25 +40,23 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
 
     }
     func updateValues(){
+ 
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         ref.child("users").child((FIRAuth.auth()?.currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? Dictionary<String,Any>
-            self.currentUser.translateToModel(data: value! )
+            ApiConsume.sharedInstance.currentUser.translateToModel(data: value!)
             self.meProfileInfo.updateView(user:self.currentUser)
             self.topBar.lblTitle.text = self.currentUser.name.getFirstName()
-            self.listenerChanges()
+            self.listenerUserChanges()
             // ...
         }) { (error) in
             print(error.localizedDescription)
         }
     }
-    func listenerChanges(){
-        let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            self.childAdded()
-        }
+    func listenerUserChanges(){
+
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         ref.child("users").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.childChanged, with:  { (snapshot) -> Void in
@@ -100,7 +101,7 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
         
     }
     // MARK: - firebase
-    func childAdded(){
+    func listenerPhotoAdded(){
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         ref.child("photos").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.childAdded, with:  { (snapshot) -> Void in

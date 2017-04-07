@@ -92,6 +92,17 @@ extension String {
         return firstPart + "_at_" + newDomain
         
     }
+    func getUserName() -> String {
+        
+        let split = self.components(separatedBy: " ")
+        let firstName = split.last
+        if split.count == 4 {
+            return split[3]
+        }else{
+            return firstName!
+        }
+        
+    }
     func getFirstName() -> String {
         
         let split = self.components(separatedBy: " ")

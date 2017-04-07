@@ -21,8 +21,13 @@ struct GlobalConstants {
         static let cancelRed = "f27065"
         static let deactivateBlue = "517796"
         static let registerBlue = "5297D1"
+        static let blackComment = "333333"
+        static let redName = "ef3c49"
+        static let showCommentColor = "666666"
+        static let timestampColor = "b3b3b3"
     }
     struct font {
+        static let myriadProBold = "MyriadPro-Bold"
         static let myriadProRegular = "MyriadPro-Regular"
         static let helveticaRoundedBold = "HelveticaRounded-Bold"
     }

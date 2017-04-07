@@ -22,6 +22,7 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
     var currentData:[User] = []
     
     var pageNumber = 1
+ 
     var isLoading = false
     
     func drawBody(barHeight:CGFloat){
@@ -39,14 +40,14 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     // MARK: - TableView Datasource
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        //  let sectionInfo = self.fetchedResultsController.sections![section]
-        return currentData.count//sectionInfo.numberOfObjects
+    
+        return currentData.count
     }
     public func numberOfSections(in tableView: UITableView) -> Int {
         
         return 1
     }
-    public func tableView(_ tableView:         UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:UserTableViewCell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell") as! UserTableViewCell
         cell.loadWithUser(user: currentData[indexPath.row])
         delegate?.checkFollowing(indexPath: indexPath,user:currentData[indexPath.row])
@@ -66,7 +67,7 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
         
         currentData = list
         tableView.reloadData()
-        self.isLoading = false
+       
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

@@ -63,7 +63,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
         
        
             if (snapshot.value is NSNull) {
-                print("user data not found")
+                print("retriveUsers")
             } else {
                 
                 for child in snapshot.children {
@@ -73,12 +73,12 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
                     let userItem:User = User()
                     userItem.key = data.key
                     userItem.translateToModel(data: snapDictionary)
-                    ref.child("following").child(userItem.key).observe(.value, with: {(snapshot) -> Void in
-                        
-                    })
-                    ref.queryEqual(toValue: userItem.key).observe(.value, with: {(snapshot) -> Void in
-                        
-                    })
+//                    ref.child("following").child(userItem.key).observe(.value, with: {(snapshot) -> Void in
+//                        
+//                    })
+//                    ref.queryEqual(toValue: userItem.key).observe(.value, with: {(snapshot) -> Void in
+//                        
+//                    })
                     self.sendData.append(userItem)
                     
                 }
@@ -94,16 +94,20 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
         let uid = FIRAuth.auth()!.currentUser!.uid
         let ref = FIRDatabase.database().reference()
         ref.child("following").child(uid).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
-            
-            if let following = snapshot.value as? [String : AnyObject] {
-                for (key , _) in following {
-                    if key == user.key {
-                        user.isFollowing = true
-                        let cell:UserTableViewCell = self.discoveryList.tableView.cellForRow(at: indexPath) as! UserTableViewCell
-                        cell.checkFollow(user: user)
+            if (snapshot.value is NSNull) {
+                print("checkFollowing")
+            } else {
+                if let following = snapshot.value as? [String : AnyObject] {
+                    for (key , _) in following {
+                        if key == user.key {
+                            user.isFollowing = true
+                            let cell:UserTableViewCell = self.discoveryList.tableView.cellForRow(at: indexPath) as! UserTableViewCell
+                            cell.checkFollow(user: user)
+                        }
                     }
                 }
             }
+           
             
         })
        
@@ -163,7 +167,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
         ref.child("users").queryOrderedByKey().queryStarting(atValue: user.key).queryLimited(toFirst: UInt(offset)*5).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
 
             if (snapshot.value is NSNull) {
-                print("user data not found")
+                print("loadNewUsers")
             } else {
                 self.sendData.removeLast()
                 for child in snapshot.children {
@@ -177,7 +181,13 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
                     self.sendData.append(userItem)
                     
                 }
-                self.discoveryList.updateWithData(list: self.sendData)
+                if snapshot.childrenCount > 1 {
+                    self.discoveryList.isLoading = false
+                    self.discoveryList.updateWithData(list: self.sendData)
+                }else{
+                    self.discoveryList.isLoading = true
+                }
+               
                 ref.removeAllObservers()
             }
  
@@ -191,16 +201,22 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
         //this a reference from get photos
        
         ref.child("photos").child(user.key).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
-            
-            if let following = snapshot.value as? [String : AnyObject] {
-                for (keyPhoto , data) in following {
-                    var postTimeline:Dictionary<String,Any> = (data as? Dictionary<String,Any>)!
-                    let userData:Dictionary<String,Any> = ["pictureurl":user.pictureUrl.absoluteString,
-                                                           "name":user.name]
-                    postTimeline["user"] = userData
-                    ref.child("timeline").child(uid).child(keyPhoto).updateChildValues(postTimeline)
-                    
+            if (snapshot.value is NSNull) {
+                print("timelineFromUsers")
+            } else {
+                if let following = snapshot.value as? [String : AnyObject] {
+                    for (keyPhoto , data) in following {
+                        var postTimeline:Dictionary<String,Any> = (data as? Dictionary<String,Any>)!
+                        let pictureurl:String = (user.pictureUrl != nil) ? user.pictureUrl.absoluteString : ""
+                        let userData:Dictionary<String,Any> = ["pictureurl":pictureurl,
+                                                               "name":user.name,
+                                                               "uid":user.key]
+                        postTimeline["user"] = userData
+                        ref.child("timeline").child(uid).child(keyPhoto).updateChildValues(postTimeline)
+                        
+                    }
                 }
+
             }
             
         })
@@ -213,13 +229,17 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
         let ref = FIRDatabase.database().reference()
         //this a reference from get photos
         ref.child("photos").child(keyUser).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
-            
-            if let following = snapshot.value as? [String : AnyObject] {
-                for (keyPhoto , _) in following {
-                   
-                    ref.child("timeline").child(uid).child(keyPhoto).removeValue()
-                    
+            if (snapshot.value is NSNull) {
+                print("removeTimelineFromUsers")
+            } else {
+                if let following = snapshot.value as? [String : AnyObject] {
+                    for (keyPhoto , _) in following {
+                        
+                        ref.child("timeline").child(uid).child(keyPhoto).removeValue()
+                        
+                    }
                 }
+
             }
             
         })

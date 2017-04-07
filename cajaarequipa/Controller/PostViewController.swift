@@ -81,7 +81,9 @@ class PostViewController: BoxViewController,TopBarDelegate {
                 let post:[String:Any] = ["pictureurl": downloadURL,
                                          "comments":0,
                                          "likes":0,
-                                         "description":self.currentMessage]
+                                         "description":self.currentMessage,
+                                         "timestamp":FIRServerValue.timestamp(),
+                                         "isfavorited":false]
                 
                 keyPhoto.updateChildValues(post, withCompletionBlock:  { (error:Error?, ref:FIRDatabaseReference!) in
                 sender.isHidden = false
@@ -101,13 +103,12 @@ class PostViewController: BoxViewController,TopBarDelegate {
         
         let uid = FIRAuth.auth()!.currentUser!.uid
         let ref = FIRDatabase.database().reference()
-        ref.child("following").child(uid).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+        ref.child("followers").child(uid).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
             
             if let following = snapshot.value as? [String : AnyObject] {
                 for (key , _) in following {
-                   
-                    //let postFollowers:[String:Any] = [uid:true]
-                    ref.child("timeline").child(key).child(uidPhoto).updateChildValues(post)
+ 
+                    self.getUserFromKey(keyUser: key, photo: post, keyPhoto:uidPhoto)
                    
                 }
             }
@@ -117,23 +118,45 @@ class PostViewController: BoxViewController,TopBarDelegate {
         ref.removeAllObservers()
         
     }
-//    func timelineFromUsers(keyUser:String){
-//        //   let uid = FIRAuth.auth()!.currentUser!.uid
-//        let ref = FIRDatabase.database().reference()
-//        ref.child("photos").child(keyUser).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
-//            
-//            if let following = snapshot.value as? [String : AnyObject] {
-//                for (keyPhoto , data) in following {
-//                    let postTimeline = data as? Dictionary<String,Any>
-//                    //let postFollowers:[String:Any] = [uid:true]
-//                    ref.child("timeline").child(keyUser).child(keyPhoto).updateChildValues(postTimeline)
-//                    
-//                }
-//            }
-//            
-//        })
-//        
-//        ref.removeAllObservers()
-//    }
+    func getUserFromKey(keyUser:String,photo:Dictionary<String,Any>,keyPhoto:String){
+       
+        let ref = FIRDatabase.database().reference()
+        ref.child("users").queryOrderedByKey().queryEqual(toValue: keyUser).observeSingleEvent(of: .value, with: { snapshot in
+            
+            if (snapshot.value is NSNull) {
+                print("user data not found")
+            } else {
+                let userItem:Dictionary<String, Any> = snapshot.value! as! Dictionary<String, Any>
+                for child in snapshot.children {
+                    let data:FIRDataSnapshot = child as! FIRDataSnapshot
+                    print(data.key)
+                    let user:User = User()
+                    user.key = data.key
+                    user.translateToModel(data: userItem)
+                    
+                    //  let uid = FIRAuth.auth()!.currentUser!.uid
+                    let meUser:User = ApiConsume.sharedInstance.currentUser
+                    
+                    var postTimeline: Dictionary<String,Any> = Dictionary()
+                    postTimeline = photo
+                    
+                    let pictureurl:String = (meUser.pictureUrl != nil) ? meUser.pictureUrl.absoluteString : ""
+                    let userData:Dictionary<String,Any> = ["pictureurl":pictureurl,
+                                                           "name":meUser.name,
+                                                           "uid":meUser.key]
+                    postTimeline["user"] = userData
+                    //
+                    ref.child("timeline").child(user.key).child(keyPhoto).updateChildValues(postTimeline)
+
+                }
+               //
+                ref.removeAllObservers()
+            }
+            
+        })
+        
+        ref.removeAllObservers()
+    }
+
     
 }

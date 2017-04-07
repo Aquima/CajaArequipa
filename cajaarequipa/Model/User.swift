@@ -30,7 +30,7 @@ class User: NSObject {
         name = (data["name"] != nil) ? data["name"] as! String : ""
         follows = (data["following"] != nil) ? data["following"] as! Int : 0
         followers = (data["followers"] != nil) ? data["followers"] as! Int : 0
-        pictureUrl = (data["pictureurl"] != nil) ? URL(string: data["pictureurl"] as! String) : nil
+        pictureUrl = (data["pictureurl"] != nil) ? URL(string: data["pictureurl"] as! String) :  nil
     }
    
 }

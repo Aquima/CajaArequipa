@@ -33,7 +33,7 @@ class ApiConsume: NSObject{
     }()
     
     //MARK: Local Variable
-    
+    var currentUser:User!
     var emptyStringArray : [String]? = nil
     var configuration:URLSessionConfiguration!
     //MARK: Init

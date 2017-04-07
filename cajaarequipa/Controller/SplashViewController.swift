@@ -18,8 +18,10 @@ class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         FIRApp.configure()
         self.drawBody()
+      //  try! FIRAuth.auth()!.signOut()
         // Do any additional setup after loading the view.
     }
 
@@ -49,25 +51,51 @@ class SplashViewController: UIViewController {
         
         view.addSubview(imageView)
         view.addSubview(activityIndicatorView)
-        
-    }
+       
+
+           }
     override func viewWillAppear(_ animated: Bool) {
-        activityIndicatorView.startAnimating()
+       // activityIndicatorView.startAnimating()
         
-        let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            // Your code with delay
-           
-            if FIRAuth.auth()?.currentUser != nil {
-                // User is signed in.
-                self.loadTabController()
-            } else {
-                // No user is signed in.
-                let logIn = LogInViewController()
+//        let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
+//        DispatchQueue.main.asyncAfter(deadline: when) {
+//            // Your code with delay
+//           
+//            if FIRAuth.auth()?.currentUser != nil {
+//                // User is signed in.
+//                self.loadTabController()
+//            } else {
+//                // No user is signed in.
+//                let logIn = LogInViewController()
+//                
+//                self.navigationController?.pushViewController(logIn, animated: true)
+//            }
+//        }
+        if FIRAuth.auth()?.currentUser != nil {
+            // User is signed in.
+            var ref: FIRDatabaseReference!
+            ref = FIRDatabase.database().reference()
+            ref.child("users").child((FIRAuth.auth()?.currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let value = snapshot.value as? Dictionary<String,Any>
                 
-                self.navigationController?.pushViewController(logIn, animated: true)
+                ApiConsume.sharedInstance.currentUser = User()
+                
+                ApiConsume.sharedInstance.currentUser.translateToModel(data: value!)
+                ApiConsume.sharedInstance.currentUser.key = snapshot.key
+                self.loadTabController()
+                // ...
+            }) { (error) in
+                print(error.localizedDescription)
             }
+            
+        } else {
+            // No user is signed in.
+            let logIn = LogInViewController()
+            
+            self.navigationController?.pushViewController(logIn, animated: true)
         }
+
     }
     override var prefersStatusBarHidden: Bool {
         return true
