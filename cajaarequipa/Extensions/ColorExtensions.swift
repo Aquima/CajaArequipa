@@ -97,7 +97,7 @@ extension String {
         let split = self.components(separatedBy: " ")
         let firstName = split.last
         if split.count == 4 {
-            return split[3]
+            return split[2]
         }else{
             return firstName!
         }

@@ -45,6 +45,35 @@ class Publications: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         contentView.addSubview(lblTitle)
         
     }
+    func drawBodyPublic(barHeight:CGFloat,title:String){
+        
+        self.backgroundColor = UIColor.init(hexString: GlobalConstants.color.white)
+        self.frame = CGRect(x: 0, y: 208*valuePro, width: screenSize.width, height: screenSize.height-208*valuePro-barHeight-10*valuePro)
+        
+        let contentView:UIView = UIView()
+        contentView.frame =  CGRect(x: 0, y: 0, width: screenSize.width, height: 25*valuePro)
+        contentView.backgroundColor = UIColor.init(hexString: GlobalConstants.color.cobalto)
+        
+        lblTitle = UILabel()
+        lblTitle.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: 23*valuePro)
+        lblTitle.titleColor(color: GlobalConstants.color.white,text:title)
+        lblTitle.font = UIFont (name: GlobalConstants.font.helveticaRoundedBold, size: 14*valuePro)
+        
+        let flowLayout = UICollectionViewFlowLayout()
+        collectionView = UICollectionView(frame: CGRect(x: (self.frame.size.width-294.4*valuePro)/2, y: 35*valuePro , width: 294.4*valuePro, height: self.frame.size.height - 35*valuePro), collectionViewLayout: flowLayout)
+        //   self.tableView.register(UINib(nibName: "CauseTableViewCell", bundle: nil), forCellReuseIdentifier: "CauseTableViewCell")
+        collectionView.register(UINib(nibName: "PhotosCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PhotosCollectionViewCell")
+        //collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "collectionCell")
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = UIColor.clear
+        
+        addSubview(collectionView)
+        addSubview(contentView)
+        contentView.addSubview(lblTitle)
+        
+    }
+
     func bodyNoData() {
         
     }

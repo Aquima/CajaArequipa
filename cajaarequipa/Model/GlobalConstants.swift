@@ -16,6 +16,7 @@ struct GlobalConstants {
         static let grayMedium = "f2f2f2"
         static let iron = "0a5599"
         static let cobalto = "00afb3"
+        static let cobaltoDark = "007a9d"
         static let white = "ffffff"
         static let linColor = "cccccc"
         static let cancelRed = "f27065"

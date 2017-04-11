@@ -8,8 +8,12 @@
 
 import UIKit
 protocol ListTimelineDelegate {
-    func updateFavorited(indexPath: IndexPath, user:TimeLine)
+    func updateFavorited(indexPath: IndexPath, timeline:TimeLine)
     func loadNewTimeLine(offset : Int,timeline:TimeLine)
+    func goProfileViewController(indexPath: IndexPath,timeline:TimeLine)
+    func goCommentsViewController(indexPath: IndexPath,timeline:TimeLine)
+    func goShare(indexPath: IndexPath,timeline:TimeLine)
+    
 }
 class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
     
@@ -37,6 +41,9 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
         self.addSubview(self.tableView)
         
     }
+    func drawBodyNoData() {
+        let imgView:UIImageView = UIImageView()
+    }
     // MARK: - TableView Datasource
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         //  let sectionInfo = self.fetchedResultsController.sections![section]
@@ -50,16 +57,32 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
         let cell:TimelineTableViewCell = tableView.dequeueReusableCell(withIdentifier: "TimelineTableViewCell") as! TimelineTableViewCell
         cell.loadWithTimeline(timeline: currentData[indexPath.row])
       //  delegate?.checkFollowing(indexPath: indexPath,user:currentData[indexPath.row])
+        cell.shareAction = {
+            //Do whatever you want to do when the button is tapped here
+              self.delegate?.goShare(indexPath: indexPath, timeline: self.currentData[indexPath.row])
+        }
+        cell.commentsAction = {
+            //Do whatever you want to do when the button is tapped here
+            self.delegate?.goCommentsViewController(indexPath: indexPath, timeline: self.currentData[indexPath.row])
+        }
+        cell.favoriteAction = {
+            //Do whatever you want to do when the button is tapped here
+            self.delegate?.updateFavorited(indexPath: indexPath, timeline: self.currentData[indexPath.row])
+        }
+        cell.showProfileAction = {
+            self.delegate?.goProfileViewController(indexPath: indexPath, timeline: self.currentData[indexPath.row])
+        }
         return cell
     }
     // MARK: - TableView Delegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let valuePro:CGFloat  = CGFloat(NSNumber.getPropotionalValueDevice())
-        return 280*valuePro;
+        return 440*valuePro;
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.updateFavorited(indexPath: indexPath, user: currentData[indexPath.row])
+
+       // self.delegate?.goProfileViewController(indexPath: indexPath, timeline: self.currentData[indexPath.row])
     }
     // MARK: - Firebase
     func updateWithData(list:[TimeLine]){

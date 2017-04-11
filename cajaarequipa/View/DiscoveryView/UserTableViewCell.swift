@@ -20,6 +20,7 @@ class UserTableViewCell: UITableViewCell {
   //  var followers:String = ""
     var btnFollow:UIButton!
     
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

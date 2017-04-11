@@ -16,6 +16,7 @@ class TimelineTableViewCell: UITableViewCell {
     var imgView:UIImageView!
     var imgProfileView:UIImageView!
     var lblNameComments:UILabel!
+    var btnProfile:UIButton!
     var btnFavorite:UIButton!
     var btnComments:UIButton!
     var btnShare:UIButton!
@@ -23,22 +24,29 @@ class TimelineTableViewCell: UITableViewCell {
     var lblShowComments:UILabel!
     var lblTimestamp:UILabel!
     
+    var currentTimeline:TimeLine!
+    
+    //Action
+    var favoriteAction : (() -> Void)? = nil
+    var commentsAction : (() -> Void)? = nil
+    var shareAction : (() -> Void)? = nil
+    var showProfileAction : (() -> Void)? = nil
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         self.selectionStyle = .none
         let view = UIView()
-        view.frame = CGRect(x: (screenSize.width-320*valuePro)/2, y: 0, width: 320*valuePro, height: 280*valuePro)
+        view.frame = CGRect(x: (screenSize.width-320*valuePro)/2, y: 0, width: 320*valuePro, height: 440*valuePro)
         view.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
         self.addSubview(view)
 
         imgView = UIImageView()
-        imgView.frame = CGRect(x:0*valuePro, y:0 ,width: view.frame.width, height: 160*valuePro)
+        imgView.frame = CGRect(x:0*valuePro, y:0 ,width: view.frame.width, height: 320*valuePro)
         imgView.layer.masksToBounds = true
         imgView.contentMode = .scaleAspectFill
         
         imgProfileView = UIImageView()
-        imgProfileView.frame = CGRect(x:14*valuePro, y:128*valuePro ,width: 65*valuePro, height: 65*valuePro)
+        imgProfileView.frame = CGRect(x:14*valuePro, y:288*valuePro ,width: 65*valuePro, height: 65*valuePro)
         imgProfileView.layer.cornerRadius = imgProfileView.frame.size.width/2
         imgProfileView.layer.masksToBounds = true
         imgProfileView.contentMode = .scaleAspectFill
@@ -47,34 +55,39 @@ class TimelineTableViewCell: UITableViewCell {
         imgProfileView.layer.borderWidth = 3*valuePro
         
         btnFavorite = UIButton()
-        btnFavorite.frame = CGRect(x:194*valuePro, y:166*valuePro ,width: 20*valuePro, height: 20*valuePro)
+        btnFavorite.frame = CGRect(x:180*valuePro, y:320*valuePro ,width: 40*valuePro, height: 40*valuePro)
         btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOff"), for: .normal)
         btnFavorite.addTarget(self, action: #selector(pressFavoriteOn(sender:)), for: .touchUpInside)
         
         btnComments = UIButton()
-        btnComments.frame = CGRect(x:240*valuePro, y:166*valuePro ,width: 20*valuePro, height: 20*valuePro)
+        btnComments.frame = CGRect(x:226*valuePro, y:320*valuePro ,width: 40*valuePro, height: 40*valuePro)
         btnComments.setImage(#imageLiteral(resourceName: "commentIcon"), for: .normal)
-        
+        btnComments.addTarget(self, action: #selector(pressCommentsOn(sender:)), for: .touchUpInside)
         
         btnShare = UIButton()
-        btnShare.frame = CGRect(x:283*valuePro, y:166*valuePro ,width: 20*valuePro, height: 20*valuePro)
+        btnShare.frame = CGRect(x:269*valuePro, y:320*valuePro ,width: 40*valuePro, height: 40*valuePro)
         btnShare.setImage(#imageLiteral(resourceName: "shareIcon"), for: .normal)
+        btnShare.addTarget(self, action: #selector(pressShareOn(sender:)), for: .touchUpInside)
+        
+        btnProfile = UIButton()
+        btnProfile.frame = imgProfileView.frame
+        btnProfile.addTarget(self, action: #selector(pressProfileOn(sender:)), for: .touchUpInside)
         
         lblLikes = UILabel()
-        lblLikes.frame = CGRect(x:12*valuePro, y:198*valuePro ,width: 150*valuePro, height: 15*valuePro)
+        lblLikes.frame = CGRect(x:12*valuePro, y:358*valuePro ,width: 150*valuePro, height: 15*valuePro)
         
         lblNameComments = UILabel()
-        lblNameComments.frame = CGRect(x:12*valuePro, y:210*valuePro ,width: 290*valuePro, height: 34*valuePro)
+        lblNameComments.frame = CGRect(x:12*valuePro, y:370*valuePro ,width: 290*valuePro, height: 34*valuePro)
         lblNameComments.lineBreakMode = .byWordWrapping
         lblNameComments.numberOfLines = 2
         
         lblShowComments = UILabel()
-        lblShowComments.frame = CGRect(x:12*valuePro, y:246*valuePro ,width: 170*valuePro, height: 15*valuePro)
+        lblShowComments.frame = CGRect(x:12*valuePro, y:406*valuePro ,width: 170*valuePro, height: 15*valuePro)
         lblShowComments.textColor = UIColor.init(hexString: GlobalConstants.color.showCommentColor)
         lblShowComments.font = UIFont(name: GlobalConstants.font.myriadProRegular, size: 12*valuePro)!
         
         lblTimestamp = UILabel()
-        lblTimestamp.frame = CGRect(x:12*valuePro, y:262*valuePro ,width: 170*valuePro, height: 15*valuePro)
+        lblTimestamp.frame = CGRect(x:12*valuePro, y:422*valuePro ,width: 170*valuePro, height: 15*valuePro)
         lblTimestamp.textColor = UIColor.init(hexString: GlobalConstants.color.timestampColor)
         lblTimestamp.font = UIFont(name: GlobalConstants.font.myriadProRegular, size: 12*valuePro)!
 
@@ -89,16 +102,22 @@ class TimelineTableViewCell: UITableViewCell {
         view.addSubview(imgView)
         view.addSubview(imgProfileView)
         
+         view.addSubview(btnProfile)
+        
     }
     func loadWithTimeline(timeline:TimeLine){
-        
+        self.currentTimeline = timeline
         imgView.sd_setImage(with: timeline.pictureUrl)
         imgProfileView.sd_setImage(with: timeline.userPropertier?.pictureUrl, placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
         lblLikes.attributedText = updateAtributes(likes: String(timeline.likes))
         lblNameComments.attributedText = updateAtributesComments(name: (timeline.userPropertier?.name.getUserName().capitalized)!, comment: timeline.describe)
         lblShowComments.text = "Ver los \(timeline.comments) comentarios"
         lblTimestamp.text = "Hace 5 horas"
-        btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOff"), for: .normal)
+        if self.currentTimeline.isfavorited == false{
+            btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOff"), for: .normal)
+        }else{
+            btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOn"), for: .normal)
+        }
     }
     func updateAtributes(likes:String) -> NSAttributedString{
         let attributedInformation = NSAttributedString(string: " Me Gusta", attributes: [NSFontAttributeName: UIFont(name: GlobalConstants.font.myriadProBold, size: 12*valuePro)!,NSForegroundColorAttributeName: UIColor.black])
@@ -127,7 +146,7 @@ class TimelineTableViewCell: UITableViewCell {
         
     }
 
-
+    // MARK: - Actions
     func pressFavoriteOn(sender:UIButton){
         UIView.animate(withDuration: 0.3,
                        animations: {
@@ -136,14 +155,48 @@ class TimelineTableViewCell: UITableViewCell {
                        completion: { _ in
                         UIView.animate(withDuration: 0.3) {
                            sender.transform = CGAffineTransform.identity
-                           sender.setImage(#imageLiteral(resourceName: "favoritedIconOn"), for: .normal)
+                            if self.currentTimeline.isfavorited == true{
+                                self.btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOff"), for: .normal)
+                            }else{
+                                self.btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOn"), for: .normal)
+                            }
+                           
 
                         }
         })
+        if let btnFavoriteAction = self.favoriteAction
+        {
+            btnFavoriteAction()
+        }
+    }
+    func pressCommentsOn(sender:UIButton){
+        if let btnCommentsAction = self.commentsAction
+        {
+            btnCommentsAction()
+        }
+    }
+    func pressShareOn(sender:UIButton){
+        if let btnShareAction = self.shareAction
+        {
+            btnShareAction()
+        }
+    }
+    func pressProfileOn(sender:UIButton){
+        if let btnProfileAction = self.showProfileAction
+        {
+            btnProfileAction()
+        }
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-    
+    func checkFavorited(timeline: TimeLine){
+        self.currentTimeline = timeline
+//        if self.currentTimeline.isfavorited == true{
+//            self.btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOff"), for: .normal)
+//        }else{
+//            self.btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOn"), for: .normal)
+//        }
+    }
 }

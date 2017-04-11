@@ -11,6 +11,7 @@ import Firebase
 
 class User: NSObject {
     var key:String!
+    var uid:String!
     var describe:String!
     var name:String!
     var pictureUrl:URL!
@@ -22,6 +23,7 @@ class User: NSObject {
     var followers:Int!
     var isFollowing:Bool = false
     func translateToModel(data:Dictionary<String, Any>){
+        uid = (data["uid"] != nil) ? data["uid"] as! String : ""
         describe = (data["description"] != nil) ? data["description"] as! String : "Descripción"
         website = (data["website"] != nil) ? data["website"] as! String : "Pagina Web"
         document = (data["document"] != nil) ? data["document"] as! String : ""

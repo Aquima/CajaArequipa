@@ -64,15 +64,10 @@ class EditProfileViewController: BoxViewController,TopBarDelegate, UINavigationC
         
         let saveAction = UIAlertAction(title: "Si", style: UIAlertActionStyle.default, handler: {
             alert -> Void in
-            
-//            UserDefaults.standard.removeObject(forKey: "tokenChareety")
-//            UserDefaults.standard.removeObject(forKey: "emailChareety")
-//            UserDefaults.standard.synchronize()
+
             try! FIRAuth.auth()!.signOut()
             let notificationName = Notification.Name("goIntro")
             NotificationCenter.default.post(name: notificationName, object: nil)
-            //      let firstTextField = alertController.textFields![0] as UITextField
-            //      let secondTextField = alertController.textFields![1] as UITextField
             
         })
         
@@ -80,13 +75,6 @@ class EditProfileViewController: BoxViewController,TopBarDelegate, UINavigationC
             (action : UIAlertAction!) -> Void in
             
         })
-        
-        //        alertController.addTextField { (textField : UITextField!) -> Void in
-        //            textField.placeholder = "Ingrese Correo Electronico"
-        //        }
-        //        alertController.addTextField { (textField : UITextField!) -> Void in
-        //            textField.placeholder = "Ingrese su Nombre"
-        //        }
         
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)

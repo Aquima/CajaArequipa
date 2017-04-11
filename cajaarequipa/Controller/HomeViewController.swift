@@ -85,9 +85,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
 
     }
     // MARK: - ListTimelineDelegate
-    internal func updateFavorited(indexPath: IndexPath, user:TimeLine){
-        
-    }
+
     internal func loadNewTimeLine(offset : Int,timeline:TimeLine){
         let uid = ApiConsume.sharedInstance.currentUser.key
         self.listTimeline.isLoading = true
@@ -124,5 +122,76 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         })
 
     }
-    
+    internal func goProfileViewController(indexPath: IndexPath,timeline:TimeLine){
+        
+        let publicProfileVC:PublicProfileViewController = PublicProfileViewController()
+        publicProfileVC.currentUser = timeline.userPropertier
+        timeline.userPropertier?.key = timeline.userPropertier?.uid
+        self.navigationController?.pushViewController(publicProfileVC, animated: true)
+        
+    }
+    internal func goCommentsViewController(indexPath: IndexPath,timeline:TimeLine){
+        let commentsVC:CommentsViewController = CommentsViewController()
+        self.navigationController?.pushViewController(commentsVC, animated: true)
+    }
+    internal func goShare(indexPath: IndexPath,timeline:TimeLine){
+        if let myWebsite = timeline.pictureUrl {
+            let objectsToShare = [myWebsite] as [Any]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            
+            activityVC.popoverPresentationController?.sourceView = self.view
+            self.present(activityVC, animated: true, completion: nil)
+        }
+    }
+    internal func updateFavorited(indexPath: IndexPath, timeline:TimeLine){
+        let uid = ApiConsume.sharedInstance.currentUser.key
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        if timeline.isfavorited == true {
+            let postTimeline:[String:Any] = ["isfavorited":false]
+        
+            ref.child("timeline").child(uid!).child(timeline.key).updateChildValues(postTimeline)
+            self.listTimeline.tableView.isScrollEnabled = false
+            let cell:TimelineTableViewCell = self.listTimeline.tableView.cellForRow(at: indexPath) as! TimelineTableViewCell
+            cell.checkFavorited(timeline: timeline)
+            self.listTimeline.tableView.isScrollEnabled = true
+            
+        }else{
+            let postTimeline:[String:Any] = ["isfavorited":true]
+           
+            ref.child("timeline").child(uid!).child(timeline.key).updateChildValues(postTimeline)
+            self.listTimeline.tableView.isScrollEnabled = false
+            let cell:TimelineTableViewCell = self.listTimeline.tableView.cellForRow(at: indexPath) as! TimelineTableViewCell
+            cell.checkFavorited(timeline: timeline)
+            self.listTimeline.tableView.isScrollEnabled = true
+        }
+        self.updateCheckLikes(timeline: timeline)
+    }
+    func updateCheckLikes(timeline:TimeLine) {
+        // timeline es igual a foto por lo tanto tiene el usuario en su nodo
+        let uid = ApiConsume.sharedInstance.currentUser.key
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        
+        if timeline.isfavorited == true {
+          
+            ref.child("timeline").child(uid!).child(timeline.key).removeValue()
+            if  timeline.likes > 1 {
+                timeline.likes  = (timeline.likes  - 1)
+            }
+
+        }else{
+           
+            timeline.isfavorited = true
+          
+            timeline.likes = (timeline.likes + 1)
+            let post:[String:Any] = [timeline.key:true,
+                                     "likes":timeline.likes]
+            ref.child("timeline").child(uid!).child(timeline.key).updateChildValues(post)
+        }
+        let post:[String:Any] = ["likes":timeline.likes]
+        ref.child("photos").child(uid!).child(timeline.key).updateChildValues(post)
+        ref.removeAllObservers()
+        
+    }
 }

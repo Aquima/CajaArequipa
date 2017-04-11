@@ -64,7 +64,7 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     // MARK: - Firebase
     func updateWithData(list:[User]){
-        
+      
         currentData = list
         tableView.reloadData()
        

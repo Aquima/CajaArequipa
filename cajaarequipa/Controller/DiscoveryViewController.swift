@@ -56,7 +56,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
     
     // Retrive User
     func retriveUsers(){
-       
+
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         ref.child("users").queryOrderedByKey().queryLimited(toFirst: 5).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
@@ -73,14 +73,8 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
                     let userItem:User = User()
                     userItem.key = data.key
                     userItem.translateToModel(data: snapDictionary)
-//                    ref.child("following").child(userItem.key).observe(.value, with: {(snapshot) -> Void in
-//                        
-//                    })
-//                    ref.queryEqual(toValue: userItem.key).observe(.value, with: {(snapshot) -> Void in
-//                        
-//                    })
                     self.sendData.append(userItem)
-                    
+  
                 }
                 self.discoveryList.updateWithData(list: self.sendData)
                 ref.removeAllObservers()
@@ -107,7 +101,6 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
                     }
                 }
             }
-           
             
         })
        
@@ -162,6 +155,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
 
     func loadNewUsers(offset : Int,user:User){
         self.discoveryList.isLoading = true
+     
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         ref.child("users").queryOrderedByKey().queryStarting(atValue: user.key).queryLimited(toFirst: UInt(offset)*5).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
@@ -177,9 +171,9 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
                     let userItem:User = User()
                     userItem.key = data.key
                     userItem.translateToModel(data: snapDictionary)
-
                     self.sendData.append(userItem)
-                    
+               
+                   
                 }
                 if snapshot.childrenCount > 1 {
                     self.discoveryList.isLoading = false
@@ -192,7 +186,7 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
             }
  
         })
-        //ref.removeAllObservers()
+ 
     }
     // MARK: - Timeline
     func timelineFromUsers(user:User){

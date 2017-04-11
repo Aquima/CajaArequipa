@@ -21,7 +21,7 @@ class SplashViewController: UIViewController {
         
         FIRApp.configure()
         self.drawBody()
-      //  try! FIRAuth.auth()!.signOut()
+    
         // Do any additional setup after loading the view.
     }
 
@@ -41,7 +41,7 @@ class SplashViewController: UIViewController {
         
         let imageView = UIImageView(image: #imageLiteral(resourceName: "logo"))
         
-        imageView.frame = CGRect(x: (self.view.frame.size.width-215*valuePro)/2, y:(self.view.frame.size.height-91*valuePro)/2, width: 215*valuePro, height: 91*valuePro)
+        imageView.frame = CGRect(x: (self.view.frame.size.width-242)/2, y:(self.view.frame.size.height-103)/2, width: 242, height: 103)
         
         let frame =  CGRect(x: (self.view.frame.size.width-25*valuePro)/2, y:100*valuePro + (self.view.frame.size.height)/2, width: 25*valuePro, height: 25*valuePro)
         activityIndicatorView = NVActivityIndicatorView(frame: frame,
@@ -55,35 +55,29 @@ class SplashViewController: UIViewController {
 
            }
     override func viewWillAppear(_ animated: Bool) {
-       // activityIndicatorView.startAnimating()
-        
-//        let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
-//        DispatchQueue.main.asyncAfter(deadline: when) {
-//            // Your code with delay
-//           
-//            if FIRAuth.auth()?.currentUser != nil {
-//                // User is signed in.
-//                self.loadTabController()
-//            } else {
-//                // No user is signed in.
-//                let logIn = LogInViewController()
-//                
-//                self.navigationController?.pushViewController(logIn, animated: true)
-//            }
-//        }
+ 
         if FIRAuth.auth()?.currentUser != nil {
             // User is signed in.
             var ref: FIRDatabaseReference!
             ref = FIRDatabase.database().reference()
             ref.child("users").child((FIRAuth.auth()?.currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
-                let value = snapshot.value as? Dictionary<String,Any>
+                if snapshot.childrenCount == 0 {
+                    
+                    let logIn = LogInViewController()
+                    
+                    self.navigationController?.pushViewController(logIn, animated: true)
+                }else{
+                    let value = snapshot.value as? Dictionary<String,Any>
+                    
+                    ApiConsume.sharedInstance.currentUser = User()
+                    
+                    ApiConsume.sharedInstance.currentUser.translateToModel(data: value!)
+                    ApiConsume.sharedInstance.currentUser.key = snapshot.key
+                    self.loadTabController()
+
+                }
                 
-                ApiConsume.sharedInstance.currentUser = User()
-                
-                ApiConsume.sharedInstance.currentUser.translateToModel(data: value!)
-                ApiConsume.sharedInstance.currentUser.key = snapshot.key
-                self.loadTabController()
                 // ...
             }) { (error) in
                 print(error.localizedDescription)

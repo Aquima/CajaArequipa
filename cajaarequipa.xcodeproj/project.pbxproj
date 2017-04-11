@@ -10,6 +10,9 @@
 		13AF7C54725528644333A512 /* Pods_cajaarequipa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9441BC5C522297FF2FEEB6FA /* Pods_cajaarequipa.framework */; };
 		1B530D8E1E96B32800E02296 /* ListTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B530D8D1E96B32700E02296 /* ListTimeline.swift */; };
 		486B0DB2788EE7BDE40FDFEC /* Pods_cajaarequipaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 745E5F6E62CB945070D4C77D /* Pods_cajaarequipaUITests.framework */; };
+		49708C531E9A541D00AE452B /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49708C521E9A541D00AE452B /* CommentsViewController.swift */; };
+		49708C551E9B243F00AE452B /* PublicProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49708C541E9B243F00AE452B /* PublicProfileViewController.swift */; };
+		49708C571E9B5ED200AE452B /* PublicProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49708C561E9B5ED200AE452B /* PublicProfileInfo.swift */; };
 		852852706EDE0174E42F847C /* Pods_cajaarequipaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65EA6B9F44FF3F761DDF6B3 /* Pods_cajaarequipaTests.framework */; };
 		F011B0A81E804917005E5F55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011B0A71E804917005E5F55 /* AppDelegate.swift */; };
 		F011B0AA1E804917005E5F55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011B0A91E804917005E5F55 /* ViewController.swift */; };
@@ -93,6 +96,9 @@
 		0749F2812CC7FE3A477CE55D /* Pods-cajaarequipaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipaTests/Pods-cajaarequipaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		18E5C93DD0FFBCF392445CE1 /* Pods-cajaarequipa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipa.release.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipa/Pods-cajaarequipa.release.xcconfig"; sourceTree = "<group>"; };
 		1B530D8D1E96B32700E02296 /* ListTimeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTimeline.swift; sourceTree = "<group>"; };
+		49708C521E9A541D00AE452B /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		49708C541E9B243F00AE452B /* PublicProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicProfileViewController.swift; sourceTree = "<group>"; };
+		49708C561E9B5ED200AE452B /* PublicProfileInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicProfileInfo.swift; sourceTree = "<group>"; };
 		745E5F6E62CB945070D4C77D /* Pods_cajaarequipaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cajaarequipaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89D8291F308BD7921772B1F0 /* Pods-cajaarequipaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipaTests/Pods-cajaarequipaTests.release.xcconfig"; sourceTree = "<group>"; };
 		9441BC5C522297FF2FEEB6FA /* Pods_cajaarequipa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cajaarequipa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -331,6 +337,8 @@
 				F0B1767F1E899ABF0056BA98 /* EditProfileViewController.swift */,
 				F0506BA61E8D42110012C33A /* PostViewController.swift */,
 				F09AF7361E8F9AAD004EDF85 /* DiscoveryViewController.swift */,
+				49708C521E9A541D00AE452B /* CommentsViewController.swift */,
+				49708C541E9B243F00AE452B /* PublicProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -434,6 +442,7 @@
 				F0F8FADF1E8460AF0009CC52 /* MeProfileInfo.swift */,
 				F0A9323F1E85AB2C00CEB939 /* Publications.swift */,
 				F0F48B941E89F48300BE24D1 /* FormEditProfile.swift */,
+				49708C561E9B5ED200AE452B /* PublicProfileInfo.swift */,
 			);
 			path = ProfileViews;
 			sourceTree = "<group>";
@@ -744,6 +753,7 @@
 				F0F8FAD71E83F73E0009CC52 /* BoxViewController.swift in Sources */,
 				1B530D8E1E96B32800E02296 /* ListTimeline.swift in Sources */,
 				F011B0DE1E807A54005E5F55 /* LogInViewController.swift in Sources */,
+				49708C571E9B5ED200AE452B /* PublicProfileInfo.swift in Sources */,
 				F0506BAC1E8DC1D80012C33A /* Photos.swift in Sources */,
 				F09AF7341E8F03E5004EDF85 /* PhotosCollectionViewCell.swift in Sources */,
 				F0F8FADE1E8409F30009CC52 /* GlobalConstants.swift in Sources */,
@@ -766,11 +776,13 @@
 				F09AF7371E8F9AAE004EDF85 /* DiscoveryViewController.swift in Sources */,
 				F0F8FAD31E8391FB0009CC52 /* FavoritedViewController.swift in Sources */,
 				F0A932451E8609B500CEB939 /* ApiConsumeExtensions.swift in Sources */,
+				49708C531E9A541D00AE452B /* CommentsViewController.swift in Sources */,
 				F0F8FAD11E8391E80009CC52 /* CameraViewController.swift in Sources */,
 				F0506BA11E8CB2060012C33A /* CustomCameraView.swift in Sources */,
 				F0F8FADA1E83FEFC0009CC52 /* TopBar.swift in Sources */,
 				F0F48B951E89F48300BE24D1 /* FormEditProfile.swift in Sources */,
 				F0506BA71E8D42110012C33A /* PostViewController.swift in Sources */,
+				49708C551E9B243F00AE452B /* PublicProfileViewController.swift in Sources */,
 				F03290591E80830C005FC29D /* TopView.swift in Sources */,
 				F0F8FACD1E8391CD0009CC52 /* HomeViewController.swift in Sources */,
 				F011B0E61E807C27005E5F55 /* ColorExtensions.swift in Sources */,
