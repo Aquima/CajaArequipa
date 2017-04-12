@@ -92,9 +92,9 @@ class MeProfileInfo: UIView {
         follows = String(user.follows)
         lblFollowers.attributedText = followersInfo
         lblFollowing.attributedText = followingInfo
-        lblDescription.text = user.describe
-        lblWebSite.text = user.website
-        
+
+        lblDescription.text = user.describe != "" ? user.describe:"Descripción"
+        lblWebSite.text = user.website != "" ? user.website:"Pagina Web"
     }
     var followersInfo: NSAttributedString {
         let attributedInformation = NSAttributedString(string: followers, attributes: [NSFontAttributeName: UIFont(name: GlobalConstants.font.helveticaRoundedBold, size: 14*valuePro)!,NSForegroundColorAttributeName: UIColor.black])

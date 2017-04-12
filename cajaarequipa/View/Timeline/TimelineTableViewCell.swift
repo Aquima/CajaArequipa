@@ -37,14 +37,17 @@ class TimelineTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         let view = UIView()
         view.frame = CGRect(x: (screenSize.width-320*valuePro)/2, y: 0, width: 320*valuePro, height: 440*valuePro)
-        view.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
+        view.backgroundColor = UIColor.init(hexString: GlobalConstants.color.white)
         self.addSubview(view)
 
         imgView = UIImageView()
         imgView.frame = CGRect(x:0*valuePro, y:0 ,width: view.frame.width, height: 320*valuePro)
         imgView.layer.masksToBounds = true
         imgView.contentMode = .scaleAspectFill
-        
+        imgView.layer.borderColor = UIColor.init(hexString: GlobalConstants.color.blue).cgColor
+      //  imgView.layer.borderWidth = 0.5
+        imgView.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
+  
         imgProfileView = UIImageView()
         imgProfileView.frame = CGRect(x:14*valuePro, y:288*valuePro ,width: 65*valuePro, height: 65*valuePro)
         imgProfileView.layer.cornerRadius = imgProfileView.frame.size.width/2
@@ -107,15 +110,17 @@ class TimelineTableViewCell: UITableViewCell {
     }
     func loadWithTimeline(timeline:TimeLine){
         self.currentTimeline = timeline
-        imgView.sd_setImage(with: timeline.pictureUrl)
+        imgView.sd_setImage(with: timeline.pictureUrl , placeholderImage: #imageLiteral(resourceName: "placeholderTimelinePhoto"))
         imgProfileView.sd_setImage(with: timeline.userPropertier?.pictureUrl, placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
         lblLikes.attributedText = updateAtributes(likes: String(timeline.likes))
         lblNameComments.attributedText = updateAtributesComments(name: (timeline.userPropertier?.name.getUserName().capitalized)!, comment: timeline.describe)
         lblShowComments.text = "Ver los \(timeline.comments) comentarios"
         lblTimestamp.text = "Hace 5 horas"
         if self.currentTimeline.isfavorited == false{
+            btnFavorite.tag = 0
             btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOff"), for: .normal)
         }else{
+            btnFavorite.tag = 1
             btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOn"), for: .normal)
         }
     }
@@ -148,6 +153,7 @@ class TimelineTableViewCell: UITableViewCell {
 
     // MARK: - Actions
     func pressFavoriteOn(sender:UIButton){
+        sender.isEnabled = false
         UIView.animate(withDuration: 0.3,
                        animations: {
                         sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
@@ -155,12 +161,16 @@ class TimelineTableViewCell: UITableViewCell {
                        completion: { _ in
                         UIView.animate(withDuration: 0.3) {
                            sender.transform = CGAffineTransform.identity
-                            if self.currentTimeline.isfavorited == true{
+                            if sender.tag == 1 {
+                                sender.tag = 0
+                             //   self.currentTimeline.isfavorited = false
                                 self.btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOff"), for: .normal)
                             }else{
+                                sender.tag = 1
                                 self.btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOn"), for: .normal)
+                              //  self.currentTimeline.isfavorited = true
                             }
-                           
+                           sender.isEnabled = true
 
                         }
         })
@@ -192,11 +202,12 @@ class TimelineTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func checkFavorited(timeline: TimeLine){
-        self.currentTimeline = timeline
-//        if self.currentTimeline.isfavorited == true{
-//            self.btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOff"), for: .normal)
+          lblLikes.attributedText = updateAtributes(likes: String(timeline.likes))
+//        self.currentTimeline = timeline
+//        if self.currentTimeline.isfavorited == false{
+//            btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOff"), for: .normal)
 //        }else{
-//            self.btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOn"), for: .normal)
+//            btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOn"), for: .normal)
 //        }
     }
 }

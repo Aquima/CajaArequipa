@@ -148,7 +148,12 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         if timeline.isfavorited == true {
-            let postTimeline:[String:Any] = ["isfavorited":false]
+            timeline.isfavorited = false
+            if  timeline.likes > 1 {
+                timeline.likes  = (timeline.likes  - 1)
+            }
+            let postTimeline:[String:Any] = ["isfavorited":false,
+                                             "likes":timeline.likes]
         
             ref.child("timeline").child(uid!).child(timeline.key).updateChildValues(postTimeline)
             self.listTimeline.tableView.isScrollEnabled = false
@@ -157,7 +162,10 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
             self.listTimeline.tableView.isScrollEnabled = true
             
         }else{
-            let postTimeline:[String:Any] = ["isfavorited":true]
+            timeline.likes = (timeline.likes + 1)
+            timeline.isfavorited = true
+            let postTimeline:[String:Any] = ["isfavorited":true,
+                                             "likes":timeline.likes]
            
             ref.child("timeline").child(uid!).child(timeline.key).updateChildValues(postTimeline)
             self.listTimeline.tableView.isScrollEnabled = false
@@ -169,29 +177,27 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
     }
     func updateCheckLikes(timeline:TimeLine) {
         // timeline es igual a foto por lo tanto tiene el usuario en su nodo
-        let uid = ApiConsume.sharedInstance.currentUser.key
+        let uid = timeline.userPropertier?.uid//ApiConsume.sharedInstance.currentUser.key
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         
         if timeline.isfavorited == true {
-          
-            ref.child("timeline").child(uid!).child(timeline.key).removeValue()
-            if  timeline.likes > 1 {
-                timeline.likes  = (timeline.likes  - 1)
-            }
+
+            ref.child("likes").child(uid!).child(timeline.key).removeValue()
+           
 
         }else{
+
            
-            timeline.isfavorited = true
-          
-            timeline.likes = (timeline.likes + 1)
-            let post:[String:Any] = [timeline.key:true,
-                                     "likes":timeline.likes]
-            ref.child("timeline").child(uid!).child(timeline.key).updateChildValues(post)
+            let post:[String:Any] = [timeline.key:true]
+            ref.child("likes").child(uid!).updateChildValues(post)
         }
-        let post:[String:Any] = ["likes":timeline.likes]
-        ref.child("photos").child(uid!).child(timeline.key).updateChildValues(post)
-        ref.removeAllObservers()
+        let post:[String:Any] = ["likes":7]
+        print("photos" + uid! + "/" + timeline.key)
+        var refPhotos: FIRDatabaseReference!
+        refPhotos = FIRDatabase.database().reference()
+        refPhotos.child("photos").child(uid!).child(timeline.key).updateChildValues(post)
+        refPhotos.removeAllObservers()
         
     }
 }

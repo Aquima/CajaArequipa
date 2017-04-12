@@ -17,6 +17,7 @@ class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfil
     var currentUser:User!
     
     var listPhotos:[Photos] = []
+    var refPhotoAdded: FIRDatabaseReference!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -92,9 +93,9 @@ class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfil
     // MARK: - firebase
     func listenerPhotoAdded(){
         let uid:String = self.currentUser.key
-        var ref: FIRDatabaseReference!
-        ref = FIRDatabase.database().reference()
-        ref.child("photos").child(uid).observe(.childAdded, with:  { (snapshot) -> Void in
+
+        refPhotoAdded = FIRDatabase.database().reference()
+        refPhotoAdded.child("photos").child(uid).observe(.childAdded, with:  { (snapshot) -> Void in
             // let snap:FIRDataSnapshot
             let itemPhoto = (snapshot.value as? Dictionary<String, Any>)!
             
@@ -290,5 +291,9 @@ class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfil
         
         // Dismiss the mail compose view controller.
         controller.dismiss(animated: true, completion: nil)
+    }
+    // MARK: - ViewController
+    override func viewDidDisappear(_ animated: Bool) {
+        refPhotoAdded.removeAllObservers()
     }
 }

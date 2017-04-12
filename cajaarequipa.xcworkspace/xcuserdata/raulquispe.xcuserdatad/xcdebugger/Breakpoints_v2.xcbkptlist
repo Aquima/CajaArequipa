@@ -65,86 +65,6 @@
             endingLineNumber = "167"
             landmarkName = "loadNewUsers(offset:user:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "cajaarequipa.DiscoveryViewController.loadNewUsers (offset : Swift.Int, user : cajaarequipa.User) -&gt; ()"
-                  moduleName = "cajaarequipa"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/DiscoveryViewController.swift"
-                  timestampString = "513245979.24356"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "167"
-                  endingLineNumber = "167"
-                  offsetFromSymbolStart = "400">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "cajaarequipa.DiscoveryViewController.(loadNewUsers (offset : Swift.Int, user : cajaarequipa.User) -&gt; ()).(closure #1)"
-                  moduleName = "cajaarequipa"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/DiscoveryViewController.swift"
-                  timestampString = "513245979.245949"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "165"
-                  endingLineNumber = "165"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/Controller/DiscoveryViewController.swift"
-            timestampString = "513245615.385137"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "removeTimelineFromUsers(keyUser:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "cajaarequipa.DiscoveryViewController.removeTimelineFromUsers (keyUser : Swift.String) -&gt; ()"
-                  moduleName = "cajaarequipa"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/DiscoveryViewController.swift"
-                  timestampString = "513245979.251302"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "231"
-                  endingLineNumber = "231"
-                  offsetFromSymbolStart = "480">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "cajaarequipa.DiscoveryViewController.(removeTimelineFromUsers (keyUser : Swift.String) -&gt; ()).(closure #1)"
-                  moduleName = "cajaarequipa"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/DiscoveryViewController.swift"
-                  timestampString = "513245979.253454"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "232"
-                  endingLineNumber = "232"
-                  offsetFromSymbolStart = "44">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -201,46 +121,62 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/Controller/DiscoveryViewController.swift"
-            timestampString = "513245615.385137"
+            filePath = "cajaarequipa/View/Timeline/TimelineTableViewCell.swift"
+            timestampString = "513654102.141111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "removeTimelineFromUsers(keyUser:)"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "pressFavoriteOn(sender:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "cajaarequipa.DiscoveryViewController.(removeTimelineFromUsers (keyUser : Swift.String) -&gt; ()).(closure #1)"
-                  moduleName = "cajaarequipa"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/DiscoveryViewController.swift"
-                  timestampString = "513245979.27303"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "235"
-                  endingLineNumber = "235"
-                  offsetFromSymbolStart = "668">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "cajaarequipa.DiscoveryViewController.(removeTimelineFromUsers (keyUser : Swift.String) -&gt; ()).(closure #1)"
-                  moduleName = "cajaarequipa"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/DiscoveryViewController.swift"
-                  timestampString = "513245979.275347"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "235"
-                  endingLineNumber = "235"
-                  offsetFromSymbolStart = "1100">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/View/Timeline/TimelineTableViewCell.swift"
+            timestampString = "513654157.709399"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "pressFavoriteOn(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/View/Timeline/TimelineTableViewCell.swift"
+            timestampString = "513654102.141111"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "pressFavoriteOn(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/View/Timeline/TimelineTableViewCell.swift"
+            timestampString = "513654154.537599"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "loadWithTimeline(timeline:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
