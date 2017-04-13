@@ -23,6 +23,8 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         self.createView()
         
         retriveTimeLine()
+       
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,6 +65,9 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
             
             if (snapshot.value is NSNull) {
                 print("retriveTimeLine")
+                self.listTimeline.updateWithData(list: self.sendData)
+                self.listenerTimelineAdded()
+                ref.removeAllObservers()
             } else {
                 
                 for child in snapshot.children {
@@ -73,19 +78,18 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
                     let timelineItem:TimeLine = TimeLine()
                     timelineItem.key = data.key
                     timelineItem.translateToModel(data: snapDictionary)
-                  
                     self.sendData.append(timelineItem)
 
                 }
                 self.listTimeline.updateWithData(list: self.sendData)
                 ref.removeAllObservers()
+               
             }
             
         })
 
     }
     // MARK: - ListTimelineDelegate
-
     internal func loadNewTimeLine(offset : Int,timeline:TimeLine){
         let uid = ApiConsume.sharedInstance.currentUser.key
         self.listTimeline.isLoading = true
@@ -95,6 +99,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
             
             if (snapshot.value is NSNull) {
                 print("loadNewTimeLine")
+              //  self.listenerTimelineAdded()
             } else {
                 self.sendData.removeLast()
                 for child in snapshot.children {
@@ -114,9 +119,11 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
                     self.listTimeline.updateWithData(list: self.sendData)
                 }else{
                     self.listTimeline.isLoading = true
+                    self.listenerTimelineAddedPaginate()
                 }
                 
                 ref.removeAllObservers()
+               
             }
             
         })
@@ -175,13 +182,14 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         }
         self.updateCheckLikes(timeline: timeline)
     }
+    // MARK: - Firebase
     func updateCheckLikes(timeline:TimeLine) {
         // timeline es igual a foto por lo tanto tiene el usuario en su nodo
         let uid = timeline.userPropertier?.uid//ApiConsume.sharedInstance.currentUser.key
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         
-        if timeline.isfavorited == true {
+        if timeline.isfavorited == false {
 
             ref.child("likes").child(uid!).child(timeline.key).removeValue()
            
@@ -200,4 +208,53 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         refPhotos.removeAllObservers()
         
     }
+    func listenerTimelineAdded(){
+        var refTimelineAdded: FIRDatabaseReference!
+        //escuchar nuestro timeline si se agrega un nuevo item en nuestro nodo
+        let uid:String = ApiConsume.sharedInstance.currentUser.key
+        
+        refTimelineAdded = FIRDatabase.database().reference()
+        refTimelineAdded.child("timeline").child(uid).observe(.childAdded, with:  { (snapshot) -> Void in
+            // let snap:FIRDataSnapshot
+            if (snapshot.value is NSNull) {
+                print("loadNewTimeLine")
+            } else {
+                if self.sendData.count > 0 {
+                    self.sendData.removeLast()
+                }
+                
+                    let snapDictionary = snapshot.value as! Dictionary<String, Any>
+                
+                    let timelineItem:TimeLine = TimeLine()
+                    timelineItem.key = snapshot.key
+                    timelineItem.translateToModel(data: snapDictionary)
+                    
+                    self.sendData.append(timelineItem)
+                    
+                    refTimelineAdded.removeAllObservers()
+            }
+
+        })
+    }
+    func listenerTimelineAddedPaginate(){
+        var refTimelineAdded: FIRDatabaseReference!
+        //escuchar nuestro timeline si se agrega un nuevo item en nuestro nodo
+        let uid:String = ApiConsume.sharedInstance.currentUser.key
+        
+        refTimelineAdded = FIRDatabase.database().reference()
+        refTimelineAdded.child("timeline").child(uid).observe(.childAdded, with:  { (snapshot) -> Void in
+            // let snap:FIRDataSnapshot
+            if (snapshot.value is NSNull) {
+                print("loadNewTimeLine")
+            } else {
+       
+                self.listTimeline.isLoading = false
+                
+                
+                refTimelineAdded.removeAllObservers()
+            }
+            
+        })
+    }
+
 }

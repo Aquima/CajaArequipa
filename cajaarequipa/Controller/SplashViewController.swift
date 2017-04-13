@@ -74,8 +74,8 @@ class SplashViewController: UIViewController {
                     
                     ApiConsume.sharedInstance.currentUser.translateToModel(data: value!)
                     ApiConsume.sharedInstance.currentUser.key = snapshot.key
-                    self.loadTabController()
-
+                    
+                    self.timelineFromMe()
                 }
                 
                 // ...
@@ -155,5 +155,35 @@ class SplashViewController: UIViewController {
     func goIntro(notification:Notification){
         NotificationCenter.default.removeObserver(self, name: notification.name, object: nil)
         _ = self.navigationController?.popToRootViewController(animated: true)
+    }
+    func timelineFromMe(){
+        let uid = ApiConsume.sharedInstance.currentUser.key
+        let ref = FIRDatabase.database().reference()
+        //this a reference from get photos
+        
+        ref.child("photos").child(uid!).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+            if (snapshot.value is NSNull) {
+                print("timelineFromUsers")
+                self.loadTabController()
+            } else {
+                if let following = snapshot.value as? [String : AnyObject] {
+                    for (keyPhoto , data) in following {
+                        var postTimeline:Dictionary<String,Any> = (data as? Dictionary<String,Any>)!
+                        let pictureurl:String = (ApiConsume.sharedInstance.currentUser.pictureUrl != nil) ? ApiConsume.sharedInstance.currentUser.pictureUrl.absoluteString : ""
+                        let userData:Dictionary<String,Any> = ["pictureurl":pictureurl,
+                                                               "name":ApiConsume.sharedInstance.currentUser.name,
+                                                               "uid":ApiConsume.sharedInstance.currentUser.key]
+                        postTimeline["user"] = userData
+                        ref.child("timeline").child(uid!).child(keyPhoto).updateChildValues(postTimeline)
+                        
+                    }
+                    self.loadTabController()
+                }
+                
+            }
+            
+        })
+        
+        ref.removeAllObservers()
     }
 }

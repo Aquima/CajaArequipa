@@ -28,6 +28,7 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
     
     var isLoading = false
     
+    var contentMessage:UIView!
     func drawBody(barHeight:CGFloat){
         
         self.frame =  CGRect(x:  (screenSize.width-320*valuePro)/2, y: 58*valuePro, width:320*valuePro, height: screenSize.height-barHeight-58*valuePro)
@@ -42,7 +43,48 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
         
     }
     func drawBodyNoData() {
-        let imgView:UIImageView = UIImageView()
+        
+        if contentMessage == nil {
+            contentMessage = UIView()
+            contentMessage.frame = self.bounds
+            let imgView:UIImageView = UIImageView(image: #imageLiteral(resourceName: "placeholderHomeNoData"))
+            imgView.frame = CGRect(x:(contentMessage.frame.width-70*valuePro)/2, y: (contentMessage.frame.height-(82+70)*valuePro)/2, width: 70*valuePro, height: 70*valuePro)
+            contentMessage.addSubview(imgView)
+            self.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
+            
+            let lblMessage = UILabel()
+            lblMessage.frame = CGRect(x:(contentMessage.frame.width-200*valuePro)/2, y: imgView.frame.origin.y+(70+5)*valuePro, width: 200*valuePro, height: 30*valuePro)
+            lblMessage.text = "Aún no hay ninguna historia \npara mostrar."
+            lblMessage.lineBreakMode = .byWordWrapping
+            lblMessage.numberOfLines = 2
+            lblMessage.font = UIFont(name: GlobalConstants.font.myriadProRegular, size: 13*valuePro)
+            lblMessage.textColor = UIColor.init(hexString: GlobalConstants.color.blackComment)
+            lblMessage.textAlignment = .center
+            contentMessage.addSubview(lblMessage)
+            
+            let contentSuggestion:UIView = UIView()
+            contentSuggestion.frame = CGRect(x: 0, y: (contentMessage.frame.size.height-82*valuePro), width:  contentMessage.frame.size.width, height: 92*valuePro)
+            contentSuggestion.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayLight)
+            contentMessage.addSubview(contentSuggestion)
+            
+            let lblSuggestion:UILabel = UILabel()
+            lblSuggestion.frame = CGRect(x:(contentSuggestion.frame.width-200*valuePro)/2, y: 24*valuePro, width: 200*valuePro, height: 30*valuePro)
+            lblSuggestion.textColor = UIColor.init(hexString: GlobalConstants.color.blackComment)
+            lblSuggestion.text = "¡Comparte tu primera foto ya!"
+            lblSuggestion.textAlignment = .center
+            lblSuggestion.font = UIFont(name: GlobalConstants.font.myriadProRegular, size: 11*valuePro)
+            contentSuggestion.addSubview(lblSuggestion)
+            
+            let imgArrow:UIImageView = UIImageView(image: #imageLiteral(resourceName: "suggestionArrow"))
+            imgArrow.frame = CGRect(x: (contentSuggestion.frame.width-13.82*valuePro)/2, y: 61*valuePro, width: 13.82*valuePro, height: 8.95*valuePro)
+            contentSuggestion.addSubview(imgArrow)
+            
+            addSubview(contentMessage)
+            
+        }else{
+            contentMessage.isHidden = false
+        }
+       
     }
     // MARK: - TableView Datasource
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -83,12 +125,20 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
        // self.delegate?.goProfileViewController(indexPath: indexPath, timeline: self.currentData[indexPath.row])
-    }
+    }//quima@kb7i // 1859olo@kb7i88
     // MARK: - Firebase
     func updateWithData(list:[TimeLine]){
         
-        currentData = list
-        tableView.reloadData()
+        if list.count == 0 {
+            drawBodyNoData()
+        }else{
+            if contentMessage != nil {
+                contentMessage.isHidden = true
+            }
+            currentData = list
+            tableView.reloadData()
+            self.backgroundColor = UIColor.clear
+        }
         
     }
     
