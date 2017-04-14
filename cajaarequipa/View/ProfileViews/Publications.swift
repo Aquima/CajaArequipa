@@ -16,6 +16,7 @@ class Publications: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     var lblTitle: UILabel!
     var collectionView: UICollectionView!
     var listPhotos:[Photos] = []
+    var contentMessage:UIView!
     
     func drawBody(barHeight:CGFloat,title:String){
         
@@ -43,6 +44,72 @@ class Publications: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         addSubview(collectionView)
         addSubview(contentView)
         contentView.addSubview(lblTitle)
+        
+    }
+    func drawBodyNoData() {
+        
+        if contentMessage == nil {
+            contentMessage = UIView()
+            contentMessage.frame = self.bounds
+            let imgView:UIImageView = UIImageView(image: #imageLiteral(resourceName: "noPublications"))
+            imgView.frame = CGRect(x:(contentMessage.frame.width-70*valuePro)/2, y: (contentMessage.frame.height-(82+70)*valuePro)/2, width: 70*valuePro, height: 70*valuePro)
+            contentMessage.addSubview(imgView)
+            self.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
+            
+            let lblMessage = UILabel()
+            lblMessage.frame = CGRect(x:(contentMessage.frame.width-200*valuePro)/2, y: imgView.frame.origin.y+(70+5)*valuePro, width: 200*valuePro, height: 30*valuePro)
+            lblMessage.text = "Aún no hay publicaciónes\npara mostrar."
+            lblMessage.lineBreakMode = .byWordWrapping
+            lblMessage.numberOfLines = 2
+            lblMessage.font = UIFont(name: GlobalConstants.font.myriadProRegular, size: 13*valuePro)
+            lblMessage.textColor = UIColor.init(hexString: GlobalConstants.color.blackComment)
+            lblMessage.textAlignment = .center
+            contentMessage.addSubview(lblMessage)
+            
+            let contentSuggestion:UIView = UIView()
+            contentSuggestion.frame = CGRect(x: 0, y: (contentMessage.frame.size.height-82*valuePro), width:  contentMessage.frame.size.width, height: 92*valuePro)
+            contentSuggestion.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayLight)
+            contentMessage.addSubview(contentSuggestion)
+            
+            let lblSuggestion:UILabel = UILabel()
+            lblSuggestion.frame = CGRect(x:(contentSuggestion.frame.width-200*valuePro)/2, y: 24*valuePro, width: 200*valuePro, height: 30*valuePro)
+            lblSuggestion.textColor = UIColor.init(hexString: GlobalConstants.color.blackComment)
+            lblSuggestion.text = "¡Comparte tu primera foto ya!"
+            lblSuggestion.textAlignment = .center
+            lblSuggestion.font = UIFont(name: GlobalConstants.font.myriadProRegular, size: 11*valuePro)
+            contentSuggestion.addSubview(lblSuggestion)
+            
+            let imgArrow:UIImageView = UIImageView(image: #imageLiteral(resourceName: "suggestionArrow"))
+            imgArrow.frame = CGRect(x: (contentSuggestion.frame.width-13.82*valuePro)/2, y: 61*valuePro, width: 13.82*valuePro, height: 8.95*valuePro)
+            contentSuggestion.addSubview(imgArrow)
+            
+            addSubview(contentMessage)
+            
+            self.loper(arrow: imgArrow)
+            
+        }else{
+            contentMessage.isHidden = false
+        }
+        
+    }
+    func loper(arrow:UIImageView){
+        UIView.animate(withDuration: 0.6,
+                       animations: {
+                        arrow.frame =  CGRect(x: arrow.frame.origin.x, y: (61+15)*self.valuePro, width: 11.093*self.valuePro, height: 6.735*self.valuePro)
+                        //arrow.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+                        arrow.alpha = 0
+        },
+                       completion: { _ in
+                        arrow.alpha = 0
+                        arrow.frame =  CGRect(x: arrow.frame.origin.x, y: (61-15)*self.valuePro, width: 11.093*self.valuePro, height: 6.735*self.valuePro)
+                        UIView.animate(withDuration: 0.6,animations: {
+                            arrow.alpha = 1
+                            arrow.frame =  CGRect(x: arrow.frame.origin.x, y: (61)*self.valuePro, width: 11.093*self.valuePro, height: 6.735*self.valuePro)
+                        }, completion: { _ in
+                            arrow.alpha = 1
+                            self.loper(arrow: arrow)
+                        })
+        })
         
     }
     func drawBodyPublic(barHeight:CGFloat,title:String){
@@ -78,8 +145,17 @@ class Publications: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         
     }
     func updateWithData(list:[Photos]){
-        self.listPhotos = list
-        collectionView.reloadData()
+        if list.count == 0 {
+            drawBodyNoData()
+        }else{
+            if contentMessage != nil {
+                contentMessage.isHidden = true
+            }
+            self.listPhotos = list
+            collectionView.reloadData()
+            self.backgroundColor = UIColor.clear
+        }
+       
     }
     // MARK: - CollectionViewCell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int

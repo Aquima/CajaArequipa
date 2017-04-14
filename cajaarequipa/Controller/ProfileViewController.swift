@@ -20,7 +20,6 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    //    currentUser = User()
         // Do any additional setup after loading the view.
         createView()
         listenerPhotoAdded()
@@ -28,6 +27,7 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
         self.currentUser = ApiConsume.sharedInstance.currentUser
         self.meProfileInfo.updateView(user:self.currentUser)
         self.topBar.lblTitle.text = self.currentUser.name.getFirstName()
+        self.publications.updateWithData(list: self.listPhotos)
         
     }
 

@@ -81,10 +81,32 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
             
             addSubview(contentMessage)
             
+            self.loper(arrow: imgArrow)
+            
         }else{
             contentMessage.isHidden = false
         }
        
+    }
+    func loper(arrow:UIImageView){
+        UIView.animate(withDuration: 0.6,
+                       animations: {
+                        arrow.frame =  CGRect(x: arrow.frame.origin.x, y: (61+15)*self.valuePro, width: 11.093*self.valuePro, height: 6.735*self.valuePro)
+                        //arrow.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+                        arrow.alpha = 0
+        },
+                       completion: { _ in
+                        arrow.alpha = 0
+                        arrow.frame =  CGRect(x: arrow.frame.origin.x, y: (61-15)*self.valuePro, width: 11.093*self.valuePro, height: 6.735*self.valuePro)
+                        UIView.animate(withDuration: 0.6,animations: {
+                            arrow.alpha = 1
+                            arrow.frame =  CGRect(x: arrow.frame.origin.x, y: (61)*self.valuePro, width: 11.093*self.valuePro, height: 6.735*self.valuePro)
+                        }, completion: { _ in
+                             arrow.alpha = 1
+                            self.loper(arrow: arrow)
+                        })
+        })
+
     }
     // MARK: - TableView Datasource
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
