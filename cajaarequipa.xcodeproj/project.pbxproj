@@ -13,6 +13,7 @@
 		49708C531E9A541D00AE452B /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49708C521E9A541D00AE452B /* CommentsViewController.swift */; };
 		49708C551E9B243F00AE452B /* PublicProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49708C541E9B243F00AE452B /* PublicProfileViewController.swift */; };
 		49708C571E9B5ED200AE452B /* PublicProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49708C561E9B5ED200AE452B /* PublicProfileInfo.swift */; };
+		49D158F31EA1DCB9008B3A1D /* CommentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D158F21EA1DCB9008B3A1D /* CommentList.swift */; };
 		852852706EDE0174E42F847C /* Pods_cajaarequipaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65EA6B9F44FF3F761DDF6B3 /* Pods_cajaarequipaTests.framework */; };
 		F011B0A81E804917005E5F55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011B0A71E804917005E5F55 /* AppDelegate.swift */; };
 		F011B0AA1E804917005E5F55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011B0A91E804917005E5F55 /* ViewController.swift */; };
@@ -99,6 +100,7 @@
 		49708C521E9A541D00AE452B /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		49708C541E9B243F00AE452B /* PublicProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicProfileViewController.swift; sourceTree = "<group>"; };
 		49708C561E9B5ED200AE452B /* PublicProfileInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicProfileInfo.swift; sourceTree = "<group>"; };
+		49D158F21EA1DCB9008B3A1D /* CommentList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentList.swift; sourceTree = "<group>"; };
 		745E5F6E62CB945070D4C77D /* Pods_cajaarequipaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cajaarequipaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89D8291F308BD7921772B1F0 /* Pods-cajaarequipaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipaTests/Pods-cajaarequipaTests.release.xcconfig"; sourceTree = "<group>"; };
 		9441BC5C522297FF2FEEB6FA /* Pods_cajaarequipa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cajaarequipa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -226,6 +228,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		49D158F11EA1DAFE008B3A1D /* CommentView */ = {
+			isa = PBXGroup;
+			children = (
+				49D158F21EA1DCB9008B3A1D /* CommentList.swift */,
+			);
+			path = CommentView;
+			sourceTree = "<group>";
+		};
 		72A50023F5BEA530D6339260 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +321,7 @@
 		F011B0D91E804A65005E5F55 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				49D158F11EA1DAFE008B3A1D /* CommentView */,
 				1B530D8C1E96ACFA00E02296 /* Timeline */,
 				F09AF7381E8F9C8C004EDF85 /* DiscoveryView */,
 				F0506BA81E8D42B60012C33A /* PostView */,
@@ -775,6 +786,7 @@
 				F011B0A81E804917005E5F55 /* AppDelegate.swift in Sources */,
 				F09AF7371E8F9AAE004EDF85 /* DiscoveryViewController.swift in Sources */,
 				F0F8FAD31E8391FB0009CC52 /* FavoritedViewController.swift in Sources */,
+				49D158F31EA1DCB9008B3A1D /* CommentList.swift in Sources */,
 				F0A932451E8609B500CEB939 /* ApiConsumeExtensions.swift in Sources */,
 				49708C531E9A541D00AE452B /* CommentsViewController.swift in Sources */,
 				F0F8FAD11E8391E80009CC52 /* CameraViewController.swift in Sources */,

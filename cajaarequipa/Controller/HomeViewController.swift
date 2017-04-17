@@ -224,11 +224,9 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
                 }
                 
                     let snapDictionary = snapshot.value as! Dictionary<String, Any>
-                
                     let timelineItem:TimeLine = TimeLine()
                     timelineItem.key = snapshot.key
                     timelineItem.translateToModel(data: snapDictionary)
-                    
                     self.sendData.append(timelineItem)
                     
                     refTimelineAdded.removeAllObservers()
@@ -247,10 +245,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
             if (snapshot.value is NSNull) {
                 print("loadNewTimeLine")
             } else {
-       
                 self.listTimeline.isLoading = false
-                
-                
                 refTimelineAdded.removeAllObservers()
             }
             

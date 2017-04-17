@@ -10,8 +10,9 @@ import UIKit
 import Firebase
 
 class CommentsViewController: BoxViewController ,TopBarDelegate {
-
+    var currentUser:User!
     var topBar:TopBar!
+    var commentsList:CommentList!
     override func viewDidLoad() {
         super.viewDidLoad()
         createView()
@@ -31,8 +32,12 @@ class CommentsViewController: BoxViewController ,TopBarDelegate {
         topBar.delegate = self
         topBar.drawBody(leftImage: #imageLiteral(resourceName: "back"), rightImage: #imageLiteral(resourceName: "hide"), title: "Comentarios")
         view.addSubview(topBar)
+      
+        commentsList = CommentList()
+        commentsList.drawBody(barHeight: (self.tabBarController?.tabBar.frame.size.height)!)
+        view.addSubview(commentsList)
         
-        
+     
     }
     // MARK: - TopBarDelegate
     func pressLeft(sender: UIButton) {
@@ -43,5 +48,5 @@ class CommentsViewController: BoxViewController ,TopBarDelegate {
     func pressRight(sender: UIButton) {
         //no actions
     }
-
+    
 }
