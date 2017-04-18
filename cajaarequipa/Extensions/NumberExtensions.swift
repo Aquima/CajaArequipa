@@ -90,7 +90,7 @@ extension Date {
         let date2: Date = Date(timeInterval: theTimeInterval, since: date1)
         let conversionInfo:DateComponents = sysCalendar.dateComponents([.hour, .minute , .day , .month , .second], from: date1, to: date2)
         
-        var returnDate: String = ""
+        var returnDate: String = "Hace instantes"
         if conversionInfo.month! > 0 { returnDate = String(format: "Hace %ld meses", conversionInfo.month!) }
         else if conversionInfo.day! > 0 { returnDate = String(format: "Hace %ld días", conversionInfo.day!) }
         else if conversionInfo.hour! > 0 { returnDate = String(format: "Hace %ld horas", conversionInfo.hour!) }

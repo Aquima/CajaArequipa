@@ -97,6 +97,7 @@ class CommentsViewController: BoxViewController ,TopBarDelegate, CommentListDele
             self.commentsList.messageTextfield.resignFirstResponder()
             self.commentsList.messageTextfield.text = ""
             self.commentsList.currentTexfield.text = ""
+            self.commentsList.resignFirstResponderList()
         })
         
     }
@@ -112,11 +113,13 @@ class CommentsViewController: BoxViewController ,TopBarDelegate, CommentListDele
                 print("retriveTimeLine")
                 self.commentsList.updateWithData(list: self.sendData)
                 ref.removeAllObservers()
+                self.listenerTimelineAdded()
             } else {
                 
                 for child in snapshot.children {
+                    
                     let data:FIRDataSnapshot = child as! FIRDataSnapshot
-                    print(data.key)
+                    //print(data.key)
                     let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
                     
                     let commentItem:Comment = Comment()
@@ -125,13 +128,41 @@ class CommentsViewController: BoxViewController ,TopBarDelegate, CommentListDele
                     self.sendData.append(commentItem)
                     
                 }
+                
                 self.commentsList.updateWithData(list: self.sendData)
                 ref.removeAllObservers()
+                self.listenerTimelineAdded()
                 
             }
             
         })
         
+    }
+    func listenerTimelineAdded(){
+        var refTimelineAdded: FIRDatabaseReference!
+        //escuchar nuestro comments si se agrega un nuevo item en nuestro nodo
+
+        refTimelineAdded = FIRDatabase.database().reference()
+        refTimelineAdded.child("comments").child(currentTimeLine.key).observe(.childAdded, with:  { (snapshot) -> Void in
+            // let snap:FIRDataSnapshot
+            if (snapshot.value is NSNull) {
+                print("loadNewTimeLine")
+            } else {
+                if self.sendData.count > 0 {
+                    self.sendData.removeLast()
+                }
+                
+                let snapDictionary = snapshot.value as! Dictionary<String, Any>
+  
+                let commentItem:Comment = Comment()
+                commentItem.key = snapshot.key
+                commentItem.translateToModel(data: snapDictionary)
+                self.sendData.append(commentItem)
+                self.commentsList.updateWithData(list: self.sendData)
+                refTimelineAdded.removeAllObservers()
+            }
+            
+        })
     }
 
 }
