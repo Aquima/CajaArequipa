@@ -36,6 +36,9 @@
 		F0506BA71E8D42110012C33A /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0506BA61E8D42110012C33A /* PostViewController.swift */; };
 		F0506BAA1E8D7AC30012C33A /* FooterPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0506BA91E8D7AC30012C33A /* FooterPhoto.swift */; };
 		F0506BAC1E8DC1D80012C33A /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0506BAB1E8DC1D80012C33A /* Photos.swift */; };
+		F06F50411EA55FA400DD1D33 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06F50401EA55FA400DD1D33 /* Comment.swift */; };
+		F06F50441EA566DD00DD1D33 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06F50421EA566DD00DD1D33 /* CommentTableViewCell.swift */; };
+		F06F50451EA566DD00DD1D33 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F06F50431EA566DD00DD1D33 /* CommentTableViewCell.xib */; };
 		F09AF7341E8F03E5004EDF85 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09AF7321E8F03E5004EDF85 /* PhotosCollectionViewCell.swift */; };
 		F09AF7351E8F03E5004EDF85 /* PhotosCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F09AF7331E8F03E5004EDF85 /* PhotosCollectionViewCell.xib */; };
 		F09AF7371E8F9AAE004EDF85 /* DiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09AF7361E8F9AAD004EDF85 /* DiscoveryViewController.swift */; };
@@ -136,6 +139,9 @@
 		F0506BA91E8D7AC30012C33A /* FooterPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterPhoto.swift; sourceTree = "<group>"; };
 		F0506BAB1E8DC1D80012C33A /* Photos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		F05FADDC1E8C54F600F85B04 /* cajaarequipa-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cajaarequipa-header.h"; sourceTree = "<group>"; };
+		F06F50401EA55FA400DD1D33 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		F06F50421EA566DD00DD1D33 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		F06F50431EA566DD00DD1D33 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		F09AF7321E8F03E5004EDF85 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		F09AF7331E8F03E5004EDF85 /* PhotosCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotosCollectionViewCell.xib; sourceTree = "<group>"; };
 		F09AF7361E8F9AAD004EDF85 /* DiscoveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +238,8 @@
 			isa = PBXGroup;
 			children = (
 				49D158F21EA1DCB9008B3A1D /* CommentList.swift */,
+				F06F50421EA566DD00DD1D33 /* CommentTableViewCell.swift */,
+				F06F50431EA566DD00DD1D33 /* CommentTableViewCell.xib */,
 			);
 			path = CommentView;
 			sourceTree = "<group>";
@@ -314,6 +322,7 @@
 				F0B176811E89A2840056BA98 /* User.swift */,
 				F0506BAB1E8DC1D80012C33A /* Photos.swift */,
 				F0CF4C641E970CF700D28F3C /* TimeLine.swift */,
+				F06F50401EA55FA400DD1D33 /* Comment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -596,6 +605,7 @@
 				F0506BA31E8CD0C30012C33A /* MediaCamera.xcassets in Resources */,
 				F0CF4C631E9706E600D28F3C /* TimelineTableViewCell.xib in Resources */,
 				F011B0B21E804917005E5F55 /* Assets.xcassets in Resources */,
+				F06F50451EA566DD00DD1D33 /* CommentTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -780,6 +790,7 @@
 				F011B0E21E807AF8005E5F55 /* SplashViewController.swift in Sources */,
 				F0CF4C621E9706E600D28F3C /* TimelineTableViewCell.swift in Sources */,
 				F0F8FAD51E8392060009CC52 /* ProfileViewController.swift in Sources */,
+				F06F50441EA566DD00DD1D33 /* CommentTableViewCell.swift in Sources */,
 				F0F8FAC71E8343FC0009CC52 /* RegisterForm.swift in Sources */,
 				F0F8FACF1E8391DB0009CC52 /* SearchViewController.swift in Sources */,
 				F011B0B01E804917005E5F55 /* cajaarequipa.xcdatamodeld in Sources */,
@@ -789,6 +800,7 @@
 				49D158F31EA1DCB9008B3A1D /* CommentList.swift in Sources */,
 				F0A932451E8609B500CEB939 /* ApiConsumeExtensions.swift in Sources */,
 				49708C531E9A541D00AE452B /* CommentsViewController.swift in Sources */,
+				F06F50411EA55FA400DD1D33 /* Comment.swift in Sources */,
 				F0F8FAD11E8391E80009CC52 /* CameraViewController.swift in Sources */,
 				F0506BA11E8CB2060012C33A /* CustomCameraView.swift in Sources */,
 				F0F8FADA1E83FEFC0009CC52 /* TopBar.swift in Sources */,

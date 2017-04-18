@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 
 class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate {
+   
+
 
     var topBar:TopBar!
     var listTimeline:ListTimeline!
@@ -137,8 +139,16 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         self.navigationController?.pushViewController(publicProfileVC, animated: true)
         
     }
+    internal func showComments(indexPath: IndexPath, timeline: TimeLine) {
+        let commentsVC:CommentsViewController = CommentsViewController()
+        commentsVC.currentTimeLine = timeline
+        commentsVC.isKeyboardActive = false
+        self.navigationController?.pushViewController(commentsVC, animated: true)
+    }
     internal func goCommentsViewController(indexPath: IndexPath,timeline:TimeLine){
         let commentsVC:CommentsViewController = CommentsViewController()
+        commentsVC.currentTimeLine = timeline
+        commentsVC.isKeyboardActive = true
         self.navigationController?.pushViewController(commentsVC, animated: true)
     }
     internal func goShare(indexPath: IndexPath,timeline:TimeLine){

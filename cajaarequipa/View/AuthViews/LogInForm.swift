@@ -60,7 +60,7 @@ class LogInForm: UIView, UITextFieldDelegate {
         
         txtEmail = UITextField()
         txtEmail.styleForm()
-        txtEmail.placeholder = "Correo Electrónico"
+        txtEmail.placeholder = "Correo Electrónico" // "Ingrese su numero de DNI"
         txtEmail.clearButtonMode = .always
         
         txtPassword = UITextField()

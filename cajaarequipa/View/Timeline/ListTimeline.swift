@@ -13,7 +13,7 @@ protocol ListTimelineDelegate {
     func goProfileViewController(indexPath: IndexPath,timeline:TimeLine)
     func goCommentsViewController(indexPath: IndexPath,timeline:TimeLine)
     func goShare(indexPath: IndexPath,timeline:TimeLine)
-    
+    func showComments(indexPath: IndexPath,timeline:TimeLine)
 }
 class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
     
@@ -135,6 +135,9 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
         }
         cell.showProfileAction = {
             self.delegate?.goProfileViewController(indexPath: indexPath, timeline: self.currentData[indexPath.row])
+        }
+        cell.showCommentsAction = {
+            self.delegate?.showComments(indexPath: indexPath, timeline: self.currentData[indexPath.row])
         }
         return cell
     }

@@ -17,6 +17,7 @@ class TimeLine: NSObject {
     var describe:String!
     var userPropertier:User?
     var isfavorited:Bool = false
+    var timestamp:Date!
     
     func translateToModel(data:Dictionary<String, Any>){
         let valueFavorited = data["isfavorited"] as! NSNumber
@@ -32,5 +33,8 @@ class TimeLine: NSObject {
         pictureUrl = (data["pictureurl"] != nil) ? URL(string: data["pictureurl"] as! String) :  nil
         userPropertier = User()
         userPropertier?.translateToModel(data: data["user"] as! Dictionary<String, Any>)
+        let numberSeconds = data["timestamp"] as! NSNumber
+        timestamp = Date(timeIntervalSince1970: (numberSeconds.doubleValue / 1000.0))
+        
     }
 }

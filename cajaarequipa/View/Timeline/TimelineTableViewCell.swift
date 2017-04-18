@@ -20,6 +20,7 @@ class TimelineTableViewCell: UITableViewCell {
     var btnFavorite:UIButton!
     var btnComments:UIButton!
     var btnShare:UIButton!
+    var btnShowComment:UIButton!
     var lblLikes:UILabel!
     var lblShowComments:UILabel!
     var lblTimestamp:UILabel!
@@ -31,6 +32,7 @@ class TimelineTableViewCell: UITableViewCell {
     var commentsAction : (() -> Void)? = nil
     var shareAction : (() -> Void)? = nil
     var showProfileAction : (() -> Void)? = nil
+    var showCommentsAction : (() -> Void)? = nil
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -76,6 +78,7 @@ class TimelineTableViewCell: UITableViewCell {
         btnProfile.frame = imgProfileView.frame
         btnProfile.addTarget(self, action: #selector(pressProfileOn(sender:)), for: .touchUpInside)
         
+      
         lblLikes = UILabel()
         lblLikes.frame = CGRect(x:12*valuePro, y:358*valuePro ,width: 150*valuePro, height: 15*valuePro)
         
@@ -89,6 +92,10 @@ class TimelineTableViewCell: UITableViewCell {
         lblShowComments.textColor = UIColor.init(hexString: GlobalConstants.color.showCommentColor)
         lblShowComments.font = UIFont(name: GlobalConstants.font.myriadProRegular, size: 12*valuePro)!
         
+        btnShowComment = UIButton()
+        btnShowComment.frame = lblShowComments.frame
+        btnShowComment.addTarget(self, action: #selector(pressShowComments(sender:)), for: .touchUpInside)
+  
         lblTimestamp = UILabel()
         lblTimestamp.frame = CGRect(x:12*valuePro, y:422*valuePro ,width: 170*valuePro, height: 15*valuePro)
         lblTimestamp.textColor = UIColor.init(hexString: GlobalConstants.color.timestampColor)
@@ -105,7 +112,8 @@ class TimelineTableViewCell: UITableViewCell {
         view.addSubview(imgView)
         view.addSubview(imgProfileView)
         
-         view.addSubview(btnProfile)
+        view.addSubview(btnProfile)
+        view.addSubview(btnShowComment)
         
     }
     func loadWithTimeline(timeline:TimeLine){
@@ -115,7 +123,7 @@ class TimelineTableViewCell: UITableViewCell {
         lblLikes.attributedText = updateAtributes(likes: String(timeline.likes))
         lblNameComments.attributedText = updateAtributesComments(name: (timeline.userPropertier?.name.getUserName().capitalized)!, comment: timeline.describe)
         lblShowComments.text = "Ver los \(timeline.comments) comentarios"
-        lblTimestamp.text = "Hace 5 horas"
+        lblTimestamp.text = timeline.timestamp.retrivePostTime()
         if self.currentTimeline.isfavorited == false{
             btnFavorite.tag = 0
             btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOff"), for: .normal)
@@ -152,6 +160,12 @@ class TimelineTableViewCell: UITableViewCell {
     }
 
     // MARK: - Actions
+    func pressShowComments(sender:UIButton){
+        if let btnShomCommentAction = self.showCommentsAction
+        {
+            btnShomCommentAction()
+        }
+    }
     func pressFavoriteOn(sender:UIButton){
         sender.isEnabled = false
         UIView.animate(withDuration: 0.3,
