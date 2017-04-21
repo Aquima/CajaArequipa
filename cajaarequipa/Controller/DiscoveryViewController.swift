@@ -240,5 +240,5 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
         
         ref.removeAllObservers()
     }
-
+   
 }

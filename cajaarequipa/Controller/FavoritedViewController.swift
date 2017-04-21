@@ -8,28 +8,36 @@
 
 import UIKit
 
-class FavoritedViewController: BoxViewController {
+class FavoritedViewController: BoxViewController,TopBarDelegate {
 
+    var topBar:TopBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
+        createView()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func createView(){
+        
+        view.backgroundColor = UIColor.init(hexString: GlobalConstants.color.white)
+        topBar = TopBar()
+        topBar.delegate = self
+        topBar.drawBody(leftImage: #imageLiteral(resourceName: "back"), rightImage: #imageLiteral(resourceName: "hide"), title: "Favoritos")
+        view.addSubview(topBar)
     }
-    */
 
+
+    // MARK: - TopBarDelegate
+    internal func pressLeft(sender:UIButton){
+        
+    }
+    internal func pressRight(sender:UIButton){
+        
+    }
 }

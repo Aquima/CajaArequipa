@@ -24,7 +24,7 @@ class BoxViewController: UIViewController {
     }
     func showTopBar(){
         let topBar = UIView()
-        topBar.backgroundColor = UIColor.init(hexString: "002753")
+        topBar.backgroundColor = UIColor.init(hexString: GlobalConstants.color.blue)
         topBar.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: 18*valuePro)
         view.addSubview(topBar)
     }
