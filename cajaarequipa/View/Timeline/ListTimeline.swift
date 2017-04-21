@@ -29,6 +29,7 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
     var isLoading = false
     
     var contentMessage:UIView!
+    var isFavoritedView = false
     func drawBody(barHeight:CGFloat){
         
         self.frame =  CGRect(x:  (screenSize.width-320*valuePro)/2, y: 58*valuePro, width:320*valuePro, height: screenSize.height-barHeight-58*valuePro)
@@ -48,6 +49,7 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
             contentMessage = UIView()
             contentMessage.frame = self.bounds
             let imgView:UIImageView = UIImageView(image: #imageLiteral(resourceName: "placeholderHomeNoData"))
+           
             imgView.frame = CGRect(x:(contentMessage.frame.width-70*valuePro)/2, y: (contentMessage.frame.height-(82+70)*valuePro)/2, width: 70*valuePro, height: 70*valuePro)
             contentMessage.addSubview(imgView)
             self.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
@@ -60,29 +62,34 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
             lblMessage.font = UIFont(name: GlobalConstants.font.myriadProRegular, size: 13*valuePro)
             lblMessage.textColor = UIColor.init(hexString: GlobalConstants.color.blackComment)
             lblMessage.textAlignment = .center
+            if isFavoritedView == true {
+                imgView.image = #imageLiteral(resourceName: "noFavorited")
+                lblMessage.text = "Aún no tienes favoritos\npara mostrar."
+            }
             contentMessage.addSubview(lblMessage)
             
-            let contentSuggestion:UIView = UIView()
-            contentSuggestion.frame = CGRect(x: 0, y: (contentMessage.frame.size.height-82*valuePro), width:  contentMessage.frame.size.width, height: 92*valuePro)
-            contentSuggestion.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayLight)
-            contentMessage.addSubview(contentSuggestion)
-            
-            let lblSuggestion:UILabel = UILabel()
-            lblSuggestion.frame = CGRect(x:(contentSuggestion.frame.width-200*valuePro)/2, y: 24*valuePro, width: 200*valuePro, height: 30*valuePro)
-            lblSuggestion.textColor = UIColor.init(hexString: GlobalConstants.color.blackComment)
-            lblSuggestion.text = "¡Comparte tu primera foto ya!"
-            lblSuggestion.textAlignment = .center
-            lblSuggestion.font = UIFont(name: GlobalConstants.font.myriadProRegular, size: 11*valuePro)
-            contentSuggestion.addSubview(lblSuggestion)
-            
-            let imgArrow:UIImageView = UIImageView(image: #imageLiteral(resourceName: "suggestionArrow"))
-            imgArrow.frame = CGRect(x: (contentSuggestion.frame.width-13.82*valuePro)/2, y: 61*valuePro, width: 13.82*valuePro, height: 8.95*valuePro)
-            contentSuggestion.addSubview(imgArrow)
-            
+ 
+            if isFavoritedView == false{
+                let contentSuggestion:UIView = UIView()
+                contentSuggestion.frame = CGRect(x: 0, y: (contentMessage.frame.size.height-82*valuePro), width:  contentMessage.frame.size.width, height: 92*valuePro)
+                contentSuggestion.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayLight)
+                contentMessage.addSubview(contentSuggestion)
+                
+                let lblSuggestion:UILabel = UILabel()
+                lblSuggestion.frame = CGRect(x:(contentSuggestion.frame.width-200*valuePro)/2, y: 24*valuePro, width: 200*valuePro, height: 30*valuePro)
+                lblSuggestion.textColor = UIColor.init(hexString: GlobalConstants.color.blackComment)
+                lblSuggestion.text = "¡Comparte tu primera foto ya!"
+                lblSuggestion.textAlignment = .center
+                lblSuggestion.font = UIFont(name: GlobalConstants.font.myriadProRegular, size: 11*valuePro)
+                contentSuggestion.addSubview(lblSuggestion)
+                
+                let imgArrow:UIImageView = UIImageView(image: #imageLiteral(resourceName: "suggestionArrow"))
+                imgArrow.frame = CGRect(x: (contentSuggestion.frame.width-13.82*valuePro)/2, y: 61*valuePro, width: 13.82*valuePro, height: 8.95*valuePro)
+                contentSuggestion.addSubview(imgArrow)
+                
+                self.loper(arrow: imgArrow)
+            }
             addSubview(contentMessage)
-            
-            self.loper(arrow: imgArrow)
-            
         }else{
             contentMessage.isHidden = false
         }
@@ -156,10 +163,12 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
         
         if list.count == 0 {
             drawBodyNoData()
+            tableView.isHidden = true
         }else{
             if contentMessage != nil {
                 contentMessage.isHidden = true
             }
+            tableView.isHidden = false
             currentData = list
             tableView.reloadData()
             self.backgroundColor = UIColor.clear

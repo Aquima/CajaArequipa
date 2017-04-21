@@ -49,7 +49,7 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
             let imgView:UIImageView = UIImageView(image: #imageLiteral(resourceName: "noSearchResult"))
             imgView.frame = CGRect(x:(contentMessage.frame.width-70*valuePro)/2, y: 92*valuePro + ((contentMessage.frame.height-92*valuePro)-(100)*valuePro)/2, width: 70*valuePro, height: 70*valuePro)
             contentMessage.addSubview(imgView)
-            self.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
+            self.backgroundColor = UIColor.init(hexString: GlobalConstants.color.white)
             
             let lblMessage = UILabel()
             lblMessage.frame = CGRect(x:(contentMessage.frame.width-200*valuePro)/2, y: imgView.frame.origin.y+(70+5)*valuePro, width: 200*valuePro, height: 30*valuePro)
@@ -87,7 +87,7 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
         }
         
         contentMessage.isHidden = show
-        
+        tableView.isHidden = !show
         
     }
     func loper(arrow:UIImageView){
@@ -150,7 +150,5 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
             self.delegate?.loadNewUsers(offset: pageNumber, user: currentData.last!)
         }
     }
-   
-    
 
 }

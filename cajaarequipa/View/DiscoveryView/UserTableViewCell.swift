@@ -78,6 +78,7 @@ class UserTableViewCell: UITableViewCell {
     
         imgView.sd_setImage(with: user.pictureUrl, placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
         lblName.text = user.name.getFirstName()
+        lblUsername.text = user.name.getLastName()
         lblFollowers.attributedText = updateAtributes(followers: String(user.followers))
         self.checkFollow(user: user)
         

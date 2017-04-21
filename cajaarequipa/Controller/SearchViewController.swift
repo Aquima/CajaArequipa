@@ -43,7 +43,17 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,DiscoveryList
         view.addSubview(discoveryList)
         
         discoveryList.showNoDataMessage(show: false)
+        let tapList = UITapGestureRecognizer(target: self, action:#selector(handleTap(sender:)))
+        
+        discoveryList.addGestureRecognizer(tapList)
+     
     }
+
+    func handleTap(sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        searchBar.resignFirstResponder()
+    }
+
     func retriveUsersFromValue(value:String){
         
         var ref: FIRDatabaseReference!
@@ -53,6 +63,7 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,DiscoveryList
             if (snapshot.value is NSNull) {
                 print("retriveUsers")
                 self.discoveryList.showNoDataMessage(show: false)
+                
             } else {
                 self.discoveryList.showNoDataMessage(show: true)
                 self.sendData.removeAll()
@@ -130,7 +141,8 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,DiscoveryList
       //  myLabel.text = searchText
         
         if  searchText == "" {
-            retriveUsersFromValue(value: " ")
+            self.sendData.removeAll()
+            self.discoveryList.showNoDataMessage(show: false)
         }else{
             retriveUsersFromValue(value: searchText.uppercased())
         }
@@ -150,28 +162,28 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,DiscoveryList
     }
     // MARK: - SearBarDelegate
     internal func checkFollowing(indexPath: IndexPath, user:User) {
-        
-        let uid = FIRAuth.auth()!.currentUser!.uid
-        let ref = FIRDatabase.database().reference()
-        ref.child("following").child(uid).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
-            if (snapshot.value is NSNull) {
-                print("checkFollowing")
-            } else {
-                if let following = snapshot.value as? [String : AnyObject] {
-                    for (key , _) in following {
-                        if key == user.key {
-                            user.isFollowing = true
-                            let cell:UserTableViewCell = self.discoveryList.tableView.cellForRow(at: indexPath) as! UserTableViewCell
-                            cell.checkFollow(user: user)
-                        }
-                    }
-                }
-            }
-            
-        })
-        
-        ref.removeAllObservers()
-        
+//        
+//        let uid = FIRAuth.auth()!.currentUser!.uid
+//        let ref = FIRDatabase.database().reference()
+//        ref.child("following").child(uid).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
+//            if (snapshot.value is NSNull) {
+//                print("checkFollowing")
+//            } else {
+//                if let following = snapshot.value as? [String : AnyObject] {
+//                    for (key , _) in following {
+//                        if key == user.key {
+//                            user.isFollowing = true
+//                            let cell:UserTableViewCell = self.discoveryList.tableView.cellForRow(at: indexPath) as! UserTableViewCell
+//                            cell.checkFollow(user: user)
+//                        }
+//                    }
+//                }
+//            }
+//            
+//        })
+//        
+//        ref.removeAllObservers()
+//        
     }
     
     internal func updateCheckFollowing(indexPath: IndexPath, user:User) {

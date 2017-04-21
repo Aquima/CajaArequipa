@@ -27,6 +27,7 @@ class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfil
         updateValues()
         self.publicProfileInfo.updateView(user:self.currentUser)
         checkFollowing(user: self.currentUser)
+        self.listenerUserChanges()
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,13 +41,10 @@ class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfil
         ref.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? Dictionary<String,Any>
-            
             self.currentUser.translateToModel(data: value!)
             self.currentUser.uid = snapshot.key
             self.currentUser.key = snapshot.key
             self.publicProfileInfo.updateView(user:self.currentUser)
-
-         //   self.listenerUserChanges()
             // ...
         }) { (error) in
             print(error.localizedDescription)
@@ -60,8 +58,6 @@ class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfil
             self.updateValues()
             ref.removeAllObservers()
         })
-        
-        
     }
     // MARK: - Navigation
     func createView(){

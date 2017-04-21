@@ -169,12 +169,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/View/ProfileViews/Publications.swift"
-            timestampString = "513819553.114547"
+            filePath = "cajaarequipa/View/CommentView/CommentList.swift"
+            timestampString = "514166195.66692"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "updateWithData(list:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -185,12 +185,268 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/View/CommentView/CommentList.swift"
-            timestampString = "514166195.66692"
+            filePath = "cajaarequipa/Controller/SearchViewController.swift"
+            timestampString = "514505576.442266"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "checkFollowing(indexPath:user:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "cajaarequipa.SearchViewController.(checkFollowing (indexPath : Foundation.IndexPath, user : cajaarequipa.User) -&gt; ()).(closure #1)"
+                  moduleName = "cajaarequipa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/SearchViewController.swift"
+                  timestampString = "514503032.924775"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "161"
+                  endingLineNumber = "161"
+                  offsetFromSymbolStart = "660">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "cajaarequipa.SearchViewController.(checkFollowing (indexPath : Foundation.IndexPath, user : cajaarequipa.User) -&gt; ()).(closure #1)"
+                  moduleName = "cajaarequipa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/SearchViewController.swift"
+                  timestampString = "514503032.926906"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "161"
+                  endingLineNumber = "161"
+                  offsetFromSymbolStart = "1092">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/Controller/SearchViewController.swift"
+            timestampString = "514504163.513684"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "retriveUsersFromValue(value:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "cajaarequipa.SearchViewController.retriveUsersFromValue (value : Swift.String) -&gt; ()"
+                  moduleName = "cajaarequipa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/SearchViewController.swift"
+                  timestampString = "514503032.93252"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "cajaarequipa.SearchViewController.(retriveUsersFromValue (value : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "cajaarequipa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/SearchViewController.swift"
+                  timestampString = "514503032.934676"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/Controller/SearchViewController.swift"
+            timestampString = "514504163.513684"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "retriveUsersFromValue(value:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "cajaarequipa.SearchViewController.retriveUsersFromValue (value : Swift.String) -&gt; ()"
+                  moduleName = "cajaarequipa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/SearchViewController.swift"
+                  timestampString = "514503032.940234"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "232">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "cajaarequipa.SearchViewController.(retriveUsersFromValue (value : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "cajaarequipa"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/SearchViewController.swift"
+                  timestampString = "514503032.942406"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/Controller/SearchViewController.swift"
+            timestampString = "514505576.442266"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "updateCheckFollowing(indexPath:user:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/Controller/PublicProfileViewController.swift"
+            timestampString = "514505174.546975"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "updateValues()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/View/Timeline/ListTimeline.swift"
+            timestampString = "514502243.612454"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "drawBodyNoData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/View/Timeline/ListTimeline.swift"
+            timestampString = "514502249.957496"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "drawBodyNoData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/View/Timeline/ListTimeline.swift"
+            timestampString = "514502280.704114"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "drawBodyNoData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/View/Timeline/ListTimeline.swift"
+            timestampString = "514503087.828465"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "updateWithData(list:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/View/Timeline/ListTimeline.swift"
+            timestampString = "514503140.237884"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "updateWithData(list:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cajaarequipa/View/Timeline/ListTimeline.swift"
+            timestampString = "514503087.828465"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "updateWithData(list:)"
             landmarkType = "7">
          </BreakpointContent>
