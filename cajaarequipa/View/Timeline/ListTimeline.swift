@@ -24,7 +24,7 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
     var tableView: UITableView!
     var currentData:[TimeLine] = []
     
-    var pageNumber = 1
+    var pageNumber = 0
     
     var isLoading = false
     

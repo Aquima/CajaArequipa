@@ -17,7 +17,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
     var listTimeline:ListTimeline!
     var sendData:[TimeLine] = []
     
-    var pageNumber = 1
+    var numberOfItems = 3
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -62,7 +62,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         let uid = ApiConsume.sharedInstance.currentUser.key
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
-        ref.child("timeline").child(uid!).queryOrderedByKey().queryLimited(toFirst:5).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
+        ref.child("timeline").child(uid!).queryOrderedByKey().queryLimited(toLast:UInt(numberOfItems)).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
             
             
             if (snapshot.value is NSNull) {
@@ -80,8 +80,8 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
                     let timelineItem:TimeLine = TimeLine()
                     timelineItem.key = data.key
                     timelineItem.translateToModel(data: snapDictionary)
-                    self.sendData.append(timelineItem)
-
+                   // self.sendData.append(timelineItem)
+                    self.sendData.insert(timelineItem, at: 0)
                 }
                 self.listTimeline.updateWithData(list: self.sendData)
                 ref.removeAllObservers()
@@ -96,25 +96,30 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         let uid = ApiConsume.sharedInstance.currentUser.key
         self.listTimeline.isLoading = true
         var ref: FIRDatabaseReference!
-        ref = FIRDatabase.database().reference()
-        ref.child("timeline").child(uid!).queryOrderedByKey().queryStarting(atValue: timeline.key).queryLimited(toFirst: UInt(offset)*5).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
+        ref = FIRDatabase.database().reference()//UInt(offset)*3
+           print("=============================================== new request \(timeline.timestamp.retrivePostTime())")
+        ref.child("timeline").child(uid!).queryOrderedByKey().queryEnding(atValue: timeline.key).queryLimited(toFirst: UInt(numberOfItems)).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
             
             if (snapshot.value is NSNull) {
                 print("loadNewTimeLine")
               //  self.listenerTimelineAdded()
             } else {
-                self.sendData.removeLast()
+              //  self.sendData.removeLast()
+              //  print(snapshot.value)
                 for child in snapshot.children {
                     let data:FIRDataSnapshot = child as! FIRDataSnapshot
-                    print(data.key)
+                  
                     let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
                     
                     let timelineItem:TimeLine = TimeLine()
                     timelineItem.key = data.key
                     timelineItem.translateToModel(data: snapDictionary)
                     
-                    self.sendData.append(timelineItem)
-
+                //    self.sendData.append(timelineItem)
+                    if snapshot.childrenCount > 1 {
+                        self.sendData.insert(timelineItem, at: offset*self.numberOfItems)
+                    }
+                  
                 }
                 if snapshot.childrenCount > 1 {
                     self.listTimeline.isLoading = false
