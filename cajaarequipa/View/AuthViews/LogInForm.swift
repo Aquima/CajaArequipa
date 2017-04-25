@@ -52,6 +52,7 @@ class LogInForm: UIView, UITextFieldDelegate {
     var currentError:errorLogInType = errorLogInType.none
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
+    var isDocument:Bool = false
     func drawBody(){
         self.backgroundColor = UIColor.white
         // Drawing code
@@ -60,7 +61,7 @@ class LogInForm: UIView, UITextFieldDelegate {
         
         txtEmail = UITextField()
         txtEmail.styleForm()
-        txtEmail.placeholder = "Correo Electrónico" // "Ingrese su numero de DNI"
+        txtEmail.placeholder = "Correo Electrónico o DNI" // "Ingrese su numero de DNI"
         txtEmail.clearButtonMode = .always
         
         txtPassword = UITextField()
@@ -90,7 +91,7 @@ class LogInForm: UIView, UITextFieldDelegate {
         addSubview(lineEmail)
         addSubview(linePassword)
        // txtEmail.text = "rca@g.com"
-        txtPassword.text = "123456"
+      //  txtPassword.text = "123456"
     }
     func updateView(){
         

@@ -145,7 +145,7 @@ class FavoritedViewController: BoxViewController,TopBarDelegate,ListTimelineDele
         
         let publicProfileVC:PublicProfileViewController = PublicProfileViewController()
         publicProfileVC.currentUser = timeline.userPropertier
-        timeline.userPropertier?.key = timeline.userPropertier?.uid
+      //  timeline.userPropertier?.key = timeline.userPropertier?.uid
         self.navigationController?.pushViewController(publicProfileVC, animated: true)
         
     }
@@ -194,6 +194,7 @@ class FavoritedViewController: BoxViewController,TopBarDelegate,ListTimelineDele
             if self.sendData.count == 0 {
                 //self.listTimeline.updateWithData(list: self.sendData)
                 self.listTimeline.tableView.isHidden = true
+              
                 self.listTimeline.contentMessage.isHidden = false
             }
         }else{
@@ -208,7 +209,7 @@ class FavoritedViewController: BoxViewController,TopBarDelegate,ListTimelineDele
             cell.checkFavorited(timeline: timeline)
             self.listTimeline.tableView.isScrollEnabled = true
         }
-        self.updateCheckLikes(timeline: timeline)
+       // self.updateCheckLikes(timeline: timeline)
     }
     // MARK: - Firebase
     func updateCheckLikes(timeline:TimeLine) {

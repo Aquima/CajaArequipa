@@ -17,7 +17,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
     var listTimeline:ListTimeline!
     var sendData:[TimeLine] = []
     
-    var numberOfItems = 3
+    var numberOfItems = 4
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -25,8 +25,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         self.createView()
         
         retriveTimeLine()
-       
-        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,6 +81,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
                     timelineItem.translateToModel(data: snapDictionary)
                    // self.sendData.append(timelineItem)
                     self.sendData.insert(timelineItem, at: 0)
+                    print("retrive ==  \(timelineItem.timestamp.retrivePostTime())")
                 }
                 self.listTimeline.updateWithData(list: self.sendData)
                 ref.removeAllObservers()
@@ -97,15 +97,14 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         self.listTimeline.isLoading = true
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()//UInt(offset)*3
-           print("=============================================== new request \(timeline.timestamp.retrivePostTime())")
-        ref.child("timeline").child(uid!).queryOrderedByKey().queryEnding(atValue: timeline.key).queryLimited(toFirst: UInt(numberOfItems)).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
-            
+        print("===================\(timeline.timestamp.retrivePostTime())")
+//        ref.child("timeline").child(uid!).queryOrderedByKey().queryEnding(atValue: timeline.key).queryLimited(toFirst: UInt(numberOfItems)).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
+          ref.child("timeline").child(uid!).queryOrderedByKey().queryEnding(atValue: timeline.key).queryLimited(toLast: UInt(numberOfItems)).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
             if (snapshot.value is NSNull) {
                 print("loadNewTimeLine")
               //  self.listenerTimelineAdded()
             } else {
-              //  self.sendData.removeLast()
-              //  print(snapshot.value)
+                self.sendData.removeLast()
                 for child in snapshot.children {
                     let data:FIRDataSnapshot = child as! FIRDataSnapshot
                   
@@ -114,10 +113,9 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
                     let timelineItem:TimeLine = TimeLine()
                     timelineItem.key = data.key
                     timelineItem.translateToModel(data: snapDictionary)
-                    
-                //    self.sendData.append(timelineItem)
+                    print("loadNewTimeLine =================== \(timelineItem.timestamp.retrivePostTime())")
                     if snapshot.childrenCount > 1 {
-                        self.sendData.insert(timelineItem, at: offset*self.numberOfItems)
+                        self.sendData.insert(timelineItem, at: (offset*(self.numberOfItems-1)))
                     }
                   
                 }
@@ -126,7 +124,6 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
                     self.listTimeline.updateWithData(list: self.sendData)
                 }else{
                     self.listTimeline.isLoading = true
-                    self.listenerTimelineAddedPaginate()
                 }
                 
                 ref.removeAllObservers()
@@ -140,7 +137,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         
         let publicProfileVC:PublicProfileViewController = PublicProfileViewController()
         publicProfileVC.currentUser = timeline.userPropertier
-        timeline.userPropertier?.key = timeline.userPropertier?.uid
+      //  timeline.userPropertier?.key = timeline.userPropertier?.key
         self.navigationController?.pushViewController(publicProfileVC, animated: true)
         
     }
@@ -200,27 +197,35 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
     // MARK: - Firebase
     func updateCheckLikes(timeline:TimeLine) {
         // timeline es igual a foto por lo tanto tiene el usuario en su nodo
-        let uid = timeline.userPropertier?.uid//ApiConsume.sharedInstance.currentUser.key
+        let uid = timeline.key//ApiConsume.sharedInstance.currentUser.key
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         
         if timeline.isfavorited == false {
 
-            ref.child("likes").child(uid!).child(timeline.key).removeValue()
-           
+            ref.child("likes").child(uid!).child(ApiConsume.sharedInstance.currentUser.key).removeValue()
 
         }else{
 
-           
-            let post:[String:Any] = [timeline.key:true]
+            let post:[String:Any] = [ApiConsume.sharedInstance.currentUser.key:true]
             ref.child("likes").child(uid!).updateChildValues(post)
         }
-        let post:[String:Any] = ["likes":7]
-        print("photos" + uid! + "/" + timeline.key)
         var refPhotos: FIRDatabaseReference!
-        refPhotos = FIRDatabase.database().reference()
-        refPhotos.child("photos").child(uid!).child(timeline.key).updateChildValues(post)
-        refPhotos.removeAllObservers()
+        refPhotos = FIRDatabase.database().reference().child("likes").child(uid!)
+        refPhotos.observe(.value, with: { (snapshot: FIRDataSnapshot!) in
+            if (snapshot.value is NSNull) {
+                print("updateCheckLikes")
+
+            } else {
+                let post:[String:Any] = ["likes":snapshot.childrenCount]
+                refPhotos = FIRDatabase.database().reference()
+                refPhotos.child("photos").child(timeline.userPropertier.key).child(timeline.key).updateChildValues(post)
+                refPhotos.removeAllObservers()
+            }
+           
+        })
+
+       
         
     }
     func listenerTimelineAdded(){
@@ -249,22 +254,4 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
 
         })
     }
-    func listenerTimelineAddedPaginate(){
-        var refTimelineAdded: FIRDatabaseReference!
-        //escuchar nuestro timeline si se agrega un nuevo item en nuestro nodo
-        let uid:String = ApiConsume.sharedInstance.currentUser.key
-        
-        refTimelineAdded = FIRDatabase.database().reference()
-        refTimelineAdded.child("timeline").child(uid).observe(.childAdded, with:  { (snapshot) -> Void in
-            // let snap:FIRDataSnapshot
-            if (snapshot.value is NSNull) {
-                print("loadNewTimeLine")
-            } else {
-                self.listTimeline.isLoading = false
-                refTimelineAdded.removeAllObservers()
-            }
-            
-        })
-    }
-
 }

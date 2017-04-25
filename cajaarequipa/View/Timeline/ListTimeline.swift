@@ -42,6 +42,7 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
         self.tableView.dataSource = self
         self.addSubview(self.tableView)
         
+        drawBodyNoData()
     }
     func drawBodyNoData() {
         
@@ -90,6 +91,7 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
                 self.loper(arrow: imgArrow)
             }
             addSubview(contentMessage)
+            contentMessage.isHidden = true
         }else{
             contentMessage.isHidden = false
         }

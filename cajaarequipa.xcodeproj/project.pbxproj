@@ -50,6 +50,9 @@
 		F0A932451E8609B500CEB939 /* ApiConsumeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A932431E8609B500CEB939 /* ApiConsumeExtensions.swift */; };
 		F0B176801E899ABF0056BA98 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B1767F1E899ABF0056BA98 /* EditProfileViewController.swift */; };
 		F0B176821E89A2840056BA98 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B176811E89A2840056BA98 /* User.swift */; };
+		F0C181CA1EAEB9B700B26841 /* UserItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C181C81EAEB9B600B26841 /* UserItemTableViewCell.swift */; };
+		F0C181CB1EAEB9B700B26841 /* UserItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0C181C91EAEB9B700B26841 /* UserItemTableViewCell.xib */; };
+		F0C181CD1EAEB9CF00B26841 /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C181CC1EAEB9CF00B26841 /* UserList.swift */; };
 		F0CF4C621E9706E600D28F3C /* TimelineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CF4C601E9706E600D28F3C /* TimelineTableViewCell.swift */; };
 		F0CF4C631E9706E600D28F3C /* TimelineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0CF4C611E9706E600D28F3C /* TimelineTableViewCell.xib */; };
 		F0CF4C651E970CF700D28F3C /* TimeLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CF4C641E970CF700D28F3C /* TimeLine.swift */; };
@@ -153,6 +156,9 @@
 		F0A932431E8609B500CEB939 /* ApiConsumeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiConsumeExtensions.swift; sourceTree = "<group>"; };
 		F0B1767F1E899ABF0056BA98 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		F0B176811E89A2840056BA98 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F0C181C81EAEB9B600B26841 /* UserItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserItemTableViewCell.swift; sourceTree = "<group>"; };
+		F0C181C91EAEB9B700B26841 /* UserItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserItemTableViewCell.xib; sourceTree = "<group>"; };
+		F0C181CC1EAEB9CF00B26841 /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
 		F0CF4C601E9706E600D28F3C /* TimelineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineTableViewCell.swift; sourceTree = "<group>"; };
 		F0CF4C611E9706E600D28F3C /* TimelineTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineTableViewCell.xib; sourceTree = "<group>"; };
 		F0CF4C641E970CF700D28F3C /* TimeLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLine.swift; sourceTree = "<group>"; };
@@ -330,6 +336,7 @@
 		F011B0D91E804A65005E5F55 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F0C181C71EAEB98D00B26841 /* SearchView */,
 				49D158F11EA1DAFE008B3A1D /* CommentView */,
 				1B530D8C1E96ACFA00E02296 /* Timeline */,
 				F09AF7381E8F9C8C004EDF85 /* DiscoveryView */,
@@ -426,6 +433,16 @@
 				F0A932431E8609B500CEB939 /* ApiConsumeExtensions.swift */,
 			);
 			path = ApiConsume;
+			sourceTree = "<group>";
+		};
+		F0C181C71EAEB98D00B26841 /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				F0C181C81EAEB9B600B26841 /* UserItemTableViewCell.swift */,
+				F0C181C91EAEB9B700B26841 /* UserItemTableViewCell.xib */,
+				F0C181CC1EAEB9CF00B26841 /* UserList.swift */,
+			);
+			path = SearchView;
 			sourceTree = "<group>";
 		};
 		F0F8FAB01E8319810009CC52 /* Resources */ = {
@@ -587,6 +604,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0F8FABD1E832A450009CC52 /* MYRIADPRO-BOLD.OTF in Resources */,
+				F0C181CB1EAEB9B700B26841 /* UserItemTableViewCell.xib in Resources */,
 				F09AF73C1E9015E8004EDF85 /* UserTableViewCell.xib in Resources */,
 				F09AF7351E8F03E5004EDF85 /* PhotosCollectionViewCell.xib in Resources */,
 				F011B0DC1E806DB1005E5F55 /* GoogleService-Info.plist in Resources */,
@@ -797,6 +815,8 @@
 				F011B0A81E804917005E5F55 /* AppDelegate.swift in Sources */,
 				F09AF7371E8F9AAE004EDF85 /* DiscoveryViewController.swift in Sources */,
 				F0F8FAD31E8391FB0009CC52 /* FavoritedViewController.swift in Sources */,
+				F0C181CA1EAEB9B700B26841 /* UserItemTableViewCell.swift in Sources */,
+				F0C181CD1EAEB9CF00B26841 /* UserList.swift in Sources */,
 				49D158F31EA1DCB9008B3A1D /* CommentList.swift in Sources */,
 				F0A932451E8609B500CEB939 /* ApiConsumeExtensions.swift in Sources */,
 				49708C531E9A541D00AE452B /* CommentsViewController.swift in Sources */,

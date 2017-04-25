@@ -22,7 +22,7 @@ class CommentTableViewCell: UITableViewCell {
         // Initialization code
         self.selectionStyle = .none
         let view = UIView()
-        view.frame = CGRect(x: (screenSize.width-320*valuePro)/2, y: 0*valuePro, width: 320*valuePro, height: 69*valuePro)
+        view.frame = CGRect(x: (screenSize.width-320*valuePro)/2, y: 0*valuePro, width: 320*valuePro, height: 70*valuePro)
         view.backgroundColor = UIColor.init(hexString: GlobalConstants.color.white)
         self.addSubview(view)
         

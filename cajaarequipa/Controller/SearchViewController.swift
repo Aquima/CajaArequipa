@@ -9,10 +9,10 @@
 import UIKit
 import Firebase
 
-class SearchViewController: BoxViewController, UISearchBarDelegate,DiscoveryListDelegate {
+class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDelegate {
 
     var searchBar:UISearchBar = UISearchBar()
-    var discoveryList:DiscoveryList!
+    var discoveryList:UserList!
     var sendData:[User] = []
     
     var pageNumber = 1
@@ -37,7 +37,7 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,DiscoveryList
         searchBar.placeholder = "Buscar"
         view.addSubview(searchBar)
         
-        discoveryList = DiscoveryList()
+        discoveryList = UserList()
         discoveryList.delegate = self
         discoveryList.drawBody(barHeight:(self.tabBarController?.tabBar.frame.size.height)!)
         view.addSubview(discoveryList)
@@ -204,7 +204,7 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,DiscoveryList
             }
             self.removeTimelineFromUsers(keyUser: user.key)
             self.discoveryList.tableView.isScrollEnabled = false
-            let cell:UserTableViewCell = self.discoveryList.tableView.cellForRow(at: indexPath) as! UserTableViewCell
+            let cell:UserItemTableViewCell = self.discoveryList.tableView.cellForRow(at: indexPath) as! UserItemTableViewCell
             cell.checkFollow(user: user)
             self.discoveryList.tableView.isScrollEnabled = true
         }else{
@@ -220,7 +220,7 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,DiscoveryList
             user.followers = (user.followers + 1)
             user.follows = (user.follows + 1)
             self.discoveryList.tableView.isScrollEnabled = false
-            let cell:UserTableViewCell = self.discoveryList.tableView.cellForRow(at: indexPath) as! UserTableViewCell
+            let cell:UserItemTableViewCell = self.discoveryList.tableView.cellForRow(at: indexPath) as! UserItemTableViewCell
             cell.checkFollow(user: user)
             self.discoveryList.tableView.isScrollEnabled = true
             

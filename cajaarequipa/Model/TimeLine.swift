@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class TimeLine: NSObject {
     
@@ -15,7 +16,7 @@ class TimeLine: NSObject {
     var likes:Int!
     var comments:Int = 0
     var describe:String!
-    var userPropertier:User?
+    var userPropertier:User!
     var isfavorited:Bool = false
     var timestamp:Date!
     
@@ -35,6 +36,41 @@ class TimeLine: NSObject {
         userPropertier?.translateToModel(data: data["user"] as! Dictionary<String, Any>)
         let numberSeconds = data["timestamp"] as! NSNumber
         timestamp = Date(timeIntervalSince1970: (numberSeconds.doubleValue / 1000.0))
+        updateUser(user: userPropertier)
+        updateTimeline()
+    }
+    func updateUser(user:User){
+        self.userPropertier.uid = user.uid
+        self.userPropertier.key = user.uid
+        let uid:String = user.uid
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        ref.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? Dictionary<String,Any>
+            self.userPropertier.key = user.uid
+            self.userPropertier.translateToModel(data: value!)
+            self.userPropertier.uid = user.uid
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
         
     }
+    func updateTimeline(){
+        let uid:String = self.userPropertier.uid
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        ref.child("photos").child(uid).child(self.key).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let data:Dictionary = (snapshot.value as? Dictionary<String,Any>)!
+            self.likes = (data["likes"] != nil) ? data["likes"] as! Int : 0
+            self.comments = (data["comments"] != nil) ? data["comments"] as! Int : 0
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+    }
+
 }

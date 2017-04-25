@@ -23,11 +23,13 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
         // Do any additional setup after loading the view.
         createView()
         listenerPhotoAdded()
-        
+       
         self.currentUser = ApiConsume.sharedInstance.currentUser
         self.meProfileInfo.updateView(user:self.currentUser)
         self.topBar.lblTitle.text = self.currentUser.name.getFirstName()
         self.publications.updateWithData(list: self.listPhotos)
+        
+        listenerUserChanges()
         
     }
 
@@ -37,34 +39,32 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
     }
     override func viewWillAppear(_ animated: Bool) {
        
-
     }
     func updateValues(){
- 
+        let uid:String = self.currentUser.key
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
-        ref.child("users").child((FIRAuth.auth()?.currentUser?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? Dictionary<String,Any>
             ApiConsume.sharedInstance.currentUser.translateToModel(data: value!)
+            self.currentUser = ApiConsume.sharedInstance.currentUser
             self.meProfileInfo.updateView(user:self.currentUser)
             self.topBar.lblTitle.text = self.currentUser.name.getFirstName()
-            self.listenerUserChanges()
+            self.meProfileInfo.updateView(user:self.currentUser)
             // ...
         }) { (error) in
             print(error.localizedDescription)
         }
     }
     func listenerUserChanges(){
-
+        let uid:String = self.currentUser.key
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
-        ref.child("users").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.childChanged, with:  { (snapshot) -> Void in
+        ref.child("users").child(uid).observe(.childChanged, with:  { (snapshot) -> Void in
             self.updateValues()
             ref.removeAllObservers()
         })
-        
-
     }
     // MARK: - Navigation
     func createView(){
