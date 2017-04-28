@@ -21,8 +21,9 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
-       // retriveUsers()
+    //    retriveUsers()
         createView()
+        retriveUsersFromComments(value: "-KilLaTaK8XwdiBrW5vW")
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,6 +87,39 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
         })
         
     }
+    func retriveUsersFromComments(value:String){
+        
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        ref.child("photos").child(value).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
+            
+            if (snapshot.value is NSNull) {
+                print("retriveUsers")
+                self.discoveryList.showNoDataMessage(show: false)
+                
+            } else {
+                self.discoveryList.showNoDataMessage(show: true)
+                self.sendData.removeAll()
+                for child in snapshot.children {
+                    let data = child as! FIRDataSnapshot
+                    let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
+                    
+                    let userItem:User = User()
+                    userItem.key = data.key
+                    userItem.translateToModel(data: snapDictionary)
+                    print(userItem.name)
+                    self.sendData.append(userItem)
+                    
+                }
+                self.discoveryList.updateWithData(list: self.sendData)
+                ref.removeAllObservers()
+                
+            }
+            
+        })
+        
+    }
+    
 
     // MARK: - Retrive User
     func retriveUsers(){
@@ -108,7 +142,9 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
                     userItem.translateToModel(data: snapDictionary)
                     let refUpdate:FIRDatabaseReference = FIRDatabase.database().reference()
                   //  let fullArr = userItem.name.components(separatedBy: "")
-                    let string : String = userItem.name
+                    let string : String = userItem.name.trimmingCharacters(in: .whitespaces)
+                  //  let trimmedString = string.trimmingCharacters(in: .whitespaces)
+                    print(string)
                     let characters = Array(string.characters)
                     var components:Dictionary<String,Any> = [:]
                     for char in characters {
@@ -118,12 +154,16 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
                      //   }
                     }
                     //permutar
-                    let fullArr = userItem.name.components(separatedBy: " ")
+                    let fullArr = string.components(separatedBy: " ")
+                    print(fullArr)
                     for partNames:String in fullArr {
-                        for indexTemp in 1...partNames.utf8.count {
-                            let index = partNames.index(partNames.startIndex, offsetBy: indexTemp)
-                            components["\(partNames.substring(to: index))"] = true
+                        if partNames.utf8.count >= 1 {
+                            for indexTemp in 1...partNames.utf8.count {
+                                let index = partNames.index(partNames.startIndex, offsetBy: indexTemp)
+                                components["\(partNames.substring(to: index))"] = true
+                            }
                         }
+                       
                     }
                     print(components)
                     refUpdate.child("users").child(userItem.key).child("components").updateChildValues(components)

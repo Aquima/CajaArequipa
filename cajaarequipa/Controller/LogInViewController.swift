@@ -64,12 +64,7 @@ class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewContro
                 self.form.btnEnter.isHidden = false
                 ref.removeAllObservers()
             } else {
-              //  let snapDictionary:Dictionary = snapshot.value! as! Dictionary<String, Any>
-//                let value = snapshot.value as? Dictionary<String,Any>
-//                print("getMail\n \(String(describing: value))")
-//                let tempUser:User = User()
-//                tempUser.translateToModel(data: value[snapshot.key])
-//                self.authWithMail(email: tempUser.email, password: password)
+
                 for child in snapshot.children {
                     let data:FIRDataSnapshot = child as! FIRDataSnapshot
                     let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
@@ -77,19 +72,7 @@ class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewContro
                     tempUser.translateToModel(data: snapDictionary)
                     self.authWithMail(email: tempUser.email, password: password)
                 }
-//                for child in snapshot.children {
-//                    let data:FIRDataSnapshot = child as! FIRDataSnapshot
-//                    print(data.key)
-//                    print(child)
-//                    let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
-//                    
-//                    let timelineItem:TimeLine = TimeLine()
-//                    timelineItem.key = data.key
-//                    timelineItem.translateToModel(data: snapDictionary)
-//                    self.sendData.append(timelineItem)
-//                    
-//                }
-//                self.listTimeline.updateWithData(list: self.sendData)
+
                 ref.removeAllObservers()
             }
             

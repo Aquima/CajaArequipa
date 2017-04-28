@@ -194,7 +194,7 @@ class FavoritedViewController: BoxViewController,TopBarDelegate,ListTimelineDele
             if self.sendData.count == 0 {
                 //self.listTimeline.updateWithData(list: self.sendData)
                 self.listTimeline.tableView.isHidden = true
-              
+                
                 self.listTimeline.contentMessage.isHidden = false
             }
         }else{
@@ -209,34 +209,109 @@ class FavoritedViewController: BoxViewController,TopBarDelegate,ListTimelineDele
             cell.checkFavorited(timeline: timeline)
             self.listTimeline.tableView.isScrollEnabled = true
         }
-       // self.updateCheckLikes(timeline: timeline)
+      //  self.updateCheckLikes(timeline: timeline)
     }
     // MARK: - Firebase
     func updateCheckLikes(timeline:TimeLine) {
         // timeline es igual a foto por lo tanto tiene el usuario en su nodo
-        let uid = timeline.userPropertier?.uid//ApiConsume.sharedInstance.currentUser.key
+        let uid = timeline.key//ApiConsume.sharedInstance.currentUser.key
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         
         if timeline.isfavorited == false {
             
-            ref.child("likes").child(uid!).child(timeline.key).removeValue()
-            
+            ref.child("likes").child(timeline.userPropertier.key).child(uid!).child(ApiConsume.sharedInstance.currentUser.key).removeValue()
             
         }else{
             
-            
-            let post:[String:Any] = [timeline.key:true]
-            ref.child("likes").child(uid!).updateChildValues(post)
+            let post:[String:Any] = [ApiConsume.sharedInstance.currentUser.key:true]
+            ref.child("likes").child(timeline.userPropertier.key).child(uid!).updateChildValues(post)
         }
-        let post:[String:Any] = ["likes":7]
-        print("photos" + uid! + "/" + timeline.key)
         var refPhotos: FIRDatabaseReference!
-        refPhotos = FIRDatabase.database().reference()
-        refPhotos.child("photos").child(uid!).child(timeline.key).updateChildValues(post)
-        refPhotos.removeAllObservers()
+        refPhotos = FIRDatabase.database().reference().child("likes").child(timeline.userPropertier.key).child(uid!)
+        refPhotos.observe(.value, with: { (snapshot: FIRDataSnapshot!) in
+            if (snapshot.value is NSNull) {
+                print("updateCheckLikes")
+                
+            } else {
+                let post:[String:Any] = ["likes":snapshot.childrenCount]
+                refPhotos = FIRDatabase.database().reference()
+                refPhotos.child("photos").child(timeline.userPropertier.key).child(timeline.key).updateChildValues(post)
+                refPhotos.removeAllObservers()
+            }
+            
+        })
+        
+        
         
     }
+//    internal func updateFavorited(indexPath: IndexPath, timeline:TimeLine){
+//        let uid = ApiConsume.sharedInstance.currentUser.key
+//        var ref: FIRDatabaseReference!
+//        ref = FIRDatabase.database().reference()
+//        if timeline.isfavorited == true {
+//            timeline.isfavorited = false
+//            if  timeline.likes > 1 {
+//                timeline.likes  = (timeline.likes  - 1)
+//            }
+//            let postTimeline:[String:Any] = ["isfavorited":false,
+//                                             "likes":timeline.likes]
+//            
+//            ref.child("timeline").child(uid!).child(timeline.key).updateChildValues(postTimeline)
+//            self.listTimeline.tableView.isScrollEnabled = false
+//            let cell:TimelineTableViewCell = self.listTimeline.tableView.cellForRow(at: indexPath) as! TimelineTableViewCell
+//            cell.checkFavorited(timeline: timeline)
+//            self.listTimeline.tableView.isScrollEnabled = true
+//            
+//            self.sendData.remove(at: indexPath.row)
+//            self.listTimeline.currentData.remove(at: indexPath.row)
+//            self.listTimeline.tableView.deleteRows(at: [indexPath], with: .automatic)
+//            if self.sendData.count == 0 {
+//                //self.listTimeline.updateWithData(list: self.sendData)
+//                self.listTimeline.tableView.isHidden = true
+//              
+//                self.listTimeline.contentMessage.isHidden = false
+//            }
+//        }else{
+//            timeline.likes = (timeline.likes + 1)
+//            timeline.isfavorited = true
+//            let postTimeline:[String:Any] = ["isfavorited":true,
+//                                             "likes":timeline.likes]
+//            
+//            ref.child("timeline").child(uid!).child(timeline.key).updateChildValues(postTimeline)
+//            self.listTimeline.tableView.isScrollEnabled = false
+//            let cell:TimelineTableViewCell = self.listTimeline.tableView.cellForRow(at: indexPath) as! TimelineTableViewCell
+//            cell.checkFavorited(timeline: timeline)
+//            self.listTimeline.tableView.isScrollEnabled = true
+//        }
+//       // self.updateCheckLikes(timeline: timeline)
+//    }
+//    // MARK: - Firebase
+//    func updateCheckLikes(timeline:TimeLine) {
+//        // timeline es igual a foto por lo tanto tiene el usuario en su nodo
+//        let uid = timeline.userPropertier?.uid//ApiConsume.sharedInstance.currentUser.key
+//        var ref: FIRDatabaseReference!
+//        ref = FIRDatabase.database().reference()
+//        
+//        if timeline.isfavorited == false {
+//            
+//            ref.child("likes").child(uid!).child(timeline.key).removeValue()
+//            
+//            
+//        }else{
+//            
+//            
+//            let post:[String:Any] = [timeline.key:true]
+//            ref.child("likes").child(uid!).updateChildValues(post)
+//        }
+//        let post:[String:Any] = ["likes":7]
+//        print("photos" + uid! + "/" + timeline.key)
+//        var refPhotos: FIRDatabaseReference!
+//        refPhotos = FIRDatabase.database().reference()
+//        refPhotos.child("photos").child(uid!).child(timeline.key).updateChildValues(post)
+//        refPhotos.removeAllObservers()
+//        
+//    }
     func listenerTimelineAdded(){
         var refTimelineAdded: FIRDatabaseReference!
         //escuchar nuestro timeline si se agrega un nuevo item en nuestro nodo

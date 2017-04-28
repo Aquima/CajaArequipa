@@ -11,8 +11,6 @@ import Firebase
 
 class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate {
    
-
-
     var topBar:TopBar!
     var listTimeline:ListTimeline!
     var sendData:[TimeLine] = []
@@ -62,8 +60,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         ref.child("timeline").child(uid!).queryOrderedByKey().queryLimited(toLast:UInt(numberOfItems)).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
-            
-            
+         
             if (snapshot.value is NSNull) {
                 print("retriveTimeLine")
                 self.listTimeline.updateWithData(list: self.sendData)
@@ -203,15 +200,15 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         
         if timeline.isfavorited == false {
 
-            ref.child("likes").child(uid!).child(ApiConsume.sharedInstance.currentUser.key).removeValue()
+            ref.child("likes").child(timeline.userPropertier.key).child(uid!).child(ApiConsume.sharedInstance.currentUser.key).removeValue()
 
         }else{
 
             let post:[String:Any] = [ApiConsume.sharedInstance.currentUser.key:true]
-            ref.child("likes").child(uid!).updateChildValues(post)
+            ref.child("likes").child(timeline.userPropertier.key).child(uid!).updateChildValues(post)
         }
         var refPhotos: FIRDatabaseReference!
-        refPhotos = FIRDatabase.database().reference().child("likes").child(uid!)
+        refPhotos = FIRDatabase.database().reference().child("likes").child(timeline.userPropertier.key).child(uid!)
         refPhotos.observe(.value, with: { (snapshot: FIRDataSnapshot!) in
             if (snapshot.value is NSNull) {
                 print("updateCheckLikes")

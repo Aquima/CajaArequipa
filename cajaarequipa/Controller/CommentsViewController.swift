@@ -21,7 +21,8 @@ class CommentsViewController: BoxViewController ,TopBarDelegate, CommentListDele
         super.viewDidLoad()
         createView()
         // Do any additional setup after loading the view.
-        retriveComments()
+      //  retriveComments()
+        listenerCommentsAdded()
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,28 +93,29 @@ class CommentsViewController: BoxViewController ,TopBarDelegate, CommentListDele
                                         "user":userData,
                                         "timestamp":FIRServerValue.timestamp()]
 
-        ref.child("comments").child(currentTimeLine.key).childByAutoId().updateChildValues(postComment, withCompletionBlock:  { (error:Error?, ref:FIRDatabaseReference!) in
+        ref.child("comments").child(currentTimeLine.userPropertier.key).child(currentTimeLine.key).child("history").childByAutoId().updateChildValues(postComment, withCompletionBlock:  { (error:Error?, ref:FIRDatabaseReference!) in
            // _ = self.navigationController?.popViewController(animated: true)
             self.commentsList.messageTextfield.resignFirstResponder()
             self.commentsList.messageTextfield.text = ""
             self.commentsList.currentTexfield.text = ""
             self.commentsList.resignFirstResponderList()
         })
-        
+//        let userPropieterData:Dictionary<String,Any> = [currentTimeLine.userPropertier.key:true]
+//        ref.child("comments").child(currentTimeLine.key).updateChildValues(userPropieterData)
     }
     // MARK: - Firebase
     func retriveComments(){
   
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
-        ref.child("comments").child(currentTimeLine.key).queryOrderedByKey().queryLimited(toFirst:20).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
+        ref.child("comments").child(currentTimeLine.userPropertier.key).child(currentTimeLine.key).child("history").queryOrderedByKey().queryLimited(toFirst:20).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
             
             
             if (snapshot.value is NSNull) {
                 print("retriveTimeLine")
                 self.commentsList.updateWithData(list: self.sendData)
                 ref.removeAllObservers()
-                self.listenerTimelineAdded()
+                self.listenerCommentsAdded()
             } else {
                 
                 for child in snapshot.children {
@@ -131,26 +133,26 @@ class CommentsViewController: BoxViewController ,TopBarDelegate, CommentListDele
                 
                 self.commentsList.updateWithData(list: self.sendData)
                 ref.removeAllObservers()
-                self.listenerTimelineAdded()
+            //    self.listenerCommentsAdded()
                 
             }
             
         })
         
     }
-    func listenerTimelineAdded(){
+    func listenerCommentsAdded(){
         var refTimelineAdded: FIRDatabaseReference!
         //escuchar nuestro comments si se agrega un nuevo item en nuestro nodo
 
         refTimelineAdded = FIRDatabase.database().reference()
-        refTimelineAdded.child("comments").child(currentTimeLine.key).observe(.childAdded, with:  { (snapshot) -> Void in
+        refTimelineAdded.child("comments").child(currentTimeLine.userPropertier.key).child(currentTimeLine.key).child("history").observe(.childAdded, with:  { (snapshot) -> Void in
             // let snap:FIRDataSnapshot
             if (snapshot.value is NSNull) {
                 print("loadNewTimeLine")
             } else {
-                if self.sendData.count > 0 {
-                    self.sendData.removeLast()
-                }
+//                if self.sendData.count > 0 {
+//                    self.sendData.removeLast()
+//                }
                 
                 let snapDictionary = snapshot.value as! Dictionary<String, Any>
   
