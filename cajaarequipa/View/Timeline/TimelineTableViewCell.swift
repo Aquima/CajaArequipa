@@ -38,7 +38,7 @@ class TimelineTableViewCell: UITableViewCell {
         // Initialization code
         self.selectionStyle = .none
         let view = UIView()
-        view.frame = CGRect(x: (screenSize.width-320*valuePro)/2, y: 0, width: 320*valuePro, height: 440*valuePro)
+        view.frame = CGRect(x: 0, y: 0, width: 320*valuePro, height: 440*valuePro)
         view.backgroundColor = UIColor.init(hexString: GlobalConstants.color.white)
         self.addSubview(view)
 

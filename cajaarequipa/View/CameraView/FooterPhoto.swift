@@ -38,6 +38,7 @@ class FooterPhoto: UIView,UITextFieldDelegate {
         txtFooter.leftView = paddingView;
         txtFooter.leftViewMode =  .always
         txtFooter.placeholder="Escribe un titulo para la foto"
+        txtFooter.autocorrectionType = UITextAutocorrectionType.no;
         
 //        let paddingRightView = UIView(frame:CGRect(x: 0, y: 0, width: 30, height: 30))
 //        txtFooter.rightView = paddingRightView;

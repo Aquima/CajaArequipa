@@ -9,12 +9,12 @@
 import UIKit
 import Firebase
 
-class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate {
+class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate,CommentsViewControllerDelegate {
    
     var topBar:TopBar!
     var listTimeline:ListTimeline!
     var sendData:[TimeLine] = []
-    
+    var indexToAdd = 0
     var numberOfItems = 4
     override func viewDidLoad() {
         
@@ -22,8 +22,8 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         self.view.backgroundColor = UIColor.white
         self.createView()
         
-        retriveTimeLine()
-
+       // retriveTimeLine()
+        self.listenerTimelineAdded()
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,7 +64,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
             if (snapshot.value is NSNull) {
                 print("retriveTimeLine")
                 self.listTimeline.updateWithData(list: self.sendData)
-                self.listenerTimelineAdded()
+        
                 ref.removeAllObservers()
             } else {
                 
@@ -84,7 +84,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
                 ref.removeAllObservers()
                
             }
-            
+            self.listenerTimelineAdded()
         })
 
     }
@@ -112,7 +112,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
                     timelineItem.translateToModel(data: snapDictionary)
                     print("loadNewTimeLine =================== \(timelineItem.timestamp.retrivePostTime())")
                     if snapshot.childrenCount > 1 {
-                        self.sendData.insert(timelineItem, at: (offset*(self.numberOfItems-1)))
+                        self.sendData.insert(timelineItem, at: (offset*(self.numberOfItems-1+self.indexToAdd)))
                     }
                   
                 }
@@ -142,12 +142,16 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         let commentsVC:CommentsViewController = CommentsViewController()
         commentsVC.currentTimeLine = timeline
         commentsVC.isKeyboardActive = false
+        commentsVC.currentIndex = indexPath
+        commentsVC.delegate = self
         self.navigationController?.pushViewController(commentsVC, animated: true)
     }
     internal func goCommentsViewController(indexPath: IndexPath,timeline:TimeLine){
         let commentsVC:CommentsViewController = CommentsViewController()
         commentsVC.currentTimeLine = timeline
         commentsVC.isKeyboardActive = true
+        commentsVC.currentIndex = indexPath
+        commentsVC.delegate = self
         self.navigationController?.pushViewController(commentsVC, animated: true)
     }
     internal func goShare(indexPath: IndexPath,timeline:TimeLine){
@@ -226,29 +230,39 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate 
         
     }
     func listenerTimelineAdded(){
+        self.listTimeline.updateWithData(list: self.sendData)
         var refTimelineAdded: FIRDatabaseReference!
         //escuchar nuestro timeline si se agrega un nuevo item en nuestro nodo
         let uid:String = ApiConsume.sharedInstance.currentUser.key
         
         refTimelineAdded = FIRDatabase.database().reference()
-        refTimelineAdded.child("timeline").child(uid).observe(.childAdded, with:  { (snapshot) -> Void in
+     //   refTimelineAdded.child("timeline").child(uid).observe(.childAdded, with:  { (snapshot) -> Void in
+        refTimelineAdded.child("timeline").child(uid).queryOrderedByKey().queryLimited(toLast:UInt(numberOfItems)).observe(.childAdded, with:  { (snapshot) -> Void in
             // let snap:FIRDataSnapshot
             if (snapshot.value is NSNull) {
                 print("loadNewTimeLine")
-            } else {
-                if self.sendData.count > 0 {
-                    self.sendData.removeLast()
-                }
                 
+            } else {
+
                     let snapDictionary = snapshot.value as! Dictionary<String, Any>
                     let timelineItem:TimeLine = TimeLine()
                     timelineItem.key = snapshot.key
                     timelineItem.translateToModel(data: snapDictionary)
-                    self.sendData.append(timelineItem)
-                    
-                    refTimelineAdded.removeAllObservers()
+                    self.sendData.insert(timelineItem, at: 0)
+                    self.listTimeline.updateWithData(list: self.sendData)
+               //     refTimelineAdded.removeAllObservers()
+                if self.sendData.count > self.numberOfItems {
+                    self.indexToAdd = self.indexToAdd + 1
+                }
             }
 
         })
     }
+    // MARK: - CommentsViewControllerDelegate
+    internal func updateTimelineItem(indexPath:IndexPath,timeline:TimeLine){
+        let cell:TimelineTableViewCell = self.listTimeline.tableView.cellForRow(at: indexPath) as! TimelineTableViewCell
+        cell.loadWithTimeline(timeline: timeline)
+    }
+    // MARK: - Logical function for new loop
+    
 }

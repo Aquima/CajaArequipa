@@ -17,13 +17,14 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
     
     var pageNumber = 1
     var isLoading = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
-    //    retriveUsers()
+   //     retriveUsers()
         createView()
-        retriveUsersFromComments(value: "-KilLaTaK8XwdiBrW5vW")
+//        retriveUsersFromComments(value: "-KilLaTaK8XwdiBrW5vW")
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,7 +32,7 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
         // Dispose of any resources that can be recreated.
     }
     func createView(){
-        searchBar.frame = CGRect(x: 0, y: 18, width: 320, height: 40)
+        searchBar.frame = CGRect(x: 0, y: 18*valuePro, width: 320*valuePro, height: 40*valuePro)
         searchBar.barTintColor = UIColor.init(hexString: GlobalConstants.color.blue)
         searchBar.delegate = self
         searchBar.searchBarStyle = .prominent
@@ -143,8 +144,9 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
                     let refUpdate:FIRDatabaseReference = FIRDatabase.database().reference()
                   //  let fullArr = userItem.name.components(separatedBy: "")
                     let string : String = userItem.name.trimmingCharacters(in: .whitespaces)
+                
                   //  let trimmedString = string.trimmingCharacters(in: .whitespaces)
-                    print(string)
+                    print("Name \(string)")
                     let characters = Array(string.characters)
                     var components:Dictionary<String,Any> = [:]
                     for char in characters {
@@ -155,12 +157,14 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
                     }
                     //permutar
                     let fullArr = string.components(separatedBy: " ")
-                    print(fullArr)
+                    print("Full Arr \(fullArr)")
                     for partNames:String in fullArr {
-                        if partNames.utf8.count >= 1 {
-                            for indexTemp in 1...partNames.utf8.count {
-                                let index = partNames.index(partNames.startIndex, offsetBy: indexTemp)
-                                components["\(partNames.substring(to: index))"] = true
+                        let newComponents:String = partNames.trimmingCharacters(in: .whitespaces)
+                        if newComponents.unicodeScalars.count >= 1 {
+                            print("newComponents \(newComponents) \(newComponents.unicodeScalars.count)")
+                            for indexTemp in 1...newComponents.unicodeScalars.count {
+                                let index = newComponents.index(newComponents.startIndex, offsetBy: indexTemp)
+                                components["\(newComponents.substring(to: index))"] = true
                             }
                         }
                        
@@ -176,6 +180,41 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
         
     }
     // MARK: - UISearchBarDelegate
+    func retriveResult(){
+        let searchText:String = self.searchBar.text!
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        ref.child("users").queryOrdered(byChild: "components/\(searchText.uppercased())").queryEqual(toValue: true).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
+            
+            if (snapshot.value is NSNull) {
+                print("retriveUsers")
+                self.sendData.removeAll()
+                self.discoveryList.showNoDataMessage(show: false)
+                
+            } else {
+                self.discoveryList.showNoDataMessage(show: true)
+                self.sendData.removeAll()
+                print("====================== Contador de Resultados por palabra \(searchText) \(snapshot.childrenCount)")
+                for child in snapshot.children {
+                    let data = child as! FIRDataSnapshot
+                    let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
+                    
+                    let userItem:User = User()
+                    userItem.key = data.key
+                    userItem.translateToModel(data: snapDictionary)
+                    print(userItem.name)
+                    self.sendData.append(userItem)
+                    
+                }
+                self.discoveryList.updateWithData(list: self.sendData)
+                ref.removeAllObservers()
+                
+            }
+            
+        })
+        
+    }
+
     // called whenever text is changed.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
       //  myLabel.text = searchText
@@ -184,7 +223,9 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
             self.sendData.removeAll()
             self.discoveryList.showNoDataMessage(show: false)
         }else{
-            retriveUsersFromValue(value: searchText.uppercased())
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(retriveResult), object: nil)
+            self.perform(#selector(retriveResult), with: nil, afterDelay: 0.5)
+         //   retriveUsersFromValue(value: searchText.uppercased())
         }
     }
     
@@ -201,6 +242,13 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
         self.view.endEditing(true)
     }
     // MARK: - SearBarDelegate
+    internal func openDetail(indexPath:IndexPath, user:User){
+        let publicProfileVC:PublicProfileViewController = PublicProfileViewController()
+        publicProfileVC.currentUser = user
+        //  timeline.userPropertier?.key = timeline.userPropertier?.key
+        self.navigationController?.pushViewController(publicProfileVC, animated: true)
+
+    }
     internal func checkFollowing(indexPath: IndexPath, user:User) {
 //        
 //        let uid = FIRAuth.auth()!.currentUser!.uid
@@ -272,39 +320,40 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
     }
     
     internal func loadNewUsers(offset : Int,user:User){
-        self.discoveryList.isLoading = true
-        
-        var ref: FIRDatabaseReference!
-        ref = FIRDatabase.database().reference()
-        ref.child("users").queryOrderedByKey().queryStarting(atValue: user.key).queryLimited(toFirst: UInt(offset)*5).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
-            
-            if (snapshot.value is NSNull) {
-                print("loadNewUsers")
-            } else {
-                self.sendData.removeLast()
-                for child in snapshot.children {
-                    let data = child as! FIRDataSnapshot
-                    let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
-                    
-                    let userItem:User = User()
-                    userItem.key = data.key
-                    userItem.translateToModel(data: snapDictionary)
-                    self.sendData.append(userItem)
-                    
-                    
-                }
-                if snapshot.childrenCount > 1 {
-                    self.discoveryList.isLoading = false
-                    self.discoveryList.updateWithData(list: self.sendData)
-                }else{
-                    self.discoveryList.isLoading = true
-                }
-                
-                ref.removeAllObservers()
-            }
-            
-        })
-        
+//        self.discoveryList.isLoading = true
+//        
+//        var ref: FIRDatabaseReference!
+//        ref = FIRDatabase.database().reference()
+//        ref.child("users").queryOrderedByKey().queryStarting(atValue: user.key).queryLimited(toFirst: UInt(offset)*5).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
+//            
+//            if (snapshot.value is NSNull) {
+//                print("loadNewUsers")
+//            } else {
+//                self.sendData.removeLast()
+//                for child in snapshot.children {
+//                    let data = child as! FIRDataSnapshot
+//                    let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
+//                    
+//                    let userItem:User = User()
+//                    userItem.key = data.key
+//                    userItem.translateToModel(data: snapDictionary)
+//                    print("\(userItem.name)")
+//                    self.sendData.append(userItem)
+//                    
+//                    
+//                }
+//                if snapshot.childrenCount > 1 {
+//                    self.discoveryList.isLoading = false
+//                    self.discoveryList.updateWithData(list: self.sendData)
+//                }else{
+//                    self.discoveryList.isLoading = true
+//                }
+//                
+//                ref.removeAllObservers()
+//            }
+//            
+//        })
+//        
     }
     // MARK: - Timeline
     func timelineFromUsers(user:User){

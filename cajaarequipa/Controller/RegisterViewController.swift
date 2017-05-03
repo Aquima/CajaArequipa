@@ -101,7 +101,8 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
                                              "followers":0,
                                              "following":0,
                                              "website":"",
-                                             "description":""
+                                             "description":"",
+                                             "components":self.permutarName(nameCompleted: self.currentName)
                                              ]
                     
                     var ref: FIRDatabaseReference!
@@ -109,6 +110,7 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
                     ref = FIRDatabase.database().reference()
                   //  ref.child("users/\(email.getIDFromFireBase())").updateChildValues(post)
                     ref.child("users/\(user?.uid ?? String())").updateChildValues(post)
+                    self.updateCheckFollowing(uid: (user?.uid)!)
                     self.delegate?.completedRegister()
 
                 }else{
@@ -129,6 +131,51 @@ class RegisterViewController: UIViewController, RegisterFormDelegate {
             })
         }
     }
+    func permutarName(nameCompleted:String) -> Dictionary<String,Any> {
+        let string : String = nameCompleted.trimmingCharacters(in: .whitespaces)
+        
+        //  let trimmedString = string.trimmingCharacters(in: .whitespaces)
+        print("Name \(string)")
+        let characters = Array(string.characters)
+        var components:Dictionary<String,Any> = [:]
+        for char in characters {
+            components["\(char)"] = true
+        }
+        //permutar
+        let fullArr = string.components(separatedBy: " ")
+        print("Full Arr \(fullArr)")
+        for partNames:String in fullArr {
+            let newComponents:String = partNames.trimmingCharacters(in: .whitespaces)
+            if newComponents.unicodeScalars.count >= 1 {
+                print("newComponents \(newComponents) \(newComponents.unicodeScalars.count)")
+                for indexTemp in 1...newComponents.unicodeScalars.count {
+                    let index = newComponents.index(newComponents.startIndex, offsetBy: indexTemp)
+                    components["\(newComponents.substring(to: index))"] = true
+                }
+            }
+            
+        }
+        print(components)
+        return components
+    }
+   
+    func updateCheckFollowing( uid:String) {
+
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        
+        let post:[String:Any] = [uid:true]
+
+        ref.child("following").child(uid).updateChildValues(post)
+            
+        let postFollowers:[String:Any] = [uid:true]
+        ref.child("followers").child(uid).updateChildValues(postFollowers)
+   
+        ref.removeAllObservers()
+        
+    }
+    
+
     func showError(error: errorRegisterType) {
         
         var message:String?

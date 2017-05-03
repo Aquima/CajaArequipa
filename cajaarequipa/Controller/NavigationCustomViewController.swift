@@ -12,7 +12,7 @@ class NavigationCustomViewController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.interactivePopGestureRecognizer?.isEnabled = false
         // Do any additional setup after loading the view.
     }
 

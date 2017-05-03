@@ -19,8 +19,10 @@ class UserTableViewCell: UITableViewCell {
     var lblFollowers:UILabel!
   //  var followers:String = ""
     var btnFollow:UIButton!
+    var btnProfile:UIButton!
     
-
+    var showProfileAction : (() -> Void)? = nil
+    var followAction : (() -> Void)? = nil
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -38,6 +40,10 @@ class UserTableViewCell: UITableViewCell {
         imgView.layer.borderColor = UIColor.init(hexString: GlobalConstants.color.white).cgColor
         imgView.layer.borderWidth = 3*valuePro
         view.addSubview(imgView)
+        
+        btnProfile = UIButton()
+        btnProfile.frame = imgView.frame
+        btnProfile.addTarget(self, action: #selector(pressProfileOn(sender:)), for: .touchUpInside)
         
         lblName = UILabel()
         lblName.frame = CGRect(x: 81*valuePro, y: 25*valuePro, width: 110*valuePro, height: 24*valuePro)
@@ -67,6 +73,10 @@ class UserTableViewCell: UITableViewCell {
         btnFollow.layer.masksToBounds = true
           view.addSubview(btnFollow)
         btnFollow.fillTextColor(color: GlobalConstants.color.cobalto, text: "Seguir")
+        btnFollow.addTarget(self, action: #selector(pressFollow(sender:)), for: .touchUpInside)
+        
+        view.addSubview(btnProfile)
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -107,5 +117,17 @@ class UserTableViewCell: UITableViewCell {
         
         
         return attributedString
+    }
+    func pressFollow(sender:UIButton){
+        if let btnFollowAction = self.followAction
+        {
+            btnFollowAction()
+        }
+    }
+    func pressProfileOn(sender:UIButton){
+        if let btnProfileAction = self.showProfileAction
+        {
+            btnProfileAction()
+        }
     }
 }

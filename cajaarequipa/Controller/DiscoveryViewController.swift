@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 
 class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDelegate {
+   
+
 
     var topBar:TopBar!
     var discoveryList:DiscoveryList!
@@ -107,7 +109,11 @@ class DiscoveryViewController: BoxViewController,TopBarDelegate,DiscoveryListDel
         ref.removeAllObservers()
         
     }
-
+    func openDetail(indexPath: IndexPath, user: User) {
+        let publicProfileVC:PublicProfileViewController = PublicProfileViewController()
+        publicProfileVC.currentUser = user
+        self.navigationController?.pushViewController(publicProfileVC, animated: true)
+    }
     func updateCheckFollowing(indexPath: IndexPath, user:User) {
         
         let uid = FIRAuth.auth()!.currentUser!.uid

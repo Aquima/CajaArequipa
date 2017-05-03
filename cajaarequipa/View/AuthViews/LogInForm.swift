@@ -63,11 +63,13 @@ class LogInForm: UIView, UITextFieldDelegate {
         txtEmail.styleForm()
         txtEmail.placeholder = "Correo Electrónico o DNI" // "Ingrese su numero de DNI"
         txtEmail.clearButtonMode = .always
+        txtEmail.autocorrectionType = UITextAutocorrectionType.no;
         
         txtPassword = UITextField()
         txtPassword.styleForm()
         txtPassword.placeholder = "Contraseña"
         txtPassword.clearButtonMode = .always
+        txtPassword.autocorrectionType = UITextAutocorrectionType.no;
         
         btnEnter = UIButton()
         btnRegister = UIButton()

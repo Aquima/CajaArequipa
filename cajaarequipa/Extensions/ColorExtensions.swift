@@ -96,7 +96,9 @@ extension String {
         
         let split = self.components(separatedBy: " ")
         let firstName = split.last
-        if split.count == 4 {
+        if split.count == 5 {
+            return split[3]
+        }else if split.count == 4 {
             return split[2]
         }else{
             return firstName!
@@ -107,7 +109,9 @@ extension String {
         
         let split = self.components(separatedBy: " ")
         let firstName = split.last
-        if split.count == 4 {
+        if split.count == 5 {
+            return split[3] + " "  + firstName!
+        }else if split.count == 4 {
             return split[2] + " "  + firstName!
         }else{
             return firstName!
@@ -117,7 +121,11 @@ extension String {
     func getLastName() -> String {
         
         let split = self.components(separatedBy: " ")
-
+        if split.count == 5 {
+            return split.first! + " "  + split[1] + " "  + split[2]
+        }else if split.count == 4 {
+            return split.first! + " "  + split[1]
+        }
         return split.first! + " "  + split[1]
    
     }

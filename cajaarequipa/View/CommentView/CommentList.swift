@@ -118,8 +118,7 @@ class CommentList: UIView, UITextFieldDelegate, UITableViewDelegate, UITableView
         self.tableView.register(UINib(nibName: "CommentTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentTableViewCell")
         self.tableView.delegate = self
         self.tableView.dataSource = self
-       // self.tableview.separatorStyle = .singleLine
-        self.tableView.separatorColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
+
         self.addSubview(self.tableView)
         
     }

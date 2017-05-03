@@ -32,7 +32,7 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
     var isFavoritedView = false
     func drawBody(barHeight:CGFloat){
         
-        self.frame =  CGRect(x:  (screenSize.width-320*valuePro)/2, y: 58*valuePro, width:320*valuePro, height: screenSize.height-barHeight-58*valuePro)
+        self.frame =  CGRect(x:  0, y: 58*valuePro, width:320*valuePro, height: screenSize.height-barHeight-58*valuePro)
         self.tableView = UITableView(frame: CGRect(x:  (screenSize.width-320*valuePro)/2, y: 0, width:320*valuePro, height: self.frame.size.height))
         self.tableView.backgroundColor = UIColor.init(hexString: "ffffff")
         self.tableView.separatorColor = UIColor.clear
@@ -128,6 +128,7 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
     }
     public func tableView(_ tableView:         UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:TimelineTableViewCell = tableView.dequeueReusableCell(withIdentifier: "TimelineTableViewCell") as! TimelineTableViewCell
+        currentData[indexPath.row].updateTimeline()
         cell.loadWithTimeline(timeline: currentData[indexPath.row])
       //  delegate?.checkFollowing(indexPath: indexPath,user:currentData[indexPath.row])
         cell.shareAction = {

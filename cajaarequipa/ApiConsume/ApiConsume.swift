@@ -16,6 +16,7 @@ struct HTTP_METHOD {
     static let POST = "POST"
     static let GET = "GET"
     static let PUT = "PUT"
+    static let DELETE = "DELETE"
 }
 enum TypeParam {
     case jsonBody

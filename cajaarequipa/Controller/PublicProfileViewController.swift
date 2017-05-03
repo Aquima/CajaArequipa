@@ -80,7 +80,8 @@ class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfil
     }
     // MARK: - TopBarDelegate
     internal func pressLeft(sender: UIButton) {
-        _ = self.navigationController?.popToRootViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
+     //   _ = self.navigationController?.popToRootViewController(animated: true)
     }
     
     internal func pressRight(sender: UIButton) {

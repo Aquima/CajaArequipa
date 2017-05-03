@@ -11,6 +11,7 @@ protocol DiscoveryListDelegate {
      func checkFollowing(indexPath: IndexPath, user:User)
      func updateCheckFollowing(indexPath: IndexPath, user:User)
      func loadNewUsers(offset : Int,user:User)
+     func openDetail(indexPath:IndexPath, user:User)
 }
 class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
 
@@ -123,6 +124,13 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
         let cell:UserTableViewCell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell") as! UserTableViewCell
         cell.loadWithUser(user: currentData[indexPath.row])
         delegate?.checkFollowing(indexPath: indexPath,user:currentData[indexPath.row])
+        cell.followAction = {
+            //Do whatever you want to do when the button is tapped here
+            self.delegate?.updateCheckFollowing(indexPath: indexPath, user: self.currentData[indexPath.row])
+        }
+        cell.showProfileAction = {
+            self.delegate?.openDetail(indexPath: indexPath, user: self.currentData[indexPath.row])
+        }
         return cell
     }
     // MARK: - TableView Delegate
@@ -132,7 +140,7 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
         return 92*valuePro;
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.updateCheckFollowing(indexPath: indexPath, user: currentData[indexPath.row])
+      //  delegate?.updateCheckFollowing(indexPath: indexPath, user: currentData[indexPath.row])
     }
     // MARK: - Firebase
     func updateWithData(list:[User]){

@@ -16,13 +16,16 @@ class UserItemTableViewCell: UITableViewCell {
     var imgView:UIImageView!
     var lblName:UILabel!
     var lblUsername:UILabel!
-  
+    var btnProfile:UIButton!
+    
+    var showProfileAction : (() -> Void)? = nil
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         self.selectionStyle = .none
         let view = UIView()
-        view.frame = CGRect(x: (screenSize.width-304*valuePro)/2, y: 10*valuePro, width: 304*valuePro, height: 84*valuePro)
+        view.frame = CGRect(x: (320*valuePro-304*valuePro)/2, y: 10*valuePro, width: 304*valuePro, height: 84*valuePro)
+
         view.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
         self.addSubview(view)
         
@@ -34,6 +37,10 @@ class UserItemTableViewCell: UITableViewCell {
         imgView.layer.borderColor = UIColor.init(hexString: GlobalConstants.color.white).cgColor
         imgView.layer.borderWidth = 3*valuePro
         view.addSubview(imgView)
+        
+        btnProfile = UIButton()
+        btnProfile.frame = imgView.frame
+        btnProfile.addTarget(self, action: #selector(pressProfileOn(sender:)), for: .touchUpInside)
         
         lblName = UILabel()
         lblName.frame = CGRect(x: 84*valuePro, y: 25*valuePro, width: 200*valuePro, height: 24*valuePro)
@@ -48,7 +55,7 @@ class UserItemTableViewCell: UITableViewCell {
         view.addSubview(lblUsername)
         
 
-        
+        view.addSubview(btnProfile)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -66,6 +73,11 @@ class UserItemTableViewCell: UITableViewCell {
     func checkFollow(user:User){
         
     }
-    
+    func pressProfileOn(sender:UIButton){
+        if let btnProfileAction = self.showProfileAction
+        {
+            btnProfileAction()
+        }
+    }
  
 }

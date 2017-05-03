@@ -8,14 +8,17 @@
 
 import UIKit
 import Firebase
-
+protocol CommentsViewControllerDelegate {
+    func updateTimelineItem(indexPath:IndexPath,timeline:TimeLine)
+}
 class CommentsViewController: BoxViewController ,TopBarDelegate, CommentListDelegate {
+    var delegate:CommentsViewControllerDelegate?
     var currentUser:User!
     var topBar:TopBar!
     var commentsList:CommentList!
     var currentTimeLine:TimeLine!
     var sendData:[Comment] = []
-    
+    var currentIndex:IndexPath!
     var isKeyboardActive:Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,6 +102,19 @@ class CommentsViewController: BoxViewController ,TopBarDelegate, CommentListDele
             self.commentsList.messageTextfield.text = ""
             self.commentsList.currentTexfield.text = ""
             self.commentsList.resignFirstResponderList()
+         //   self.currentTimeLine.updateTimeline()
+            var ref: FIRDatabaseReference!
+            ref = FIRDatabase.database().reference()
+            ref.child("photos").child(self.currentTimeLine.userPropertier.key).child(self.currentTimeLine.key).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let data:Dictionary = (snapshot.value as? Dictionary<String,Any>)!
+                self.currentTimeLine.likes = (data["likes"] != nil) ? data["likes"] as! Int : 0
+                self.currentTimeLine.comments = (data["comments"] != nil) ? data["comments"] as! Int : 0
+                self.delegate?.updateTimelineItem(indexPath: self.currentIndex, timeline: self.currentTimeLine)
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+            
         })
 //        let userPropieterData:Dictionary<String,Any> = [currentTimeLine.userPropertier.key:true]
 //        ref.child("comments").child(currentTimeLine.key).updateChildValues(userPropieterData)
@@ -150,10 +166,7 @@ class CommentsViewController: BoxViewController ,TopBarDelegate, CommentListDele
             if (snapshot.value is NSNull) {
                 print("loadNewTimeLine")
             } else {
-//                if self.sendData.count > 0 {
-//                    self.sendData.removeLast()
-//                }
-                
+
                 let snapDictionary = snapshot.value as! Dictionary<String, Any>
   
                 let commentItem:Comment = Comment()

@@ -29,7 +29,7 @@ extension NSNumber {
             return 1.295;//6Plus
             
         case 1024:
-            return 1.8;//iPad
+            return 1;//iPad
             
         case 1366:
             return 1.2;//iPad Pro
