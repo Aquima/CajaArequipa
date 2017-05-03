@@ -32,7 +32,7 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
         // Dispose of any resources that can be recreated.
     }
     func createView(){
-        searchBar.frame = CGRect(x: 0, y: 18*valuePro, width: 320*valuePro, height: 40*valuePro)
+        searchBar.frame = CGRect(x:(screenSize.width-320*valuePro)/2, y: 18*valuePro, width: 320*valuePro, height: 40*valuePro)
         searchBar.barTintColor = UIColor.init(hexString: GlobalConstants.color.blue)
         searchBar.delegate = self
         searchBar.searchBarStyle = .prominent

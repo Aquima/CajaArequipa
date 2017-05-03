@@ -32,8 +32,8 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
     var isFavoritedView = false
     func drawBody(barHeight:CGFloat){
         
-        self.frame =  CGRect(x:  0, y: 58*valuePro, width:320*valuePro, height: screenSize.height-barHeight-58*valuePro)
-        self.tableView = UITableView(frame: CGRect(x:  (screenSize.width-320*valuePro)/2, y: 0, width:320*valuePro, height: self.frame.size.height))
+        self.frame =  CGRect(x: (screenSize.width-320*valuePro)/2, y: 58*valuePro, width:320*valuePro, height: screenSize.height-barHeight-58*valuePro)
+        self.tableView = UITableView(frame: CGRect(x: 0, y: 0, width:320*valuePro, height: self.frame.size.height))
         self.tableView.backgroundColor = UIColor.init(hexString: "ffffff")
         self.tableView.separatorColor = UIColor.clear
         
@@ -48,12 +48,12 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
         
         if contentMessage == nil {
             contentMessage = UIView()
-            contentMessage.frame = self.bounds
+            contentMessage.frame = CGRect(x:  0, y: 0, width:320*valuePro, height: self.frame.size.height)
             let imgView:UIImageView = UIImageView(image: #imageLiteral(resourceName: "placeholderHomeNoData"))
            
             imgView.frame = CGRect(x:(contentMessage.frame.width-70*valuePro)/2, y: (contentMessage.frame.height-(82+70)*valuePro)/2, width: 70*valuePro, height: 70*valuePro)
             contentMessage.addSubview(imgView)
-            self.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
+          //  self.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
             
             let lblMessage = UILabel()
             lblMessage.frame = CGRect(x:(contentMessage.frame.width-200*valuePro)/2, y: imgView.frame.origin.y+(70+5)*valuePro, width: 200*valuePro, height: 30*valuePro)

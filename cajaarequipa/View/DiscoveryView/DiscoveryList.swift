@@ -30,7 +30,7 @@ class DiscoveryList: UIView, UITableViewDelegate, UITableViewDataSource {
     func drawBody(barHeight:CGFloat){
         
         self.frame =  CGRect(x:  (screenSize.width-320*valuePro)/2, y: 58*valuePro, width:320*valuePro, height: screenSize.height-barHeight-58*valuePro)
-        self.tableView = UITableView(frame: CGRect(x:  (screenSize.width-320*valuePro)/2, y: 0, width:320*valuePro, height: self.frame.size.height-10*valuePro))
+        self.tableView = UITableView(frame: CGRect(x: 0, y: 0, width:320*valuePro, height: self.frame.size.height-10*valuePro))
         self.tableView.backgroundColor = UIColor.init(hexString: "ffffff")
         self.tableView.separatorColor = UIColor.clear
         

@@ -33,7 +33,12 @@ class CameraViewController: BoxViewController,CustomCameraViewDelegate,TopBarDel
         cameraView.delegate = self
         
         contentCamera.addSubview(cameraView)
-        
+        if cameraView.cameraIsAvailable() == true {
+             optionsCameraView.hasFlash = (cameraView.device?.hasFlash)!
+        }else{
+             optionsCameraView.hasFlash = false
+        }
+       
         optionsCameraView.createComponents()
         optionsCameraView.delegate = self
         self.view.addSubview(optionsCameraView)
@@ -78,8 +83,6 @@ class CameraViewController: BoxViewController,CustomCameraViewDelegate,TopBarDel
     // MARK: - TopViewDelegate
     func pressLeft(sender:UIButton){
         //go Home
-       // self.tabBarController?.tabBar.isHidden = true
-        //self.cameraView.flipButtonPressed()
          self.tabBarController?.tabBar.isHidden = false
         tabBarController?.selectedIndex = 0
     }

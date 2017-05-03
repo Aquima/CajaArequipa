@@ -48,7 +48,7 @@ class FormEditProfile: UIView {
     
     func drawBody(barHeight:CGFloat){
         
-        self.backgroundColor = UIColor.init(hexString: GlobalConstants.color.white)
+        self.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
         self.frame = CGRect(x: 0, y: 58*valuePro, width: screenSize.width, height: screenSize.height-58*valuePro-barHeight)
         
         contentView = UIView()

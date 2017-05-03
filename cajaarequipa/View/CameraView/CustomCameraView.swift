@@ -325,4 +325,13 @@ class CustomCameraView: UIView,UIGestureRecognizerDelegate {
         
         return false
     }
+    func flashConfiguration(){
+      //  let avDevice = device.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        
+        // check if the device has torch
+        if (device?.hasTorch)! {
+            // lock your device for configuration
+          
+        }
+    }
 }

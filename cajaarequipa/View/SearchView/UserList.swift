@@ -31,7 +31,7 @@ class UserList: UIView, UITableViewDelegate, UITableViewDataSource {
     func drawBody(barHeight:CGFloat){
         
         self.frame =  CGRect(x:  (screenSize.width-320*valuePro)/2, y: 58*valuePro, width:320*valuePro, height: screenSize.height-barHeight-58*valuePro)
-        self.tableView = UITableView(frame: CGRect(x:  (screenSize.width-320*valuePro)/2, y: 0, width:320*valuePro, height: self.frame.size.height-10*valuePro))
+        self.tableView = UITableView(frame: CGRect(x:  0, y: 0, width:320*valuePro, height: self.frame.size.height-10*valuePro))
         self.tableView.backgroundColor = UIColor.init(hexString: "ffffff")
         self.tableView.separatorColor = UIColor.clear
         
@@ -39,15 +39,13 @@ class UserList: UIView, UITableViewDelegate, UITableViewDataSource {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.addSubview(self.tableView)
-        
-        // drawBodyNoData()
-        
+   
     }
     func showNoDataMessage(show:Bool) {
         
         if contentMessage == nil {
             contentMessage = UIView()
-            contentMessage.frame = self.bounds
+            contentMessage.frame = CGRect(x: 0, y: 0, width:320*valuePro, height: self.frame.size.height-10*valuePro)
             let imgView:UIImageView = UIImageView(image: #imageLiteral(resourceName: "noSearchResult"))
             imgView.frame = CGRect(x:(contentMessage.frame.width-70*valuePro)/2, y: 92*valuePro + ((contentMessage.frame.height-92*valuePro)-(100)*valuePro)/2, width: 70*valuePro, height: 70*valuePro)
             contentMessage.addSubview(imgView)
@@ -92,6 +90,7 @@ class UserList: UIView, UITableViewDelegate, UITableViewDataSource {
         tableView.isHidden = !show
         
     }
+    
     func loper(arrow:UIImageView){
         UIView.animate(withDuration: 0.6,
                        animations: {

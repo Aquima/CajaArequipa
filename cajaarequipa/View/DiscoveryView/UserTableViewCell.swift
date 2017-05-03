@@ -28,7 +28,7 @@ class UserTableViewCell: UITableViewCell {
         // Initialization code
         self.selectionStyle = .none
         let view = UIView()
-        view.frame = CGRect(x: (screenSize.width-304*valuePro)/2, y: 10*valuePro, width: 304*valuePro, height: 84*valuePro)
+        view.frame = CGRect(x: (320*valuePro-304*valuePro)/2, y: 10*valuePro, width: 304*valuePro, height: 84*valuePro)
         view.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
         self.addSubview(view)
         

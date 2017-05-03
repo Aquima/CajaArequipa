@@ -54,40 +54,6 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate,
         
     }
 
-    // MARK: - Firebase
-    func retriveTimeLine(){
-        let uid = ApiConsume.sharedInstance.currentUser.key
-        var ref: FIRDatabaseReference!
-        ref = FIRDatabase.database().reference()
-        ref.child("timeline").child(uid!).queryOrderedByKey().queryLimited(toLast:UInt(numberOfItems)).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
-         
-            if (snapshot.value is NSNull) {
-                print("retriveTimeLine")
-                self.listTimeline.updateWithData(list: self.sendData)
-        
-                ref.removeAllObservers()
-            } else {
-                
-                for child in snapshot.children {
-                    let data:FIRDataSnapshot = child as! FIRDataSnapshot
-                     print(data.key)
-                    let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
-                    
-                    let timelineItem:TimeLine = TimeLine()
-                    timelineItem.key = data.key
-                    timelineItem.translateToModel(data: snapDictionary)
-                   // self.sendData.append(timelineItem)
-                    self.sendData.insert(timelineItem, at: 0)
-                    print("retrive ==  \(timelineItem.timestamp.retrivePostTime())")
-                }
-                self.listTimeline.updateWithData(list: self.sendData)
-                ref.removeAllObservers()
-               
-            }
-            self.listenerTimelineAdded()
-        })
-
-    }
     // MARK: - ListTimelineDelegate
     internal func loadNewTimeLine(offset : Int,timeline:TimeLine){
         let uid = ApiConsume.sharedInstance.currentUser.key
@@ -95,7 +61,6 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate,
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()//UInt(offset)*3
         print("===================\(timeline.timestamp.retrivePostTime())")
-//        ref.child("timeline").child(uid!).queryOrderedByKey().queryEnding(atValue: timeline.key).queryLimited(toFirst: UInt(numberOfItems)).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
           ref.child("timeline").child(uid!).queryOrderedByKey().queryEnding(atValue: timeline.key).queryLimited(toLast: UInt(numberOfItems)).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
             if (snapshot.value is NSNull) {
                 print("loadNewTimeLine")
@@ -243,14 +208,12 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate,
                 print("loadNewTimeLine")
                 
             } else {
-
                     let snapDictionary = snapshot.value as! Dictionary<String, Any>
                     let timelineItem:TimeLine = TimeLine()
                     timelineItem.key = snapshot.key
                     timelineItem.translateToModel(data: snapDictionary)
                     self.sendData.insert(timelineItem, at: 0)
                     self.listTimeline.updateWithData(list: self.sendData)
-               //     refTimelineAdded.removeAllObservers()
                 if self.sendData.count > self.numberOfItems {
                     self.indexToAdd = self.indexToAdd + 1
                 }

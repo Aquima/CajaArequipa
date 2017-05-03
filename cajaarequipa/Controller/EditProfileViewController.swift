@@ -33,7 +33,7 @@ class EditProfileViewController: BoxViewController,TopBarDelegate, UINavigationC
     // MARK: - Navigation
     func createView(){
         
-        view.backgroundColor = UIColor.init(hexString: GlobalConstants.color.white)
+        view.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
         topBar = TopBar()
         topBar.delegate = self
         topBar.drawBody(leftImage: #imageLiteral(resourceName: "back"), rightImage: #imageLiteral(resourceName: "hide"), title: "Configuración")
