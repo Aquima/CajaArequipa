@@ -15,7 +15,7 @@ protocol CustomCameraViewDelegate {
 class CustomCameraView: UIView,UIGestureRecognizerDelegate {
     var previewViewContainer: UIView!
     var shotButton: UIButton!
-    var flashButton: UIButton!
+   // var flashButton: UIButton!
     var flipButton: UIButton!
     var fullAspectRatioConstraint: NSLayoutConstraint!
     var croppedAspectRatioConstraint: NSLayoutConstraint?
@@ -38,7 +38,7 @@ class CustomCameraView: UIView,UIGestureRecognizerDelegate {
     var currentDeviceOrientation: UIDeviceOrientation?
 
     func createComponents(){
-        self.frame = CGRect(x: (screenSize.width-320*valuePro), y: 58*valuePro, width: 320*valuePro, height: 320*valuePro)
+        self.frame = CGRect(x: (screenSize.width-320*valuePro)/2, y: 58*valuePro, width: 320*valuePro, height: 320*valuePro)
         previewViewContainer = UIView()
         previewViewContainer.frame = CGRect(x: 0, y: 0, width: 320*valuePro, height: 320*valuePro)
         addSubview(previewViewContainer)
@@ -64,7 +64,7 @@ class CustomCameraView: UIView,UIGestureRecognizerDelegate {
                 
                 if !device.hasFlash {
                     
-                    flashButton.isHidden = true
+                //    flashButton.isHidden = true
                 }
             }
         }
@@ -100,13 +100,32 @@ class CustomCameraView: UIView,UIGestureRecognizerDelegate {
         } catch {
             
         }
-    //    flashConfiguration()
+       // self.flashConfiguration()
         
         self.startCamera()
         
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForegroundNotification(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
     }
-    
+    func flashConfiguration() {
+        
+        do {
+            
+            if let device = device {
+                
+                try device.lockForConfiguration()
+                
+                device.flashMode = AVCaptureFlashMode.off
+            //    flashButton.setImage(flashOffImage, for: UIControlState())
+                
+                device.unlockForConfiguration()
+                
+            }
+            
+        } catch _ {
+            
+            return
+        }
+    }
     func willEnterForegroundNotification(_ notification: Notification) {
         
         startCamera()
@@ -324,14 +343,5 @@ class CustomCameraView: UIView,UIGestureRecognizerDelegate {
         }
         
         return false
-    }
-    func flashConfiguration(){
-      //  let avDevice = device.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        
-        // check if the device has torch
-        if (device?.hasTorch)! {
-            // lock your device for configuration
-          
-        }
     }
 }

@@ -34,7 +34,7 @@ class CameraViewController: BoxViewController,CustomCameraViewDelegate,TopBarDel
         
         contentCamera.addSubview(cameraView)
         if cameraView.cameraIsAvailable() == true {
-             optionsCameraView.hasFlash = (cameraView.device?.hasFlash)!
+        //     optionsCameraView.hasFlash = (cameraView.device?.hasFlash)!
         }else{
              optionsCameraView.hasFlash = false
         }
@@ -55,6 +55,9 @@ class CameraViewController: BoxViewController,CustomCameraViewDelegate,TopBarDel
         
     }
     override func viewWillAppear(_ animated: Bool) {
+     
+        
+        
         cameraView.startCamera()
         self.tabBarController?.tabBar.isHidden = true
     }

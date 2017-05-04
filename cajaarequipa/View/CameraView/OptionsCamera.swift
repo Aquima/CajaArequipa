@@ -44,10 +44,9 @@ class OptionsCamera: UIView {
             flashButton.addTarget(self, action: #selector(flashButtonPressed(sender:)), for: .touchUpInside)
             addSubview(flashButton)
         }
-
-        
+     
         shotButton = UIButton()
-        shotButton.frame = CGRect(x:  (self.frame.size.width-74*valuePro)/2, y: (self.frame.size.width+42)*valuePro, width: 74*valuePro, height: 74*valuePro)
+        shotButton.frame = CGRect(x:  (self.frame.size.width-74*valuePro)/2, y: self.frame.size.width+42*valuePro, width: 74*valuePro, height: 74*valuePro)
         shotButton.setImage(#imageLiteral(resourceName: "shutter"), for: .normal)
         addSubview(shotButton)
         

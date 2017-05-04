@@ -59,7 +59,8 @@ class TimeLine: NSObject {
     }
     func updateTimeline(){
         let uid:String = self.userPropertier.uid
-       
+       print(uid)
+        print(self.key)
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         ref.child("photos").child(uid).child(self.key).observeSingleEvent(of: .value, with: { (snapshot) in

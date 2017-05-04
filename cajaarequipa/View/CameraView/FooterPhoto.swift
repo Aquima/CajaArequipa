@@ -19,14 +19,14 @@ class FooterPhoto: UIView,UITextFieldDelegate {
     
     func drawBody(){
         
-        self.frame = CGRect(x: (screenSize.width-320*valuePro), y: 58*valuePro, width: 320*valuePro, height: 320*valuePro)
+        self.frame = CGRect(x: (screenSize.width-320*valuePro)/2, y: 58*valuePro, width: 320*valuePro, height: 320*valuePro)
         
         previewViewContainer = UIImageView()
         previewViewContainer.frame = CGRect(x: 0, y: 0, width: 320*valuePro, height: 320*valuePro)
         addSubview(previewViewContainer)
         
         txtFooter = UITextField()
-        txtFooter.frame =  CGRect(x: (screenSize.width-280*valuePro)/2, y: 20*valuePro, width: 280*valuePro, height: 44*valuePro)
+        txtFooter.frame =  CGRect(x: (self.frame.width-280*valuePro)/2, y: 20*valuePro, width: 280*valuePro, height: 44*valuePro)
         txtFooter.layer.cornerRadius = 22*valuePro
         txtFooter.layer.masksToBounds = true
         txtFooter.backgroundColor = UIColor.init(hexString: GlobalConstants.color.grayMedium)
