@@ -21,7 +21,9 @@ class SplashViewController: UIViewController {
         
         FIRApp.configure()
         self.drawBody()
-    
+//        try! FIRAuth.auth()!.signOut()
+//        let notificationName = Notification.Name("goIntro")
+//        NotificationCenter.default.post(name: notificationName, object: nil)
         // Do any additional setup after loading the view.
     }
 
