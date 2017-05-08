@@ -1,21 +1,18 @@
 //
-//  BoxViewController.swift
+//  HomeIPADViewController.swift
 //  cajaarequipa
 //
-//  Created by Raul Quispe on 3/23/17.
+//  Created by Raul Quispe on 5/6/17.
 //  Copyright © 2017 Next Latinoamérica. All rights reserved.
 //
 
 import UIKit
 
-class BoxViewController: UIViewController {
-    let screenSize: CGRect = UIScreen.main.bounds
-    let valuePro:CGFloat  = CGFloat(NSNumber.getPropotionalValueDevice())
-    
+class HomeIPADViewController: UISplitViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.init(hexString: GlobalConstants.color.white)
-        self.showTopBar()
+
         // Do any additional setup after loading the view.
     }
 
@@ -23,13 +20,8 @@ class BoxViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func showTopBar(){
-        let topBar = UIView()
-        topBar.backgroundColor = UIColor.init(hexString: GlobalConstants.color.blue)
-        topBar.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: 18*valuePro)
-        view.addSubview(topBar)
-    }
     
+
     /*
     // MARK: - Navigation
 

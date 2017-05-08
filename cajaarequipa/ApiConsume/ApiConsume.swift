@@ -112,5 +112,7 @@ class ApiConsume: NSObject{
             }.resume()
         
     }
-  
+    
+    
+    
 }

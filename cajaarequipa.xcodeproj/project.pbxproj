@@ -50,6 +50,7 @@
 		F0A932451E8609B500CEB939 /* ApiConsumeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A932431E8609B500CEB939 /* ApiConsumeExtensions.swift */; };
 		F0B176801E899ABF0056BA98 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B1767F1E899ABF0056BA98 /* EditProfileViewController.swift */; };
 		F0B176821E89A2840056BA98 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B176811E89A2840056BA98 /* User.swift */; };
+		F0BB99671EBDA942006DF04D /* HomeIPADViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB99661EBDA942006DF04D /* HomeIPADViewController.swift */; };
 		F0C181CA1EAEB9B700B26841 /* UserItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C181C81EAEB9B600B26841 /* UserItemTableViewCell.swift */; };
 		F0C181CB1EAEB9B700B26841 /* UserItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0C181C91EAEB9B700B26841 /* UserItemTableViewCell.xib */; };
 		F0C181CD1EAEB9CF00B26841 /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C181CC1EAEB9CF00B26841 /* UserList.swift */; };
@@ -156,6 +157,7 @@
 		F0A932431E8609B500CEB939 /* ApiConsumeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiConsumeExtensions.swift; sourceTree = "<group>"; };
 		F0B1767F1E899ABF0056BA98 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		F0B176811E89A2840056BA98 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F0BB99661EBDA942006DF04D /* HomeIPADViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeIPADViewController.swift; sourceTree = "<group>"; };
 		F0C181C81EAEB9B600B26841 /* UserItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserItemTableViewCell.swift; sourceTree = "<group>"; };
 		F0C181C91EAEB9B700B26841 /* UserItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserItemTableViewCell.xib; sourceTree = "<group>"; };
 		F0C181CC1EAEB9CF00B26841 /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 		F011B0A61E804917005E5F55 /* cajaarequipa */ = {
 			isa = PBXGroup;
 			children = (
+				F0BB99641EBDA715006DF04D /* iPad */,
 				F0A932411E8609B500CEB939 /* ApiConsume */,
 				F0F8FAB01E8319810009CC52 /* Resources */,
 				F011B0E31E807C27005E5F55 /* Extensions */,
@@ -433,6 +436,22 @@
 				F0A932431E8609B500CEB939 /* ApiConsumeExtensions.swift */,
 			);
 			path = ApiConsume;
+			sourceTree = "<group>";
+		};
+		F0BB99641EBDA715006DF04D /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				F0BB99651EBDA926006DF04D /* Controller */,
+			);
+			path = iPad;
+			sourceTree = "<group>";
+		};
+		F0BB99651EBDA926006DF04D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F0BB99661EBDA942006DF04D /* HomeIPADViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		F0C181C71EAEB98D00B26841 /* SearchView */ = {
@@ -831,6 +850,7 @@
 				F0F8FACD1E8391CD0009CC52 /* HomeViewController.swift in Sources */,
 				F011B0E61E807C27005E5F55 /* ColorExtensions.swift in Sources */,
 				F0B176801E899ABF0056BA98 /* EditProfileViewController.swift in Sources */,
+				F0BB99671EBDA942006DF04D /* HomeIPADViewController.swift in Sources */,
 				F09AF73E1E901913004EDF85 /* DiscoveryList.swift in Sources */,
 				F0F8FAE01E8460AF0009CC52 /* MeProfileInfo.swift in Sources */,
 			);
@@ -986,7 +1006,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "cajaarequipa-header.h";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1005,7 +1025,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "cajaarequipa-header.h";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

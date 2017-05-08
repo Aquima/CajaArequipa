@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cajaarequipa/Controller/SearchViewController.swift"
-            timestampString = "515486394.178541"
+            timestampString = "515739048.289001"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "updateCheckFollowing(indexPath:user:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,7 +186,7 @@
                   moduleName = "cajaarequipa"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/LogInViewController.swift"
-                  timestampString = "515724359.560484"
+                  timestampString = "515745283.314288"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "82"
@@ -201,7 +201,7 @@
                   moduleName = "cajaarequipa"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/LogInViewController.swift"
-                  timestampString = "515724359.562611"
+                  timestampString = "515745283.316436"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "84"
@@ -287,55 +287,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "136"
             endingLineNumber = "136"
-            landmarkName = "goProfileViewController(indexPath:timeline:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/Controller/SearchViewController.swift"
-            timestampString = "515385970.028566"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "retriveUsers()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/Controller/SearchViewController.swift"
-            timestampString = "515098298.907043"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "retriveUsersFromComments(value:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/Controller/SearchViewController.swift"
-            timestampString = "515098298.907043"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "retriveUsersFromComments(value:)"
+            landmarkName = "updateFavorited(indexPath:timeline:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -378,7 +330,7 @@
                   moduleName = "cajaarequipa"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/CommentsViewController.swift"
-                  timestampString = "515724359.607316"
+                  timestampString = "515745283.347451"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "118"
@@ -393,7 +345,7 @@
                   moduleName = "cajaarequipa"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/CommentsViewController.swift"
-                  timestampString = "515724359.609455"
+                  timestampString = "515745283.349735"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "118"
@@ -426,7 +378,7 @@
                   moduleName = "cajaarequipa"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/CommentsViewController.swift"
-                  timestampString = "515724359.614334"
+                  timestampString = "515745283.354982"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "110"
@@ -441,7 +393,7 @@
                   moduleName = "cajaarequipa"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/CommentsViewController.swift"
-                  timestampString = "515724359.61666"
+                  timestampString = "515745283.35713"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "110"
@@ -478,9 +430,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "243"
-            endingLineNumber = "243"
-            landmarkName = "listenerTimelineAdded()"
-            landmarkType = "7">
+            endingLineNumber = "243">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -490,11 +440,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cajaarequipa/Controller/SearchViewController.swift"
-            timestampString = "515486419.184225"
+            timestampString = "515739048.289001"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "retriveResult()"
             landmarkType = "7">
          </BreakpointContent>
@@ -506,28 +456,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cajaarequipa/Controller/SearchViewController.swift"
-            timestampString = "515486567.982696"
+            timestampString = "515739048.289001"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "retriveResult()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "cajaarequipa/Controller/SplashViewController.swift"
-            timestampString = "515724244.79189"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "loadTabController()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -634,7 +568,7 @@
                   moduleName = "cajaarequipa"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/SplashViewController.swift"
-                  timestampString = "515724359.660727"
+                  timestampString = "515745283.547849"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "65"
@@ -649,7 +583,7 @@
                   moduleName = "cajaarequipa"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/SplashViewController.swift"
-                  timestampString = "515724359.662784"
+                  timestampString = "515745283.550137"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "65"
@@ -664,7 +598,7 @@
                   moduleName = "cajaarequipa"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/raulquispe/Documents/iOS/CajaArequipa/cajaarequipa/cajaarequipa/Controller/SplashViewController.swift"
-                  timestampString = "515724359.664749"
+                  timestampString = "515745283.552779"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"

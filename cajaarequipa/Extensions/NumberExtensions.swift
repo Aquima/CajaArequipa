@@ -29,7 +29,7 @@ extension NSNumber {
             return 1.295;//6Plus
             
         case 1024:
-            return 1;//iPad
+            return 1.8;//iPad
             
         case 1366:
             return 1.2;//iPad Pro
@@ -40,7 +40,7 @@ extension NSNumber {
         default:
             return 1;//iPad
             
-        }
+        }//http://gestion.pe/tendencias/llega-gestion-espresso-2157651
         
     }
     public static func getKeyboardSize() -> NSNumber{

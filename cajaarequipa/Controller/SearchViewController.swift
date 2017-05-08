@@ -22,9 +22,9 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
-   //     retriveUsers()
+
         createView()
-//        retriveUsersFromComments(value: "-KilLaTaK8XwdiBrW5vW")
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,97 +83,6 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
                 self.discoveryList.updateWithData(list: self.sendData)
                 ref.removeAllObservers()
 
-            }
-            
-        })
-        
-    }
-    func retriveUsersFromComments(value:String){
-        
-        var ref: FIRDatabaseReference!
-        ref = FIRDatabase.database().reference()
-        ref.child("photos").child(value).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
-            
-            if (snapshot.value is NSNull) {
-                print("retriveUsers")
-                self.discoveryList.showNoDataMessage(show: false)
-                
-            } else {
-                self.discoveryList.showNoDataMessage(show: true)
-                self.sendData.removeAll()
-                for child in snapshot.children {
-                    let data = child as! FIRDataSnapshot
-                    let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
-                    
-                    let userItem:User = User()
-                    userItem.key = data.key
-                    userItem.translateToModel(data: snapDictionary)
-                    print(userItem.name)
-                    self.sendData.append(userItem)
-                    
-                }
-                self.discoveryList.updateWithData(list: self.sendData)
-                ref.removeAllObservers()
-                
-            }
-            
-        })
-        
-    }
-    
-
-    // MARK: - Retrive User
-    func retriveUsers(){
-        
-        var ref: FIRDatabaseReference!
-        ref = FIRDatabase.database().reference()
-        ref.child("users").queryOrderedByKey().observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
-            
-            
-            if (snapshot.value is NSNull) {
-                print("retriveUsers")
-            } else {
-                
-                for child in snapshot.children {
-                    let data = child as! FIRDataSnapshot
-                    let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
-                    
-                    let userItem:User = User()
-                    userItem.key = data.key
-                    userItem.translateToModel(data: snapDictionary)
-                    let refUpdate:FIRDatabaseReference = FIRDatabase.database().reference()
-                  //  let fullArr = userItem.name.components(separatedBy: "")
-                    let string : String = userItem.name.trimmingCharacters(in: .whitespaces)
-                
-                  //  let trimmedString = string.trimmingCharacters(in: .whitespaces)
-                    print("Name \(string)")
-                    let characters = Array(string.characters)
-                    var components:Dictionary<String,Any> = [:]
-                    for char in characters {
-                      //  if char != " " {
-                            
-                            components["\(char)"] = true
-                     //   }
-                    }
-                    //permutar
-                    let fullArr = string.components(separatedBy: " ")
-                    print("Full Arr \(fullArr)")
-                    for partNames:String in fullArr {
-                        let newComponents:String = partNames.trimmingCharacters(in: .whitespaces)
-                        if newComponents.unicodeScalars.count >= 1 {
-                            print("newComponents \(newComponents) \(newComponents.unicodeScalars.count)")
-                            for indexTemp in 1...newComponents.unicodeScalars.count {
-                                let index = newComponents.index(newComponents.startIndex, offsetBy: indexTemp)
-                                components["\(newComponents.substring(to: index))"] = true
-                            }
-                        }
-                       
-                    }
-                    print(components)
-                    refUpdate.child("users").child(userItem.key).child("components").updateChildValues(components)
-                    
-                }
-                 ref.removeAllObservers()
             }
             
         })
@@ -250,28 +159,7 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
 
     }
     internal func checkFollowing(indexPath: IndexPath, user:User) {
-//        
-//        let uid = FIRAuth.auth()!.currentUser!.uid
-//        let ref = FIRDatabase.database().reference()
-//        ref.child("following").child(uid).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
-//            if (snapshot.value is NSNull) {
-//                print("checkFollowing")
-//            } else {
-//                if let following = snapshot.value as? [String : AnyObject] {
-//                    for (key , _) in following {
-//                        if key == user.key {
-//                            user.isFollowing = true
-//                            let cell:UserTableViewCell = self.discoveryList.tableView.cellForRow(at: indexPath) as! UserTableViewCell
-//                            cell.checkFollow(user: user)
-//                        }
-//                    }
-//                }
-//            }
-//            
-//        })
-//        
-//        ref.removeAllObservers()
-//        
+      
     }
     
     internal func updateCheckFollowing(indexPath: IndexPath, user:User) {
@@ -320,40 +208,7 @@ class SearchViewController: BoxViewController, UISearchBarDelegate,UserListDeleg
     }
     
     internal func loadNewUsers(offset : Int,user:User){
-//        self.discoveryList.isLoading = true
-//        
-//        var ref: FIRDatabaseReference!
-//        ref = FIRDatabase.database().reference()
-//        ref.child("users").queryOrderedByKey().queryStarting(atValue: user.key).queryLimited(toFirst: UInt(offset)*5).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
-//            
-//            if (snapshot.value is NSNull) {
-//                print("loadNewUsers")
-//            } else {
-//                self.sendData.removeLast()
-//                for child in snapshot.children {
-//                    let data = child as! FIRDataSnapshot
-//                    let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
-//                    
-//                    let userItem:User = User()
-//                    userItem.key = data.key
-//                    userItem.translateToModel(data: snapDictionary)
-//                    print("\(userItem.name)")
-//                    self.sendData.append(userItem)
-//                    
-//                    
-//                }
-//                if snapshot.childrenCount > 1 {
-//                    self.discoveryList.isLoading = false
-//                    self.discoveryList.updateWithData(list: self.sendData)
-//                }else{
-//                    self.discoveryList.isLoading = true
-//                }
-//                
-//                ref.removeAllObservers()
-//            }
-//            
-//        })
-//        
+     
     }
     // MARK: - Timeline
     func timelineFromUsers(user:User){

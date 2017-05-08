@@ -100,9 +100,15 @@ class SplashViewController: UIViewController {
         let notificationName = Notification.Name("goIntro")
         NotificationCenter.default.addObserver(self, selector: #selector(self.goIntro), name: notificationName, object: nil)
         
-       // let notificationName = Notification.Name("goSplash")
-     //   NotificationCenter.default.addObserver(self, selector: #selector(self.goIntro), name: notificationName, object: nil)
-        
+        let deviceIdiom = UIScreen.main.traitCollection.userInterfaceIdiom
+        if deviceIdiom == .phone {
+            self.loadIphoneViewController()
+        }else{
+            self.loadIpadViewController()
+        }
+  
+    }
+    func loadIphoneViewController(){
         let homeVC = HomeViewController()
         let iconHome = UITabBarItem(title: "", image: #imageLiteral(resourceName: "homeIcon"), selectedImage: #imageLiteral(resourceName: "homeIconOn"))
         homeVC.tabBarItem = iconHome
@@ -115,15 +121,15 @@ class SplashViewController: UIViewController {
         let iconSearch = UITabBarItem(title: "", image: #imageLiteral(resourceName: "searchIcon"), selectedImage: #imageLiteral(resourceName: "searchIconOn"))
         searchVC.tabBarItem = iconSearch
         
-       // let tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "more")
+        // let tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "more")
         iconSearch.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         
         let nav2 = NavigationCustomViewController.init(rootViewController: searchVC)
         nav2.navigationBar.isHidden = true
         
         let cameraVC = CameraViewController()
-     //   let iconCamera = UITabBarItem(title: "", image: #imageLiteral(resourceName: "cameraIcon"), selectedImage: #imageLiteral(resourceName: "cameraIcon"))
-     //   cameraVC.tabBarItem = iconCamera
+        //   let iconCamera = UITabBarItem(title: "", image: #imageLiteral(resourceName: "cameraIcon"), selectedImage: #imageLiteral(resourceName: "cameraIcon"))
+        //   cameraVC.tabBarItem = iconCamera
         
         let nav3 = NavigationCustomViewController.init(rootViewController: cameraVC)
         nav3.navigationBar.isHidden = true
@@ -149,10 +155,75 @@ class SplashViewController: UIViewController {
         tabBarVC.tabBar.backgroundColor = UIColor.white
         tabBarVC.tabBar.tintColor = UIColor.init(hexString: "333333")
         let imgView = UIImageView(image: #imageLiteral(resourceName: "cameraIcon"))
-        imgView.frame = CGRect(x: (screenSize.width-34*valuePro)/2, y: 5, width: 34*valuePro, height: 34*valuePro)
+        let valueProTab = tabBarVC.tabBar.frame.size.height*0.8
+        imgView.frame = CGRect(x: (screenSize.width-34*valuePro)/2, y: 5, width: valueProTab, height: valueProTab)
         tabBarVC.tabBar.addSubview(imgView)
         self.navigationController?.pushViewController(tabBarVC, animated: true)
+    }
+    func loadIpadViewController(){
+        let homeVC = HomeIPADViewController()
+        let iconHome = UITabBarItem(title: "", image: #imageLiteral(resourceName: "homeIcon"), selectedImage: #imageLiteral(resourceName: "homeIconOn"))
+        homeVC.tabBarItem = iconHome
+        iconHome.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         
+        
+        let homeFirstVC = HomeViewController()
+      
+        
+//        let nav1 = NavigationCustomViewController.init(rootViewController: homeFirstVC)
+//        nav1.navigationBar.isHidden = true
+
+        let navSplit1 = NavigationCustomViewController.init(rootViewController: homeFirstVC)
+        navSplit1.navigationBar.isHidden = true
+        
+        let searchVCsplit = SearchViewController()
+        let navSplit2 = NavigationCustomViewController.init(rootViewController: searchVCsplit)
+        navSplit2.navigationBar.isHidden = true
+        
+        homeVC.viewControllers = [navSplit1,navSplit2]
+        
+        let searchVC = SearchViewController()
+        let iconSearch = UITabBarItem(title: "", image: #imageLiteral(resourceName: "searchIcon"), selectedImage: #imageLiteral(resourceName: "searchIconOn"))
+        searchVC.tabBarItem = iconSearch
+        
+        // let tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "more")
+        iconSearch.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+        
+        let nav2 = NavigationCustomViewController.init(rootViewController: searchVC)
+        nav2.navigationBar.isHidden = true
+        
+        let cameraVC = CameraViewController()
+        //   let iconCamera = UITabBarItem(title: "", image: #imageLiteral(resourceName: "cameraIcon"), selectedImage: #imageLiteral(resourceName: "cameraIcon"))
+        //   cameraVC.tabBarItem = iconCamera
+        
+        let nav3 = NavigationCustomViewController.init(rootViewController: cameraVC)
+        nav3.navigationBar.isHidden = true
+        
+        let favoritedVC = FavoritedViewController()
+        let iconFavorited = UITabBarItem(title: "", image: #imageLiteral(resourceName: "favoriteIcon"), selectedImage: #imageLiteral(resourceName: "favoriteIconOn"))
+        favoritedVC.tabBarItem = iconFavorited
+        iconFavorited.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+        
+        let nav4 = NavigationCustomViewController.init(rootViewController: favoritedVC)
+        nav4.navigationBar.isHidden = true
+        
+        let profileVC = ProfileViewController()
+        let iconProfile = UITabBarItem(title: "", image: #imageLiteral(resourceName: "profileIcon"), selectedImage: #imageLiteral(resourceName: "profileIconOn"))
+        profileVC.tabBarItem = iconProfile
+        iconProfile.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+        
+        let nav5 = NavigationCustomViewController.init(rootViewController: profileVC)
+        nav5.navigationBar.isHidden = true
+        
+        let tabBarVC:UITabBarController = UITabBarController()
+        tabBarVC.viewControllers = [homeVC,nav2,nav3,nav4,nav5]
+        tabBarVC.tabBar.backgroundColor = UIColor.white
+        tabBarVC.tabBar.tintColor = UIColor.init(hexString: "333333")
+        let imgView = UIImageView(image: #imageLiteral(resourceName: "cameraIcon"))
+        let valueProTab = tabBarVC.tabBar.frame.size.height*0.8
+        imgView.frame = CGRect(x: (screenSize.width-34*valuePro)/2, y: 5, width: valueProTab, height: valueProTab)
+        tabBarVC.tabBar.addSubview(imgView)
+        self.navigationController?.pushViewController(tabBarVC, animated: true)
     }
     func goIntro(notification:Notification){
         NotificationCenter.default.removeObserver(self, name: notification.name, object: nil)
