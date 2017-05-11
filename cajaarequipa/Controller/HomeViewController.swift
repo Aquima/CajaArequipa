@@ -60,7 +60,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate,
         self.listTimeline.isLoading = true
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()//UInt(offset)*3
-        print("===================\(timeline.timestamp.retrivePostTime())")
+     //   print("===================\(timeline.timestamp.retrivePostTime())")
           ref.child("timeline").child(uid!).queryOrderedByKey().queryEnding(atValue: timeline.key).queryLimited(toLast: UInt(numberOfItems)).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
             if (snapshot.value is NSNull) {
                 print("loadNewTimeLine")
@@ -75,7 +75,7 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate,
                     let timelineItem:TimeLine = TimeLine()
                     timelineItem.key = data.key
                     timelineItem.translateToModel(data: snapDictionary)
-                    print("loadNewTimeLine =================== \(timelineItem.timestamp.retrivePostTime())")
+                   // print("loadNewTimeLine =================== \(timelineItem.timestamp.retrivePostTime())")
                     if snapshot.childrenCount > 1 {
                         self.sendData.insert(timelineItem, at: (offset*(self.numberOfItems-1+self.indexToAdd)))
                     }
@@ -136,10 +136,11 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate,
             timeline.isfavorited = false
             if  timeline.likes > 1 {
                 timeline.likes  = (timeline.likes  - 1)
+            }else{
+                timeline.likes = 0
             }
-            let postTimeline:[String:Any] = ["isfavorited":false,
-                                             "likes":timeline.likes]
-        
+            let postTimeline:[String:Any] = ["isfavorited":false]
+            //, "likes":timeline.likes
             ref.child("timeline").child(uid!).child(timeline.key).updateChildValues(postTimeline)
             self.listTimeline.tableView.isScrollEnabled = false
             let cell:TimelineTableViewCell = self.listTimeline.tableView.cellForRow(at: indexPath) as! TimelineTableViewCell
@@ -149,8 +150,8 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate,
         }else{
             timeline.likes = (timeline.likes + 1)
             timeline.isfavorited = true
-            let postTimeline:[String:Any] = ["isfavorited":true,
-                                             "likes":timeline.likes]
+            let postTimeline:[String:Any] = ["isfavorited":true]
+             //                                ,"likes":timeline.likes
            
             ref.child("timeline").child(uid!).child(timeline.key).updateChildValues(postTimeline)
             self.listTimeline.tableView.isScrollEnabled = false
@@ -167,31 +168,61 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate,
         var ref: FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         
+        let post:[String:Any] = [ApiConsume.sharedInstance.currentUser.key:true]
+        ref.child("likes").child(timeline.userPropertier.key).child(uid!).updateChildValues(post, withCompletionBlock: { (error:Error?, ref:FIRDatabaseReference!) in
+            print("This never prints in the console")
+            self.updatePhotoParent(timeline: timeline)
+            
+        })
+        
         if timeline.isfavorited == false {
 
-            ref.child("likes").child(timeline.userPropertier.key).child(uid!).child(ApiConsume.sharedInstance.currentUser.key).removeValue()
+            ref.child("likes").child(timeline.userPropertier.key).child(uid!).child(ApiConsume.sharedInstance.currentUser.key).removeValue(completionBlock: { (error:Error?, ref:FIRDatabaseReference!) in
+                self.updatePhotoParent(timeline: timeline)
+                
+            })
 
         }else{
 
             let post:[String:Any] = [ApiConsume.sharedInstance.currentUser.key:true]
-            ref.child("likes").child(timeline.userPropertier.key).child(uid!).updateChildValues(post)
-        }
-        var refPhotos: FIRDatabaseReference!
-        refPhotos = FIRDatabase.database().reference().child("likes").child(timeline.userPropertier.key).child(uid!)
-        refPhotos.observe(.value, with: { (snapshot: FIRDataSnapshot!) in
-            if (snapshot.value is NSNull) {
-                print("updateCheckLikes")
-
-            } else {
-                let post:[String:Any] = ["likes":snapshot.childrenCount]
-                refPhotos = FIRDatabase.database().reference()
-                refPhotos.child("photos").child(timeline.userPropertier.key).child(timeline.key).updateChildValues(post)
-                refPhotos.removeAllObservers()
-            }
+            ref.child("likes").child(timeline.userPropertier.key).child(uid!).updateChildValues(post, withCompletionBlock: { (error:Error?, ref:FIRDatabaseReference!) in
+                self.updatePhotoParent(timeline: timeline)
+                
+            })
            
-        })
-
+        }
        
+        
+    }
+    func updatePhotoParent(timeline:TimeLine){
+            let uid = timeline.key
+            var refPhotos: FIRDatabaseReference!
+            refPhotos = FIRDatabase.database().reference().child("likes").child(timeline.userPropertier.key).child(uid!)
+            refPhotos.observe(.value, with: { (snapshot: FIRDataSnapshot!) in
+                if (snapshot.value is NSNull) {
+                    print("updateCheckLikes")
+                    let post:[String:Any] = ["likes":0]
+                    refPhotos = FIRDatabase.database().reference()
+                    refPhotos.child("photos").child(timeline.userPropertier.key).child(timeline.key).updateChildValues(post)
+                    refPhotos.removeAllObservers()
+                    self.updateMeCurrentTimeline(timeline: timeline, likes: 0)
+                } else {
+                    let post:[String:Any] = ["likes":snapshot.childrenCount]
+                    refPhotos = FIRDatabase.database().reference()
+                    refPhotos.child("photos").child(timeline.userPropertier.key).child(timeline.key).updateChildValues(post)
+                    refPhotos.removeAllObservers()
+                    self.updateMeCurrentTimeline(timeline: timeline, likes: snapshot.childrenCount)
+                }
+                refPhotos.removeAllObservers()
+            })
+    }
+    func updateMeCurrentTimeline(timeline:TimeLine,likes:UInt){
+        let uid = ApiConsume.sharedInstance.currentUser.key
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        ref.child("timeline").child(uid!).child(timeline.key).child("likes").setValue(likes)
+        
+        timeline.likes = Int(likes)
         
     }
     func listenerTimelineAdded(){

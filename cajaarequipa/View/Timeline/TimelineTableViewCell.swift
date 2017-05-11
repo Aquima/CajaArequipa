@@ -173,20 +173,19 @@ class TimelineTableViewCell: UITableViewCell {
                         sender.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
         },
                        completion: { _ in
-                        UIView.animate(withDuration: 0.3) {
+                        UIView.animate(withDuration: 0.3, animations: {
                            sender.transform = CGAffineTransform.identity
                             if sender.tag == 1 {
                                 sender.tag = 0
-                             //   self.currentTimeline.isfavorited = false
                                 self.btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOff"), for: .normal)
                             }else{
                                 sender.tag = 1
                                 self.btnFavorite.setImage(#imageLiteral(resourceName: "favoritedIconOn"), for: .normal)
-                              //  self.currentTimeline.isfavorited = true
                             }
-                           sender.isEnabled = true
 
-                        }
+                        },completion: { _ in
+                            sender.isEnabled = true
+                        })
         })
         if let btnFavoriteAction = self.favoriteAction
         {
