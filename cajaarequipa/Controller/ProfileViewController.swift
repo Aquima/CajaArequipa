@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ProfileViewController: BoxViewController ,TopBarDelegate{
+class ProfileViewController: BoxViewController ,TopBarDelegate, PublicationsDelegate{
 
     var topBar:TopBar!
     var meProfileInfo:MeProfileInfo!
@@ -81,6 +81,7 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
         
         publications = Publications()
         publications.drawBody(barHeight: (self.tabBarController?.tabBar.frame.size.height)!, title: "0 Publicaciones")
+        publications.delegate = self
         view.addSubview(publications)
        
     }
@@ -115,5 +116,11 @@ class ProfileViewController: BoxViewController ,TopBarDelegate{
             
             self.publications.lblTitle.text = "\(self.listPhotos.count) Publicaciones"
         })
+    }
+    //MARK
+    internal func selectedPhoto(photo: Photos) {
+        let vc: DetailPhotoViewController = DetailPhotoViewController()
+        vc.currentPhoto = photo
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

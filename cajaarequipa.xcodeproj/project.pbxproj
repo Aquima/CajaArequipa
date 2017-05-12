@@ -15,6 +15,9 @@
 		49708C571E9B5ED200AE452B /* PublicProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49708C561E9B5ED200AE452B /* PublicProfileInfo.swift */; };
 		49D158F31EA1DCB9008B3A1D /* CommentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D158F21EA1DCB9008B3A1D /* CommentList.swift */; };
 		852852706EDE0174E42F847C /* Pods_cajaarequipaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65EA6B9F44FF3F761DDF6B3 /* Pods_cajaarequipaTests.framework */; };
+		C4665C561EC537C5009ACD4C /* GoogleService-Staging-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4665C551EC537C5009ACD4C /* GoogleService-Staging-Info.plist */; };
+		C4A288961EC5468F0086BD76 /* DetailPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A288951EC5468F0086BD76 /* DetailPhotoViewController.swift */; };
+		C4A288991EC547340086BD76 /* DetailPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A288981EC547340086BD76 /* DetailPhoto.swift */; };
 		F011B0A81E804917005E5F55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011B0A71E804917005E5F55 /* AppDelegate.swift */; };
 		F011B0AA1E804917005E5F55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011B0A91E804917005E5F55 /* ViewController.swift */; };
 		F011B0B01E804917005E5F55 /* cajaarequipa.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F011B0AE1E804917005E5F55 /* cajaarequipa.xcdatamodeld */; };
@@ -113,6 +116,9 @@
 		9441BC5C522297FF2FEEB6FA /* Pods_cajaarequipa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cajaarequipa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		945C045D813C62B32027B1A4 /* Pods-cajaarequipaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipaUITests/Pods-cajaarequipaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		99E0EAD927468BCE55125CBE /* Pods-cajaarequipa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipa/Pods-cajaarequipa.debug.xcconfig"; sourceTree = "<group>"; };
+		C4665C551EC537C5009ACD4C /* GoogleService-Staging-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Staging-Info.plist"; sourceTree = "<group>"; };
+		C4A288951EC5468F0086BD76 /* DetailPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPhotoViewController.swift; sourceTree = "<group>"; };
+		C4A288981EC547340086BD76 /* DetailPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPhoto.swift; sourceTree = "<group>"; };
 		E65EA6B9F44FF3F761DDF6B3 /* Pods_cajaarequipaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cajaarequipaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F011B0A41E804917005E5F55 /* cajaarequipa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cajaarequipa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F011B0A71E804917005E5F55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -262,6 +268,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C4A288971EC547230086BD76 /* DetailPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				C4A288981EC547340086BD76 /* DetailPhoto.swift */,
+			);
+			path = DetailPhoto;
+			sourceTree = "<group>";
+		};
 		F011B09B1E804916005E5F55 = {
 			isa = PBXGroup;
 			children = (
@@ -288,11 +302,12 @@
 		F011B0A61E804917005E5F55 /* cajaarequipa */ = {
 			isa = PBXGroup;
 			children = (
+				F011B0DB1E806DB1005E5F55 /* GoogleService-Info.plist */,
+				C4665C551EC537C5009ACD4C /* GoogleService-Staging-Info.plist */,
 				F0BB99641EBDA715006DF04D /* iPad */,
 				F0A932411E8609B500CEB939 /* ApiConsume */,
 				F0F8FAB01E8319810009CC52 /* Resources */,
 				F011B0E31E807C27005E5F55 /* Extensions */,
-				F011B0DB1E806DB1005E5F55 /* GoogleService-Info.plist */,
 				F011B0DA1E805E98005E5F55 /* Controller */,
 				F011B0D91E804A65005E5F55 /* View */,
 				F011B0D81E804A50005E5F55 /* Model */,
@@ -339,6 +354,7 @@
 		F011B0D91E804A65005E5F55 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C4A288971EC547230086BD76 /* DetailPhoto */,
 				F0C181C71EAEB98D00B26841 /* SearchView */,
 				49D158F11EA1DAFE008B3A1D /* CommentView */,
 				1B530D8C1E96ACFA00E02296 /* Timeline */,
@@ -369,6 +385,7 @@
 				F09AF7361E8F9AAD004EDF85 /* DiscoveryViewController.swift */,
 				49708C521E9A541D00AE452B /* CommentsViewController.swift */,
 				49708C541E9B243F00AE452B /* PublicProfileViewController.swift */,
+				C4A288951EC5468F0086BD76 /* DetailPhotoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -630,6 +647,7 @@
 				F0F8FAB31E8319950009CC52 /* helvetica-rounded-bold.otf in Resources */,
 				F011B0B51E804917005E5F55 /* LaunchScreen.storyboard in Resources */,
 				F0F8FADC1E84029F0009CC52 /* MediaProfile.xcassets in Resources */,
+				C4665C561EC537C5009ACD4C /* GoogleService-Staging-Info.plist in Resources */,
 				F0F8FAC21E832A450009CC52 /* MYRIADPRO-CONDIT.OTF in Resources */,
 				F0F8FABE1E832A450009CC52 /* MYRIADPRO-BOLDCOND.OTF in Resources */,
 				F0F8FAC51E832A450009CC52 /* MYRIADPRO-SEMIBOLDIT.OTF in Resources */,
@@ -822,7 +840,9 @@
 				F0A932441E8609B500CEB939 /* ApiConsume.swift in Sources */,
 				F011B0E01E807A8F005E5F55 /* RegisterViewController.swift in Sources */,
 				F0A932401E85AB2C00CEB939 /* Publications.swift in Sources */,
+				C4A288961EC5468F0086BD76 /* DetailPhotoViewController.swift in Sources */,
 				F011B0E71E807C27005E5F55 /* NumberExtensions.swift in Sources */,
+				C4A288991EC547340086BD76 /* DetailPhoto.swift in Sources */,
 				F011B0AA1E804917005E5F55 /* ViewController.swift in Sources */,
 				F011B0E21E807AF8005E5F55 /* SplashViewController.swift in Sources */,
 				F0CF4C621E9706E600D28F3C /* TimelineTableViewCell.swift in Sources */,

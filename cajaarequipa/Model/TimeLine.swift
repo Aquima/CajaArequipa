@@ -13,7 +13,7 @@ class TimeLine: NSObject {
     
     var key:String!
     var pictureUrl:URL?
-    var likes:Int!
+    var likes:Int = 0
     var comments:Int = 0
     var describe:String!
     var userPropertier:User!

@@ -7,9 +7,11 @@
 //
 
 import UIKit
-
+protocol PublicationsDelegate {
+    func selectedPhoto(photo:Photos)
+}
 class Publications: UIView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate  {
-    
+    var delegate:PublicationsDelegate?
     let screenSize: CGRect = UIScreen.main.bounds
     let valuePro:CGFloat  = CGFloat(NSNumber.getPropotionalValueDevice())
     
@@ -182,5 +184,13 @@ class Publications: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
     {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("selected cell")
+        self.delegate?.selectedPhoto(photo: self.listPhotos[indexPath.row])
+//        addToList.append(objectsArray[indexPath.row])
+//        let cell = collectionView.cellForItem(at: indexPath)
+//        cell?.layer.borderWidth = 2.0
+//        cell?.layer.borderColor = UIColor.gray.cgColor
     }
 }

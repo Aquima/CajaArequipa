@@ -9,6 +9,9 @@
 import UIKit
 import NVActivityIndicatorView
 import Firebase
+// Swift code
+
+
 
 class SplashViewController: UIViewController {
 
@@ -18,8 +21,14 @@ class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        FIRApp.configure()
+        #if DEBUG
+            let firebasePlistFileName = "GoogleService-Staging-Info"
+        #else
+            let firebasePlistFileName = "GoogleService-Info"
+        #endif
+        let firbaseOptions = FIROptions(contentsOfFile: Bundle.main.path(forResource: firebasePlistFileName, ofType: "plist"))
+        FIRApp.configure(with: firbaseOptions!)
+    //    FIRApp.configure()
         self.drawBody()
 //        try! FIRAuth.auth()!.signOut()
 //        let notificationName = Notification.Name("goIntro")
