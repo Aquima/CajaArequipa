@@ -284,9 +284,7 @@ class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfil
     // MARK: - Mail Composer
     internal func mailComposeController(_ controller: MFMailComposeViewController,
                                         didFinishWith result: MFMailComposeResult, error: Error?) {
-        // Check the result or perform other tasks.
-        
-        // Dismiss the mail compose view controller.
+
         controller.dismiss(animated: true, completion: nil)
     }
     // MARK: - ViewController

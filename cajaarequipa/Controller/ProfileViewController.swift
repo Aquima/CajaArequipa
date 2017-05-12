@@ -110,6 +110,7 @@ class ProfileViewController: BoxViewController ,TopBarDelegate, PublicationsDele
             let itemPhoto = (snapshot.value as? Dictionary<String, Any>)!
 
             let photoItem = Photos()
+            photoItem.key = snapshot.key
             photoItem.translateToModel(data: itemPhoto)
             self.listPhotos.append(photoItem)
             self.publications.updateWithData(list: self.listPhotos)
