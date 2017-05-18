@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 
-class CameraViewController: BoxViewController,CustomCameraViewDelegate,TopBarDelegate,OptionsCameraDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class CameraViewController: BoxViewController,CustomCameraViewDelegate,TopBarDelegate,OptionsCameraDelegate,FusumaDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     var cameraView:CustomCameraView = CustomCameraView()
     var optionsCameraView:OptionsCamera = OptionsCamera()
@@ -106,17 +106,20 @@ class CameraViewController: BoxViewController,CustomCameraViewDelegate,TopBarDel
     }
     internal func pressLibraryOn() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum){
-            
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum;
-            imagePicker.allowsEditing = false
-            
-            self.present(imagePicker, animated: true, completion: nil)
+            let cameraVC = FusumaViewController()
+            cameraVC.delegate = self
+            self.present(cameraVC, animated: true, completion: nil)
+//            imagePicker.delegate = self
+//            imagePicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum;
+//            imagePicker.allowsEditing = false
+//            
+//            self.present(imagePicker, animated: true, completion: nil)
             
         }
     }
     internal func pressCameraOn() {
-        self.cameraView.startCamera()
+       // self.cameraView.startCamera()
+       
     }
     // MARK: - UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -130,6 +133,79 @@ class CameraViewController: BoxViewController,CustomCameraViewDelegate,TopBarDel
         }else{
             self.cameraView.startCamera()
         }
+    }
+// MARK: - FUSUMADELEGATE
+    // MARK: FusumaDelegate Protocol
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
+        switch source {
+        case .camera:
+            print("Image captured from Camera")
+        case .library:
+            print("Image selected from Camera Roll")
+        default:
+            print("Image selected")
+        }
+        let postVC:PostViewController = PostViewController()
+        postVC.currentImage = image
+        self.navigationController?.pushViewController(postVC, animated: true)
+
+    //    imageView.image = image
+    }
+    
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode, metaData: ImageMetadata) {
+        print("Image mediatype: \(metaData.mediaType)")
+        print("Source image size: \(metaData.pixelWidth)x\(metaData.pixelHeight)")
+        print("Creation date: \(metaData.creationDate)")
+        print("Modification date: \(metaData.modificationDate)")
+        print("Video duration: \(metaData.duration)")
+        print("Is favourite: \(metaData.isFavourite)")
+        print("Is hidden: \(metaData.isHidden)")
+        print("Location: \(metaData.location)")
+    }
+    
+    func fusumaVideoCompleted(withFileURL fileURL: URL) {
+        print("video completed and output to file: \(fileURL)")
+      //  self.fileUrlLabel.text = "file output to: \(fileURL.absoluteString)"
+    }
+    
+    func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
+        switch source {
+        case .camera:
+            print("Called just after dismissed FusumaViewController using Camera")
+        case .library:
+            print("Called just after dismissed FusumaViewController using Camera Roll")
+        default:
+            print("Called just after dismissed FusumaViewController")
+        }
+    }
+    
+    func fusumaCameraRollUnauthorized() {
+        
+        print("Camera roll unauthorized")
+        
+        let alert = UIAlertController(title: "Access Requested", message: "Saving image needs to access your photo album", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (action) -> Void in
+            
+            if let url = URL(string:UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.openURL(url)
+            }
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func fusumaClosed() {
+        print("Called when the FusumaViewController disappeared")
+    }
+    
+    func fusumaWillClosed() {
+        print("Called when the close button is pressed")
     }
 
 }

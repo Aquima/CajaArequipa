@@ -24,8 +24,16 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate,
         
        // retriveTimeLine()
         self.listenerTimelineAdded()
+        
+        let notificationName = Notification.Name("restartHomeViewController")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.restartHomeViewController), name: notificationName, object: nil)
+   
     }
-
+    func restartHomeViewController(notification:Notification){
+        indexToAdd = 0
+        numberOfItems = 0
+        self.sendData.removeAll()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

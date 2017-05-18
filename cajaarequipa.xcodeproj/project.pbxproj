@@ -15,6 +15,19 @@
 		49708C571E9B5ED200AE452B /* PublicProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49708C561E9B5ED200AE452B /* PublicProfileInfo.swift */; };
 		49D158F31EA1DCB9008B3A1D /* CommentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D158F21EA1DCB9008B3A1D /* CommentList.swift */; };
 		852852706EDE0174E42F847C /* Pods_cajaarequipaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65EA6B9F44FF3F761DDF6B3 /* Pods_cajaarequipaTests.framework */; };
+		C41EB7C31ECE4A2300E08C53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C41EB7B51ECE4A2300E08C53 /* Assets.xcassets */; };
+		C41EB7C41ECE4A2300E08C53 /* FSAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41EB7B61ECE4A2300E08C53 /* FSAlbumView.swift */; };
+		C41EB7C51ECE4A2300E08C53 /* FSAlbumView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41EB7B71ECE4A2300E08C53 /* FSAlbumView.xib */; };
+		C41EB7C61ECE4A2300E08C53 /* FSAlbumViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41EB7B81ECE4A2300E08C53 /* FSAlbumViewCell.swift */; };
+		C41EB7C71ECE4A2300E08C53 /* FSAlbumViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41EB7B91ECE4A2300E08C53 /* FSAlbumViewCell.xib */; };
+		C41EB7C81ECE4A2300E08C53 /* FSCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41EB7BA1ECE4A2300E08C53 /* FSCameraView.swift */; };
+		C41EB7C91ECE4A2300E08C53 /* FSCameraView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41EB7BB1ECE4A2300E08C53 /* FSCameraView.xib */; };
+		C41EB7CA1ECE4A2300E08C53 /* FSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41EB7BC1ECE4A2300E08C53 /* FSConstants.swift */; };
+		C41EB7CB1ECE4A2300E08C53 /* FSImageCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41EB7BD1ECE4A2300E08C53 /* FSImageCropView.swift */; };
+		C41EB7CC1ECE4A2300E08C53 /* FSVideoCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41EB7BE1ECE4A2300E08C53 /* FSVideoCameraView.swift */; };
+		C41EB7CD1ECE4A2300E08C53 /* FSVideoCameraView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41EB7BF1ECE4A2300E08C53 /* FSVideoCameraView.xib */; };
+		C41EB7CE1ECE4A2300E08C53 /* FusumaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41EB7C01ECE4A2300E08C53 /* FusumaViewController.swift */; };
+		C41EB7D01ECE4A2300E08C53 /* FusumaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C41EB7C21ECE4A2300E08C53 /* FusumaViewController.xib */; };
 		C4665C561EC537C5009ACD4C /* GoogleService-Staging-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4665C551EC537C5009ACD4C /* GoogleService-Staging-Info.plist */; };
 		C4A288961EC5468F0086BD76 /* DetailPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A288951EC5468F0086BD76 /* DetailPhotoViewController.swift */; };
 		C4A288991EC547340086BD76 /* DetailPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A288981EC547340086BD76 /* DetailPhoto.swift */; };
@@ -116,6 +129,19 @@
 		9441BC5C522297FF2FEEB6FA /* Pods_cajaarequipa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cajaarequipa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		945C045D813C62B32027B1A4 /* Pods-cajaarequipaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipaUITests/Pods-cajaarequipaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		99E0EAD927468BCE55125CBE /* Pods-cajaarequipa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipa/Pods-cajaarequipa.debug.xcconfig"; sourceTree = "<group>"; };
+		C41EB7B51ECE4A2300E08C53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C41EB7B61ECE4A2300E08C53 /* FSAlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSAlbumView.swift; sourceTree = "<group>"; };
+		C41EB7B71ECE4A2300E08C53 /* FSAlbumView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FSAlbumView.xib; sourceTree = "<group>"; };
+		C41EB7B81ECE4A2300E08C53 /* FSAlbumViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSAlbumViewCell.swift; sourceTree = "<group>"; };
+		C41EB7B91ECE4A2300E08C53 /* FSAlbumViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FSAlbumViewCell.xib; sourceTree = "<group>"; };
+		C41EB7BA1ECE4A2300E08C53 /* FSCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSCameraView.swift; sourceTree = "<group>"; };
+		C41EB7BB1ECE4A2300E08C53 /* FSCameraView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FSCameraView.xib; sourceTree = "<group>"; };
+		C41EB7BC1ECE4A2300E08C53 /* FSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSConstants.swift; sourceTree = "<group>"; };
+		C41EB7BD1ECE4A2300E08C53 /* FSImageCropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSImageCropView.swift; sourceTree = "<group>"; };
+		C41EB7BE1ECE4A2300E08C53 /* FSVideoCameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSVideoCameraView.swift; sourceTree = "<group>"; };
+		C41EB7BF1ECE4A2300E08C53 /* FSVideoCameraView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FSVideoCameraView.xib; sourceTree = "<group>"; };
+		C41EB7C01ECE4A2300E08C53 /* FusumaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FusumaViewController.swift; sourceTree = "<group>"; };
+		C41EB7C21ECE4A2300E08C53 /* FusumaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FusumaViewController.xib; sourceTree = "<group>"; };
 		C4665C551EC537C5009ACD4C /* GoogleService-Staging-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Staging-Info.plist"; sourceTree = "<group>"; };
 		C4A288951EC5468F0086BD76 /* DetailPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPhotoViewController.swift; sourceTree = "<group>"; };
 		C4A288981EC547340086BD76 /* DetailPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPhoto.swift; sourceTree = "<group>"; };
@@ -268,6 +294,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C41EB7B41ECE4A2300E08C53 /* Fusuma */ = {
+			isa = PBXGroup;
+			children = (
+				C41EB7B51ECE4A2300E08C53 /* Assets.xcassets */,
+				C41EB7B61ECE4A2300E08C53 /* FSAlbumView.swift */,
+				C41EB7B71ECE4A2300E08C53 /* FSAlbumView.xib */,
+				C41EB7B81ECE4A2300E08C53 /* FSAlbumViewCell.swift */,
+				C41EB7B91ECE4A2300E08C53 /* FSAlbumViewCell.xib */,
+				C41EB7BA1ECE4A2300E08C53 /* FSCameraView.swift */,
+				C41EB7BB1ECE4A2300E08C53 /* FSCameraView.xib */,
+				C41EB7BC1ECE4A2300E08C53 /* FSConstants.swift */,
+				C41EB7BD1ECE4A2300E08C53 /* FSImageCropView.swift */,
+				C41EB7BE1ECE4A2300E08C53 /* FSVideoCameraView.swift */,
+				C41EB7BF1ECE4A2300E08C53 /* FSVideoCameraView.xib */,
+				C41EB7C01ECE4A2300E08C53 /* FusumaViewController.swift */,
+				C41EB7C21ECE4A2300E08C53 /* FusumaViewController.xib */,
+			);
+			path = Fusuma;
+			sourceTree = "<group>";
+		};
 		C4A288971EC547230086BD76 /* DetailPhoto */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +416,7 @@
 		F011B0DA1E805E98005E5F55 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C41EB7B41ECE4A2300E08C53 /* Fusuma */,
 				F011B0DD1E807A54005E5F55 /* LogInViewController.swift */,
 				F011B0DF1E807A8F005E5F55 /* RegisterViewController.swift */,
 				F011B0E11E807AF8005E5F55 /* SplashViewController.swift */,
@@ -643,22 +690,28 @@
 				F0C181CB1EAEB9B700B26841 /* UserItemTableViewCell.xib in Resources */,
 				F09AF73C1E9015E8004EDF85 /* UserTableViewCell.xib in Resources */,
 				F09AF7351E8F03E5004EDF85 /* PhotosCollectionViewCell.xib in Resources */,
+				C41EB7C31ECE4A2300E08C53 /* Assets.xcassets in Resources */,
 				F011B0DC1E806DB1005E5F55 /* GoogleService-Info.plist in Resources */,
 				F0F8FAB31E8319950009CC52 /* helvetica-rounded-bold.otf in Resources */,
 				F011B0B51E804917005E5F55 /* LaunchScreen.storyboard in Resources */,
 				F0F8FADC1E84029F0009CC52 /* MediaProfile.xcassets in Resources */,
 				C4665C561EC537C5009ACD4C /* GoogleService-Staging-Info.plist in Resources */,
+				C41EB7C71ECE4A2300E08C53 /* FSAlbumViewCell.xib in Resources */,
 				F0F8FAC21E832A450009CC52 /* MYRIADPRO-CONDIT.OTF in Resources */,
 				F0F8FABE1E832A450009CC52 /* MYRIADPRO-BOLDCOND.OTF in Resources */,
 				F0F8FAC51E832A450009CC52 /* MYRIADPRO-SEMIBOLDIT.OTF in Resources */,
+				C41EB7C51ECE4A2300E08C53 /* FSAlbumView.xib in Resources */,
 				F0F8FAC01E832A450009CC52 /* MYRIADPRO-BOLDIT.OTF in Resources */,
+				C41EB7C91ECE4A2300E08C53 /* FSCameraView.xib in Resources */,
 				F0F8FAC31E832A450009CC52 /* MYRIADPRO-REGULAR.OTF in Resources */,
+				C41EB7CD1ECE4A2300E08C53 /* FSVideoCameraView.xib in Resources */,
 				F0CF4C671E97858900D28F3C /* MediaTimeline.xcassets in Resources */,
 				F0F8FAC41E832A450009CC52 /* MYRIADPRO-SEMIBOLD.OTF in Resources */,
 				F0F8FABF1E832A450009CC52 /* MYRIADPRO-BOLDCONDIT.OTF in Resources */,
 				F0F8FAC11E832A450009CC52 /* MYRIADPRO-COND.OTF in Resources */,
 				F0506BA31E8CD0C30012C33A /* MediaCamera.xcassets in Resources */,
 				F0CF4C631E9706E600D28F3C /* TimelineTableViewCell.xib in Resources */,
+				C41EB7D01ECE4A2300E08C53 /* FusumaViewController.xib in Resources */,
 				F011B0B21E804917005E5F55 /* Assets.xcassets in Resources */,
 				F06F50451EA566DD00DD1D33 /* CommentTableViewCell.xib in Resources */,
 			);
@@ -738,7 +791,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		8187B25AD3038080643F29D3 /* [CP] Check Pods Manifest.lock */ = {
@@ -753,7 +806,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		949DE1ED01DA0607CE003513 /* [CP] Check Pods Manifest.lock */ = {
@@ -768,7 +821,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		9B2AB03E6EE03AB23DBA514A /* [CP] Embed Pods Frameworks */ = {
@@ -827,6 +880,7 @@
 				F0CF4C651E970CF700D28F3C /* TimeLine.swift in Sources */,
 				F0506BA51E8CF9CF0012C33A /* OptionsCamera.swift in Sources */,
 				F0F8FAD71E83F73E0009CC52 /* BoxViewController.swift in Sources */,
+				C41EB7CA1ECE4A2300E08C53 /* FSConstants.swift in Sources */,
 				1B530D8E1E96B32800E02296 /* ListTimeline.swift in Sources */,
 				F011B0DE1E807A54005E5F55 /* LogInViewController.swift in Sources */,
 				49708C571E9B5ED200AE452B /* PublicProfileInfo.swift in Sources */,
@@ -834,6 +888,7 @@
 				F09AF7341E8F03E5004EDF85 /* PhotosCollectionViewCell.swift in Sources */,
 				F0F8FADE1E8409F30009CC52 /* GlobalConstants.swift in Sources */,
 				F0F8FACB1E8361D70009CC52 /* NavigationCustomViewController.swift in Sources */,
+				C41EB7CE1ECE4A2300E08C53 /* FusumaViewController.swift in Sources */,
 				F0506BAA1E8D7AC30012C33A /* FooterPhoto.swift in Sources */,
 				F09AF73B1E9015E8004EDF85 /* UserTableViewCell.swift in Sources */,
 				F032905B1E8087AB005FC29D /* LogInForm.swift in Sources */,
@@ -842,9 +897,12 @@
 				F0A932401E85AB2C00CEB939 /* Publications.swift in Sources */,
 				C4A288961EC5468F0086BD76 /* DetailPhotoViewController.swift in Sources */,
 				F011B0E71E807C27005E5F55 /* NumberExtensions.swift in Sources */,
+				C41EB7C41ECE4A2300E08C53 /* FSAlbumView.swift in Sources */,
 				C4A288991EC547340086BD76 /* DetailPhoto.swift in Sources */,
+				C41EB7CC1ECE4A2300E08C53 /* FSVideoCameraView.swift in Sources */,
 				F011B0AA1E804917005E5F55 /* ViewController.swift in Sources */,
 				F011B0E21E807AF8005E5F55 /* SplashViewController.swift in Sources */,
+				C41EB7CB1ECE4A2300E08C53 /* FSImageCropView.swift in Sources */,
 				F0CF4C621E9706E600D28F3C /* TimelineTableViewCell.swift in Sources */,
 				F0F8FAD51E8392060009CC52 /* ProfileViewController.swift in Sources */,
 				F06F50441EA566DD00DD1D33 /* CommentTableViewCell.swift in Sources */,
@@ -867,8 +925,10 @@
 				F0506BA71E8D42110012C33A /* PostViewController.swift in Sources */,
 				49708C551E9B243F00AE452B /* PublicProfileViewController.swift in Sources */,
 				F03290591E80830C005FC29D /* TopView.swift in Sources */,
+				C41EB7C61ECE4A2300E08C53 /* FSAlbumViewCell.swift in Sources */,
 				F0F8FACD1E8391CD0009CC52 /* HomeViewController.swift in Sources */,
 				F011B0E61E807C27005E5F55 /* ColorExtensions.swift in Sources */,
+				C41EB7C81ECE4A2300E08C53 /* FSCameraView.swift in Sources */,
 				F0B176801E899ABF0056BA98 /* EditProfileViewController.swift in Sources */,
 				F0BB99671EBDA942006DF04D /* HomeIPADViewController.swift in Sources */,
 				F09AF73E1E901913004EDF85 /* DiscoveryList.swift in Sources */,

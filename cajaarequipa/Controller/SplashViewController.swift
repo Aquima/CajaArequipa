@@ -113,7 +113,8 @@ class SplashViewController: UIViewController {
         if deviceIdiom == .phone {
             self.loadIphoneViewController()
         }else{
-            self.loadIpadViewController()
+            self.loadIphoneViewController()
+          //  self.loadIpadViewController()
         }
   
     }
@@ -139,7 +140,7 @@ class SplashViewController: UIViewController {
         let cameraVC = CameraViewController()
         //   let iconCamera = UITabBarItem(title: "", image: #imageLiteral(resourceName: "cameraIcon"), selectedImage: #imageLiteral(resourceName: "cameraIcon"))
         //   cameraVC.tabBarItem = iconCamera
-        
+       
         let nav3 = NavigationCustomViewController.init(rootViewController: cameraVC)
         nav3.navigationBar.isHidden = true
         
