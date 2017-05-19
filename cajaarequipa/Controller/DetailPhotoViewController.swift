@@ -14,6 +14,7 @@ class DetailPhotoViewController: BoxViewController,TopBarDelegate {
     var topBar:TopBar!
     var detailPhoto:DetailPhoto!
     var currentPhoto:Photos!
+    var isNoDeleteOption:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,12 @@ class DetailPhotoViewController: BoxViewController,TopBarDelegate {
         view.backgroundColor = UIColor.init(hexString: GlobalConstants.color.white)
         topBar = TopBar()
         topBar.delegate = self
-        topBar.drawBody(leftImage: #imageLiteral(resourceName: "back"), rightImage: #imageLiteral(resourceName: "moreIcon"), title: "Foto")
+        if isNoDeleteOption == false {
+             topBar.drawBody(leftImage: #imageLiteral(resourceName: "back"), rightImage: #imageLiteral(resourceName: "moreIcon"), title: "Foto")
+        }else{
+             topBar.drawBody(leftImage: #imageLiteral(resourceName: "back"), rightImage: #imageLiteral(resourceName: "hide"), title: "Foto")
+        }
+       
         view.addSubview(topBar)
         
         detailPhoto = DetailPhoto()
@@ -46,11 +52,14 @@ class DetailPhotoViewController: BoxViewController,TopBarDelegate {
     }
     // MARK: - TopBarDelegate
     internal func pressLeft(sender:UIButton){
-        _ = self.navigationController?.popToRootViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     internal func pressRight(sender:UIButton){
         //show options
-        self.showOptions()
+        if isNoDeleteOption == false {
+             self.showOptions()
+        }
+       
     }
     // MARK: - AlertViewController
     func showOptions() {

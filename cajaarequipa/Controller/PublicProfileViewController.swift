@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import MessageUI
 
-class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfileInfoDelegate,MFMailComposeViewControllerDelegate {
+class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfileInfoDelegate,MFMailComposeViewControllerDelegate,PublicationsDelegate {
     var topBar:TopBar!
     var publicProfileInfo:PublicProfileInfo!
     var publications:Publications!
@@ -75,6 +75,7 @@ class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfil
         
         publications = Publications()
         publications.drawBodyPublic(barHeight: (self.tabBarController?.tabBar.frame.size.height)!, title: "0 Publicaciones")
+        publications.delegate = self
         view.addSubview(publications)
         
     }
@@ -290,5 +291,13 @@ class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfil
     // MARK: - ViewController
     override func viewDidDisappear(_ animated: Bool) {
         refPhotoAdded.removeAllObservers()
+    }
+    //MARK
+    internal func selectedPhoto(photo: Photos) {
+        let vc: DetailPhotoViewController = DetailPhotoViewController()
+        vc.currentPhoto = photo
+        vc.isNoDeleteOption = true
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
