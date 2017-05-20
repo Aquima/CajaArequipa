@@ -8,13 +8,18 @@
 
 import UIKit
 import Firebase
-
+protocol DetailPhotoViewControllerDelegate {
+    func completedDeletedPhoto(photo:Photos,index:IndexPath)
+}
 class DetailPhotoViewController: BoxViewController,TopBarDelegate {
 
+    var delegate:DetailPhotoViewControllerDelegate?
     var topBar:TopBar!
     var detailPhoto:DetailPhoto!
     var currentPhoto:Photos!
+    var currentUser:User!
     var isNoDeleteOption:Bool = false
+    var currentIndex:IndexPath!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +47,7 @@ class DetailPhotoViewController: BoxViewController,TopBarDelegate {
         
         detailPhoto = DetailPhoto()
      
+        detailPhoto.currentUser = self.currentUser
         detailPhoto.drawBody(barHeight:(self.tabBarController?.tabBar.frame.size.height)!)
         detailPhoto.loadWithPhoto(photo: currentPhoto)
         view.addSubview(detailPhoto)
@@ -89,7 +95,7 @@ class DetailPhotoViewController: BoxViewController,TopBarDelegate {
         let ref = FIRDatabase.database().reference()
         ref.child("followers").child(uid).queryOrderedByKey().observeSingleEvent(of: .value, with: { snapshot in
             if (snapshot.value is NSNull) {
-                _ = self.navigationController?.popToRootViewController(animated: true)
+                _ = self.navigationController?.popViewController(animated: true)
             } else {
                 if let following = snapshot.value as? [String : AnyObject] {
                     for (key , _) in following {
@@ -100,6 +106,8 @@ class DetailPhotoViewController: BoxViewController,TopBarDelegate {
 //                            cell.checkFollow(user: user)
 //                        }
                     }
+                    self.delegate?.completedDeletedPhoto(photo: self.currentPhoto, index: self.currentIndex)
+                    _ = self.navigationController?.popViewController(animated: true)
                     ref.removeAllObservers()
                 }
             }

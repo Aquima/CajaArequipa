@@ -8,7 +8,7 @@
 
 import UIKit
 protocol PublicationsDelegate {
-    func selectedPhoto(photo:Photos)
+    func selectedPhoto(photo:Photos,index:IndexPath)
 }
 class Publications: UIView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate  {
     var delegate:PublicationsDelegate?
@@ -187,7 +187,7 @@ class Publications: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     }
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("selected cell")
-        self.delegate?.selectedPhoto(photo: self.listPhotos[indexPath.row])
+        self.delegate?.selectedPhoto(photo: self.listPhotos[indexPath.row],index: indexPath)
 //        addToList.append(objectsArray[indexPath.row])
 //        let cell = collectionView.cellForItem(at: indexPath)
 //        cell?.layer.borderWidth = 2.0

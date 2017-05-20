@@ -92,16 +92,15 @@ class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewContro
                     case .errorCodeNetworkError:
                         self.showError(error: .errorLogInNetwork)
                     default:
-                        print("Other error!")
                         self.form.stopAnimation()
-                         self.form.btnEnter.isHidden = false
+                        self.form.btnEnter.isHidden = false
                     }
                     
                 }
             }else{
-                print("signIn successful")
+
                 self.form.btnEnter.isHidden = false
-            //    self.form.stopAnimation()
+                self.updateCheckFollowing(uid: (user?.uid)!)
                 DispatchQueue.main.async(execute: {
                     _ = self.navigationController?.popToRootViewController(animated: true)
                 })
@@ -200,5 +199,22 @@ class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewContro
         })
         
     }
+
+    func updateCheckFollowing( uid:String) {
+        
+        var ref: FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        
+        let post:[String:Any] = [uid:true]
+        
+        ref.child("following").child(uid).updateChildValues(post)
+        
+        let postFollowers:[String:Any] = [uid:true]
+        ref.child("followers").child(uid).updateChildValues(postFollowers)
+        
+        ref.removeAllObservers()
+        
+    }
+    
 
 }

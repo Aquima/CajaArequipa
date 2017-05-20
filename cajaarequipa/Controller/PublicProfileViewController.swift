@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import MessageUI
 
-class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfileInfoDelegate,MFMailComposeViewControllerDelegate,PublicationsDelegate {
+class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfileInfoDelegate,MFMailComposeViewControllerDelegate,PublicationsDelegate,DetailPhotoViewControllerDelegate {
     var topBar:TopBar!
     var publicProfileInfo:PublicProfileInfo!
     var publications:Publications!
@@ -278,7 +278,6 @@ class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfil
             self.publicProfileInfo.updateView(user: user)
         }
         
-        
         ref.removeAllObservers()
         
     }
@@ -293,11 +292,17 @@ class PublicProfileViewController: BoxViewController,TopBarDelegate,PublicProfil
         refPhotoAdded.removeAllObservers()
     }
     //MARK
-    internal func selectedPhoto(photo: Photos) {
+    internal func selectedPhoto(photo: Photos, index:IndexPath) {
         let vc: DetailPhotoViewController = DetailPhotoViewController()
+        vc.delegate = self
+        vc.currentUser = self.currentUser
         vc.currentPhoto = photo
         vc.isNoDeleteOption = true
-        
+        vc.currentIndex = index
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    // MARK: - DetailPhotoViewController
+    internal func completedDeletedPhoto(photo:Photos,index:IndexPath){
+        
     }
 }

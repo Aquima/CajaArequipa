@@ -31,7 +31,7 @@ class DetailPhoto: UIView {
     var lblLikes:UILabel!
     var lblShowComments:UILabel!
     var lblTimestamp:UILabel!
-    
+    var currentUser:User!
     var currentPhoto:Photos!
     //Action
     var favoriteAction : (() -> Void)? = nil
@@ -127,10 +127,8 @@ class DetailPhoto: UIView {
     func loadWithPhoto(photo:Photos){
         self.currentPhoto = photo
         imgView.sd_setImage(with: photo.pictureUrl , placeholderImage: #imageLiteral(resourceName: "placeholderTimelinePhoto"))
-      //  imgProfileView.sd_setImage(with: timeline.userPropertier?.pictureUrl, placeholderImage: #imageLiteral(resourceName: "userPlaceHolder"))
-        lblLikes.attributedText = updateAtributes(likes: String(photo.likes))
-// 
-        lblNameComments.attributedText = updateAtributesComments(name: "Raul", comment: photo.describe)
+        lblLikes.attributedText = updateAtributes(likes: String(photo.likes)) 
+        lblNameComments.attributedText = updateAtributesComments(name: currentUser.name.getUserName(), comment: photo.describe)
         lblShowComments.text = "Ver los \(photo.comments) comentarios"
         lblTimestamp.text = photo.timestamp.retrivePostTime()
         if photo.isfavorited == false{
