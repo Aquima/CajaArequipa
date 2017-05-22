@@ -128,7 +128,8 @@ class ListTimeline: UIView , UITableViewDelegate, UITableViewDataSource {
     }
     public func tableView(_ tableView:         UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:TimelineTableViewCell = tableView.dequeueReusableCell(withIdentifier: "TimelineTableViewCell") as! TimelineTableViewCell
-//        currentData[indexPath.row].updateTimeline()
+        currentData[indexPath.row].currentIndex = indexPath
+        currentData[indexPath.row].updateTimeline()
         cell.loadWithTimeline(timeline: currentData[indexPath.row])
       //  delegate?.checkFollowing(indexPath: indexPath,user:currentData[indexPath.row])
         cell.shareAction = {

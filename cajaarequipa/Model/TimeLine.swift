@@ -19,6 +19,7 @@ class TimeLine: NSObject {
     var userPropertier:User!
     var isfavorited:Bool = false
     var timestamp:Date!
+    var currentIndex:IndexPath!
     
     func translateToModel(data:Dictionary<String, Any>){
         let valueFavorited = data["isfavorited"] as! NSNumber
@@ -65,9 +66,18 @@ class TimeLine: NSObject {
         ref = FIRDatabase.database().reference()
         ref.child("photos").child(uid).child(self.key).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
-            let data:Dictionary = (snapshot.value as? Dictionary<String,Any>)!
-            self.likes = (data["likes"] != nil) ? data["likes"] as! Int : 0
-            self.comments = (data["comments"] != nil) ? data["comments"] as! Int : 0
+            if snapshot.childrenCount == 0 {
+                print("this value was deleted")
+                let notificationName = Notification.Name("goDeleteFromTimeline")
+                NotificationCenter.default.post(name: notificationName, object: self.currentIndex)
+            }else{
+                let data:Dictionary = (snapshot.value as? Dictionary<String,Any>)!
+                self.likes = (data["likes"] != nil) ? data["likes"] as! Int : 0
+                self.comments = (data["comments"] != nil) ? data["comments"] as! Int : 0
+                let notificationName = Notification.Name("goUpdateInTimeline")
+                NotificationCenter.default.post(name: notificationName, object: self.currentIndex)
+            }
+           
             
         }) { (error) in
             print(error.localizedDescription)

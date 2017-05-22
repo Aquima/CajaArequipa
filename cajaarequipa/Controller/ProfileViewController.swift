@@ -128,8 +128,11 @@ class ProfileViewController: BoxViewController ,TopBarDelegate, PublicationsDele
         self.navigationController?.pushViewController(vc, animated: true)
     }
     internal func completedDeletedPhoto(photo: Photos, index: IndexPath) {
+        
         self.listPhotos.remove(at: index.row)
         self.publications.updateWithData(list: self.listPhotos)
+        self.publications.lblTitle.text = "\(self.listPhotos.count) Publicaciones"
+      //  self.publications.collectionView.reloadData()
        // self.publications.collectionView.deleteItems(at: [index])
     }
 

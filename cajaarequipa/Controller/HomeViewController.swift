@@ -52,6 +52,22 @@ class HomeViewController: BoxViewController,TopBarDelegate,ListTimelineDelegate,
         listTimeline.delegate = self
         listTimeline.drawBody(barHeight:(self.tabBarController?.tabBar.frame.size.height)!)
         view.addSubview(listTimeline)
+        
+        let notificationName = Notification.Name("goDeleteFromTimeline")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.goDeleteFromTimeline), name: notificationName, object: nil)
+        let notificationUpdate = Notification.Name("goUpdateInTimeline")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.goUpdateInTimeline), name: notificationUpdate, object: nil)
+        
+    }
+    func goDeleteFromTimeline(notification:Notification) {
+        let deleteIndex:IndexPath = notification.object as! IndexPath
+        self.sendData.remove(at: deleteIndex.row)
+        self.listTimeline.currentData.remove(at: deleteIndex.row)
+        self.listTimeline.tableView.deleteRows(at: [deleteIndex], with: .automatic)
+  //      self.listTimeline.tableView.deleteRows(at: <#T##[IndexPath]#>, with: <#T##UITableViewRowAnimation#>)
+    }
+    func goUpdateInTimeline(notification:Notification) {
+        
     }
     // MARK: - TopBarDelegate
     func pressLeft(sender: UIButton) {

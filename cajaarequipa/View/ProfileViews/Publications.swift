@@ -149,6 +149,9 @@ class Publications: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     func updateWithData(list:[Photos]){
         if list.count == 0 {
             drawBodyNoData()
+            
+            self.listPhotos = list
+            collectionView.reloadData()
         }else{
             if contentMessage != nil {
                 contentMessage.isHidden = true
