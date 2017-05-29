@@ -104,14 +104,57 @@ class EditProfileViewController: BoxViewController,TopBarDelegate, UINavigationC
         ]
         
         var ref: FIRDatabaseReference!
-        //  FIRAuth.auth()?.currentUser?.uid ?? String()
         ref = FIRDatabase.database().reference()
-        //  ref.child("users/\(email.getIDFromFireBase())").updateChildValues(post)
-        ref.child("users/\((FIRAuth.auth()?.currentUser?.uid)!)").updateChildValues(post, withCompletionBlock:  { (error:Error?, ref:FIRDatabaseReference!) in
+       
+        let postTemp:[String:Any] = ["website":website,
+                                 "description":describe
+        ]
+        if FIRAuth.auth()?.currentUser?.email == email {
+            ref.child("users/\((FIRAuth.auth()?.currentUser?.uid)!)").updateChildValues(post, withCompletionBlock:  { (error:Error?, ref:FIRDatabaseReference!) in
+                self.form.stopAnimation()
+                _ = self.navigationController?.popToRootViewController(animated: true)
+            })
+        }else{
+            FIRAuth.auth()?.currentUser?.updateEmail(email) { (error) in
+                // ...
+                if error == nil {
+                    ref.child("users/\((FIRAuth.auth()?.currentUser?.uid)!)").updateChildValues(post, withCompletionBlock:  { (error:Error?, ref:FIRDatabaseReference!) in
+                        self.form.stopAnimation()
+                        _ = self.navigationController?.popToRootViewController(animated: true)
+                    })
+                }else{
+                    ref.child("users/\((FIRAuth.auth()?.currentUser?.uid)!)").updateChildValues(postTemp, withCompletionBlock:  { (error:Error?, ref:FIRDatabaseReference!) in
+                        self.form.stopAnimation()
+                        // _ = self.navigationController?.popToRootViewController(animated: true)
+                    })
+                    self.suggestionAlert()
+                }
+            }
+
+        }
      
-            self.form.stopAnimation()
-            _ = self.navigationController?.popToRootViewController(animated: true)
+    }
+    func suggestionAlert() {
+        let alertController = UIAlertController(title: "Cerrar Sesión", message: "Para cambiar debe logearse nuevamente y volver a esta sección. ¿Esta seguro de cerrar sesión?", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let saveAction = UIAlertAction(title: "Si", style: UIAlertActionStyle.default, handler: {
+            alert -> Void in
+            
+            try! FIRAuth.auth()!.signOut()
+            let notificationName = Notification.Name("goIntro")
+            NotificationCenter.default.post(name: notificationName, object: nil)
+            
         })
+        
+        let cancelAction = UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: {
+            (action : UIAlertAction!) -> Void in
+             self.form.txtEmail.text = FIRAuth.auth()?.currentUser?.email
+        })
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     // MARK: - UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -213,14 +256,14 @@ class EditProfileViewController: BoxViewController,TopBarDelegate, UINavigationC
     }
     
     func fusumaImageSelected(_ image: UIImage, source: FusumaMode, metaData: ImageMetadata) {
-        print("Image mediatype: \(metaData.mediaType)")
-        print("Source image size: \(metaData.pixelWidth)x\(metaData.pixelHeight)")
-        print("Creation date: \(metaData.creationDate)")
-        print("Modification date: \(metaData.modificationDate)")
-        print("Video duration: \(metaData.duration)")
-        print("Is favourite: \(metaData.isFavourite)")
-        print("Is hidden: \(metaData.isHidden)")
-        print("Location: \(metaData.location)")
+//        print("Image mediatype: \(metaData.mediaType)")
+//        print("Source image size: \(metaData.pixelWidth)x\(metaData.pixelHeight)")
+//        print("Creation date: \(metaData.creationDate)")
+//        print("Modification date: \(metaData.modificationDate)")
+//        print("Video duration: \(metaData.duration)")
+//        print("Is favourite: \(metaData.isFavourite)")
+//        print("Is hidden: \(metaData.isHidden)")
+//        print("Location: \(metaData.location)")
     }
     
     func fusumaVideoCompleted(withFileURL fileURL: URL) {

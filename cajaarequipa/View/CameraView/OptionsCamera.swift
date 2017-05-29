@@ -51,22 +51,22 @@ class OptionsCamera: UIView {
         addSubview(shotButton)
         
         libraryButton = UIButton()
-        libraryButton.frame = CGRect(x: 0 , y: self.frame.size.height - 44*valuePro, width:  (self.frame.size.width)/2 , height: 44*valuePro)
-        libraryButton.titleTextColor(color: GlobalConstants.color.deactivateBlue, text: "Biblioteca")
+        libraryButton.frame = CGRect(x: 0 , y: self.frame.size.height - 44*valuePro, width:  (self.frame.size.width) , height: 44*valuePro)
+        libraryButton.titleTextColor(color: GlobalConstants.color.blue, text: "Biblioteca")
         libraryButton.titleLabel?.font = UIFont(name: GlobalConstants.font.helveticaRoundedBold, size: 15*valuePro)
         addSubview(libraryButton)
         
-        photoButton = UIButton()
-        photoButton.frame = CGRect(x: (self.frame.size.width)/2 , y: self.frame.size.height - 44*valuePro, width:  (self.frame.size.width)/2 , height: 44*valuePro)
-        photoButton.titleTextColor(color: GlobalConstants.color.blue, text: "Camara")
-        photoButton.titleLabel?.font = UIFont(name: GlobalConstants.font.helveticaRoundedBold, size: 15*valuePro)
-        addSubview(photoButton)
+//        photoButton = UIButton()
+//        photoButton.frame = CGRect(x: (self.frame.size.width)/2 , y: self.frame.size.height - 44*valuePro, width:  (self.frame.size.width)/2 , height: 44*valuePro)
+//        photoButton.titleTextColor(color: GlobalConstants.color.blue, text: "Camara")
+//        photoButton.titleLabel?.font = UIFont(name: GlobalConstants.font.helveticaRoundedBold, size: 15*valuePro)
+//        addSubview(photoButton)
         
         flipButton.addTarget(self, action: #selector(flipButtonPressed(sender:)), for: .touchUpInside)
       
         shotButton.addTarget(self, action: #selector(shotButtonPressed(sender:)), for: .touchUpInside)
         libraryButton.addTarget(self, action: #selector(libraryButtonPressed(sender:)), for: .touchUpInside)
-        photoButton.addTarget(self, action: #selector(cameraButtonPressed(sender:)), for: .touchUpInside)
+//        photoButton.addTarget(self, action: #selector(cameraButtonPressed(sender:)), for: .touchUpInside)
         
     }
     // MARK: - Actions

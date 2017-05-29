@@ -109,6 +109,12 @@ class FormEditProfile: UIView {
         btnLogOut.borderTextColor(color: GlobalConstants.color.cancelRed, text: "Cerrar Sesión")
         btnLogOut.addTarget(self, action: #selector(pressLogOut(sender:)), for: .touchUpInside)
         
+        
+        btnChangePassword = UIButton()
+        btnChangePassword.fillTextColor(color: GlobalConstants.color.cancelRed, text: "Cambiar Contraseña")
+        btnChangePassword.addTarget(self, action: #selector(pressLogOut(sender:)), for: .touchUpInside)
+        
+
         let frame =  CGRect(x: btnSaveChanges.frame.origin.x + (btnSaveChanges.frame.size.width-35*valuePro)/2, y:  btnSaveChanges.frame.origin.y + (btnSaveChanges.frame.size.height-35*valuePro)/2, width:35*valuePro, height: 35*valuePro)
         
         activityIndicatorView = NVActivityIndicatorView(frame: frame,
@@ -140,6 +146,7 @@ class FormEditProfile: UIView {
         
         contentView.addSubview(btnSaveChanges)
         contentView.addSubview(btnLogOut)
+        contentView.addSubview(btnChangePassword)
 
         //- Add Elements to Texfield Array
         inputList.append(txtDescribe)
@@ -193,6 +200,10 @@ class FormEditProfile: UIView {
         btnLogOut.frame = CGRect(x: (contentView.frame.size.width-258*valuePro)/2, y: self.frame.size.height-(26+37+47)*valuePro, width: 258*valuePro, height: 37*valuePro)
         btnLogOut.layer.cornerRadius = 37*valuePro/2
         btnLogOut.titleLabel?.font = UIFont (name: GlobalConstants.font.myriadProRegular, size: 12*valuePro)
+        
+        btnChangePassword.frame = CGRect(x: (contentView.frame.size.width-258*valuePro)/2, y: self.frame.size.height-(26+37+47+47)*valuePro, width: 258*valuePro, height: 37*valuePro)
+        btnChangePassword.layer.cornerRadius = 37*valuePro/2
+        btnChangePassword.titleLabel?.font = UIFont (name: GlobalConstants.font.myriadProRegular, size: 12*valuePro)
 
         
     }
