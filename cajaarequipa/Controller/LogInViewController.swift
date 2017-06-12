@@ -91,6 +91,8 @@ class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewContro
                         self.showError(error: .errorLogInMail)
                     case .errorCodeNetworkError:
                         self.showError(error: .errorLogInNetwork)
+                    case .errorCodeUserNotFound:
+                         self.showError(error: .errorLogInMail)
                     default:
                         self.form.stopAnimation()
                         self.form.btnEnter.isHidden = false
