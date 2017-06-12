@@ -214,7 +214,7 @@ class LogInForm: UIView, UITextFieldDelegate {
     }
     func stopAnimation(){
         activityIndicatorView.stopAnimating()
-        btnRegister.isHidden = false
+        btnEnter.isHidden = false
     }
   
 }

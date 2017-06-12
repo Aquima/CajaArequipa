@@ -82,7 +82,7 @@ class RegisterForm: UIView {
         txtDocument = UITextField()
         txtDocument.styleForm()
         txtDocument.placeholder = "Numero de DNI"
-        txtDocument.textAlignment = .center
+        txtDocument.textAlignment = .left
         txtDocument.keyboardType = .numberPad
         txtDocument.clearButtonMode = .always
         txtDocument.autocorrectionType = .no
@@ -147,8 +147,7 @@ class RegisterForm: UIView {
         addSubview(txtEmail)
         addSubview(txtPassword)
         addSubview(txtRePassword)
-
-        
+  
         addSubview(btnRegister)
         addSubview(btnCancel)
         
@@ -169,7 +168,7 @@ class RegisterForm: UIView {
         lblTitleLabel.frame = CGRect(x: (screenSize.width-258*valuePro)/2, y: 10*valuePro, width: 258*valuePro, height: 17*valuePro)
         lblTitleLabel.font = UIFont (name: GlobalConstants.font.helveticaRoundedBold, size: 13*valuePro)
         //--
-        txtDocument.frame = CGRect(x: ((screenSize.width-1*valuePro)/2)-111*valuePro, y: 44*valuePro+0*(44*valuePro), width: 101*valuePro, height: 44*valuePro)
+        txtDocument.frame = CGRect(x: (screenSize.width-212*valuePro)/2, y: 44*valuePro+0*(44*valuePro), width: 212*valuePro, height: 44*valuePro)
         txtDocument.font = UIFont (name: GlobalConstants.font.myriadProRegular, size: 13*valuePro)
 
         lineDocument.frame = CGRect(x: (screenSize.width-258*valuePro)/2, y: 88*valuePro+0*(44*valuePro), width: 258*valuePro, height: 0.8*valuePro)

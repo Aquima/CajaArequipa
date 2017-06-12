@@ -108,13 +108,15 @@ class DetailPhotoViewController: BoxViewController,TopBarDelegate {
                     }
                     self.delegate?.completedDeletedPhoto(photo: self.currentPhoto, index: self.currentIndex)
                     _ = self.navigationController?.popViewController(animated: true)
+                    ref.child("photos").child(uid).child(photo.key).removeValue()
                     ref.removeAllObservers()
+                    
                 }
             }
             
         })
         
-        ref.child("photos").child(uid).child(photo.key).removeValue()
+        
 
     }
     func deleteTimeline(keyUser:String,photo:Photos){

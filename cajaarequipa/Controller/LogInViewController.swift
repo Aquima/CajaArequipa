@@ -159,7 +159,7 @@ class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewContro
     func showError(error: errorLogInType) {
         
         var message:String?
-        let alertError = UIAlertController()
+        let alertError = UIAlertController(title: "Caja Arequipa", message: nil, preferredStyle: .alert)
         
        if error == errorLogInType.errorLogInPassword {
             message = "La contraseña ingresada no es correcta."
@@ -193,7 +193,7 @@ class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewContro
         }
         
         alertError.message = message
-        alertError.title = "Caja Arequipa"
+      //  alertError.title = "Caja Arequipa"
         self.present(alertError, animated: true, completion: {
               //  self.form.stopAnimation()
         })
