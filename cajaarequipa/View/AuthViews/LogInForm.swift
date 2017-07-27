@@ -10,10 +10,10 @@ import UIKit
 import NVActivityIndicatorView
 import Firebase
 enum errorLogInType{
-
     case errorLogInMail
     case errorLogInPassword
     case errorLogInNetwork
+    case errorLogInNoData
     case none
     
 }
@@ -183,7 +183,7 @@ class LogInForm: UIView, UITextFieldDelegate {
 
     }
     func loginManualValidate(sender:UIButton)  {
-        sender.isHidden = true
+        
         let frame =  CGRect(x: sender.frame.origin.x + (sender.frame.size.width-35*valuePro)/2, y:  sender.frame.origin.y + (sender.frame.size.height-35*valuePro)/2, width:35*valuePro, height: 35*valuePro)
         activityIndicatorView.frame = frame
         //validate all fields
@@ -191,19 +191,21 @@ class LogInForm: UIView, UITextFieldDelegate {
         activityIndicatorView.startAnimating()
         let inputTextMail:UITextField = self.inputList[inputType.keyMail.hashValue]
         let inputTextPassword:UITextField = self.inputList[inputType.keyPassword.hashValue]
-        btnEnter.isHidden = true
-        
-        if inputTextMail.text != "" && inputTextPassword.text != "" {
-            
-            let email = inputTextMail.text
-            let password = inputTextPassword.text
+       
+        let email = inputTextMail.text
+        let password = inputTextPassword.text
 
-            delegate?.callLogIn(email: email!, password: password!)
-            
-        }else{
-            
-         //   sender.isHidden = false
-        }
+        btnEnter.isHidden = true
+        delegate?.callLogIn(email: email!, password: password!)
+//        if inputTextMail.text != "" && inputTextPassword.text != "" {
+//             btnEnter.isHidden = true
+//
+//           
+//
+//        }else{
+//            sender.isHidden = true
+//         //   sender.isHidden = false
+//        }
         
     }
     func pressRegisterOn(sender:UIButton){

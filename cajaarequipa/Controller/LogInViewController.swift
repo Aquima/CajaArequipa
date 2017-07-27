@@ -52,63 +52,74 @@ class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewContro
         }
     }
     func getMail(document:String,password:String){
-
-        var ref: FIRDatabaseReference!
-        ref = FIRDatabase.database().reference()//.queryLimited(toFirst:5)
-        ref.child("users").queryOrdered(byChild: "document").queryEqual(toValue: document).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
-
-            if (snapshot.value is NSNull) {
-                print("getMail")
-                // show error dni invalido
-                self.showError(error: .errorLogInMail)
-                self.form.btnEnter.isHidden = false
-                ref.removeAllObservers()
-            } else {
-
-                for child in snapshot.children {
-                    let data:FIRDataSnapshot = child as! FIRDataSnapshot
-                    let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
-                    let tempUser:User = User()
-                    tempUser.translateToModel(data: snapDictionary)
-                    self.authWithMail(email: tempUser.email, password: password)
-                }
-
-                ref.removeAllObservers()
-            }
-            
-        })
-    }
-    func authWithMail(email:String,password:String){
-        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
-            
-            if error != nil {
-                if let errCode = FIRAuthErrorCode(rawValue: error!._code) {
+        if document == "" && password == "" {
+            self.showError(error: .errorLogInNoData)
+            self.form.btnEnter.isHidden = false
+        }else{
+            var ref: FIRDatabaseReference!
+            ref = FIRDatabase.database().reference()//.queryLimited(toFirst:5)
+            ref.child("users").queryOrdered(byChild: "document").queryEqual(toValue: document).observeSingleEvent(of: .value, with:  { (snapshot) -> Void in
+                
+                if (snapshot.value is NSNull) {
+                    print("getMail")
+                    // show error dni invalido
+                    self.showError(error: .errorLogInMail)
+                    self.form.btnEnter.isHidden = false
+                    ref.removeAllObservers()
+                } else {
                     
-                    switch errCode {  
-                    case .errorCodeWrongPassword:
-                        self.showError(error: .errorLogInPassword)
-                    case .errorCodeInvalidEmail:
-                        self.showError(error: .errorLogInMail)
-                    case .errorCodeNetworkError:
-                        self.showError(error: .errorLogInNetwork)
-                    case .errorCodeUserNotFound:
-                         self.showError(error: .errorLogInMail)
-                    default:
-                        self.form.stopAnimation()
-                        self.form.btnEnter.isHidden = false
+                    for child in snapshot.children {
+                        let data:FIRDataSnapshot = child as! FIRDataSnapshot
+                        let snapDictionary:Dictionary = data.value! as! Dictionary<String, Any>
+                        let tempUser:User = User()
+                        tempUser.translateToModel(data: snapDictionary)
+                        self.authWithMail(email: tempUser.email, password: password)
                     }
                     
+                    ref.removeAllObservers()
                 }
-            }else{
+                
+            })
+        }
+       
+    }
+    func authWithMail(email:String,password:String){
+        if email == "" && password == "" {
+            self.showError(error: .errorLogInNoData)
+            self.form.btnEnter.isHidden = false
+        }else{
+            FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
+                
+                if error != nil {
+                    if let errCode = FIRAuthErrorCode(rawValue: error!._code) {
+                        
+                        switch errCode {
+                        case .errorCodeWrongPassword:
+                            self.showError(error: .errorLogInPassword)
+                        case .errorCodeInvalidEmail:
+                            self.showError(error: .errorLogInMail)
+                        case .errorCodeNetworkError:
+                            self.showError(error: .errorLogInNetwork)
+                        case .errorCodeUserNotFound:
+                            self.showError(error: .errorLogInMail)
+                        default:
+                            self.form.stopAnimation()
+                            self.form.btnEnter.isHidden = false
+                        }
+                        
+                    }
+                }else{
+                    
+                    self.form.btnEnter.isHidden = false
+                    self.updateCheckFollowing(uid: (user?.uid)!)
+                    DispatchQueue.main.async(execute: {
+                        _ = self.navigationController?.popToRootViewController(animated: true)
+                    })
+                }
+            })
 
-                self.form.btnEnter.isHidden = false
-                self.updateCheckFollowing(uid: (user?.uid)!)
-                DispatchQueue.main.async(execute: {
-                    _ = self.navigationController?.popToRootViewController(animated: true)
-                })
-            }
-        })
-
+        }
+        
     }
     func goToRegister(){
         registerVC = RegisterViewController()
@@ -116,7 +127,8 @@ class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewContro
         self.present(registerVC, animated: true, completion: nil)
     }
     func goToForget() {
-        
+        let recoveryVC:RecoveryPasswordViewController = RecoveryPasswordViewController()
+        self.navigationController?.pushViewController(recoveryVC, animated: true)
     }
     // MARK: - UIView
     func createView(){
@@ -185,6 +197,13 @@ class LogInViewController: UIViewController,LogInFormDelegate,RegisterViewContro
                 self.form.stopAnimation()
                 
             }))
+       }else if error == errorLogInType.errorLogInNoData{
+        message = "Ingrese su correo o DNI y su contraseña."
+        alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {
+            (result : UIAlertAction) -> Void in
+            self.form.stopAnimation()
+            
+        }))
        }else if error == errorLogInType.none{
         message = "Intentelo mas tarde."
         alertError.addAction(UIAlertAction(title: "Aceptar", style: UIAlertActionStyle.default, handler: {

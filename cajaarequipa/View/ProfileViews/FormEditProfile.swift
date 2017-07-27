@@ -14,6 +14,7 @@ protocol FormEditProfileDelegate {
     func goCamPro(sender:UIButton)
     func saveInfo(describe:String,website:String,email:String)
     func logOut()
+    func goChangePassword()
     
 }
 class FormEditProfile: UIView {
@@ -112,7 +113,7 @@ class FormEditProfile: UIView {
         
         btnChangePassword = UIButton()
         btnChangePassword.fillTextColor(color: GlobalConstants.color.cancelRed, text: "Cambiar Contraseña")
-        btnChangePassword.addTarget(self, action: #selector(pressLogOut(sender:)), for: .touchUpInside)
+        btnChangePassword.addTarget(self, action: #selector(pressChangePassword(sender:)), for: .touchUpInside)
         
 
         let frame =  CGRect(x: btnSaveChanges.frame.origin.x + (btnSaveChanges.frame.size.width-35*valuePro)/2, y:  btnSaveChanges.frame.origin.y + (btnSaveChanges.frame.size.height-35*valuePro)/2, width:35*valuePro, height: 35*valuePro)
@@ -235,6 +236,10 @@ class FormEditProfile: UIView {
         activityIndicatorPhotoView.startAnimating()
         self.delegate?.goCamPro(sender: sender)
     }
+    func pressChangePassword(sender:UIButton) {
+        self.delegate?.goChangePassword()
+    }
+
     func pressLogOut(sender:UIButton) {
         self.delegate?.logOut()
     }

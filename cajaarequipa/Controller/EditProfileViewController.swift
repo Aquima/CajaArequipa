@@ -58,6 +58,10 @@ class EditProfileViewController: BoxViewController,TopBarDelegate, UINavigationC
        // editing icon
     }
     // MARK: - Actions
+    internal func goChangePassword() {
+        let changePassVc:ChangePasswordViewController = ChangePasswordViewController()
+        self.navigationController?.pushViewController(changePassVc, animated: true)
+    }
     internal func logOut() {
     
         let alertController = UIAlertController(title: "¿Esta seguro de cerrar sesión?", message: "", preferredStyle: UIAlertControllerStyle.alert)

@@ -13,6 +13,9 @@
 		49708C531E9A541D00AE452B /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49708C521E9A541D00AE452B /* CommentsViewController.swift */; };
 		49708C551E9B243F00AE452B /* PublicProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49708C541E9B243F00AE452B /* PublicProfileViewController.swift */; };
 		49708C571E9B5ED200AE452B /* PublicProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49708C561E9B5ED200AE452B /* PublicProfileInfo.swift */; };
+		49898F3F1F29ABC40009C1BC /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49898F3E1F29ABC40009C1BC /* ChangePasswordViewController.swift */; };
+		49898F411F29BB7B0009C1BC /* RecoveryPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49898F401F29BB7B0009C1BC /* RecoveryPasswordViewController.swift */; };
+		49898F441F29BE590009C1BC /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49898F431F29BE590009C1BC /* RecoveryView.swift */; };
 		49D158F31EA1DCB9008B3A1D /* CommentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D158F21EA1DCB9008B3A1D /* CommentList.swift */; };
 		852852706EDE0174E42F847C /* Pods_cajaarequipaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65EA6B9F44FF3F761DDF6B3 /* Pods_cajaarequipaTests.framework */; };
 		C41EB7C31ECE4A2300E08C53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C41EB7B51ECE4A2300E08C53 /* Assets.xcassets */; };
@@ -123,6 +126,9 @@
 		49708C521E9A541D00AE452B /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		49708C541E9B243F00AE452B /* PublicProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicProfileViewController.swift; sourceTree = "<group>"; };
 		49708C561E9B5ED200AE452B /* PublicProfileInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicProfileInfo.swift; sourceTree = "<group>"; };
+		49898F3E1F29ABC40009C1BC /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		49898F401F29BB7B0009C1BC /* RecoveryPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoveryPasswordViewController.swift; sourceTree = "<group>"; };
+		49898F431F29BE590009C1BC /* RecoveryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
 		49D158F21EA1DCB9008B3A1D /* CommentList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentList.swift; sourceTree = "<group>"; };
 		745E5F6E62CB945070D4C77D /* Pods_cajaarequipaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cajaarequipaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89D8291F308BD7921772B1F0 /* Pods-cajaarequipaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipaTests/Pods-cajaarequipaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -274,6 +280,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		49898F421F29BE470009C1BC /* RecoveryView */ = {
+			isa = PBXGroup;
+			children = (
+				49898F431F29BE590009C1BC /* RecoveryView.swift */,
+			);
+			path = RecoveryView;
+			sourceTree = "<group>";
+		};
 		49D158F11EA1DAFE008B3A1D /* CommentView */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,6 +414,7 @@
 		F011B0D91E804A65005E5F55 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				49898F421F29BE470009C1BC /* RecoveryView */,
 				C4A288971EC547230086BD76 /* DetailPhoto */,
 				F0C181C71EAEB98D00B26841 /* SearchView */,
 				49D158F11EA1DAFE008B3A1D /* CommentView */,
@@ -433,6 +448,8 @@
 				49708C521E9A541D00AE452B /* CommentsViewController.swift */,
 				49708C541E9B243F00AE452B /* PublicProfileViewController.swift */,
 				C4A288951EC5468F0086BD76 /* DetailPhotoViewController.swift */,
+				49898F3E1F29ABC40009C1BC /* ChangePasswordViewController.swift */,
+				49898F401F29BB7B0009C1BC /* RecoveryPasswordViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -791,7 +808,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		8187B25AD3038080643F29D3 /* [CP] Check Pods Manifest.lock */ = {
@@ -806,7 +823,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		949DE1ED01DA0607CE003513 /* [CP] Check Pods Manifest.lock */ = {
@@ -821,7 +838,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		9B2AB03E6EE03AB23DBA514A /* [CP] Embed Pods Frameworks */ = {
@@ -891,6 +908,7 @@
 				C41EB7CE1ECE4A2300E08C53 /* FusumaViewController.swift in Sources */,
 				F0506BAA1E8D7AC30012C33A /* FooterPhoto.swift in Sources */,
 				F09AF73B1E9015E8004EDF85 /* UserTableViewCell.swift in Sources */,
+				49898F441F29BE590009C1BC /* RecoveryView.swift in Sources */,
 				F032905B1E8087AB005FC29D /* LogInForm.swift in Sources */,
 				F0A932441E8609B500CEB939 /* ApiConsume.swift in Sources */,
 				F011B0E01E807A8F005E5F55 /* RegisterViewController.swift in Sources */,
@@ -917,6 +935,7 @@
 				49D158F31EA1DCB9008B3A1D /* CommentList.swift in Sources */,
 				F0A932451E8609B500CEB939 /* ApiConsumeExtensions.swift in Sources */,
 				49708C531E9A541D00AE452B /* CommentsViewController.swift in Sources */,
+				49898F3F1F29ABC40009C1BC /* ChangePasswordViewController.swift in Sources */,
 				F06F50411EA55FA400DD1D33 /* Comment.swift in Sources */,
 				F0F8FAD11E8391E80009CC52 /* CameraViewController.swift in Sources */,
 				F0506BA11E8CB2060012C33A /* CustomCameraView.swift in Sources */,
@@ -929,6 +948,7 @@
 				F0F8FACD1E8391CD0009CC52 /* HomeViewController.swift in Sources */,
 				F011B0E61E807C27005E5F55 /* ColorExtensions.swift in Sources */,
 				C41EB7C81ECE4A2300E08C53 /* FSCameraView.swift in Sources */,
+				49898F411F29BB7B0009C1BC /* RecoveryPasswordViewController.swift in Sources */,
 				F0B176801E899ABF0056BA98 /* EditProfileViewController.swift in Sources */,
 				F0BB99671EBDA942006DF04D /* HomeIPADViewController.swift in Sources */,
 				F09AF73E1E901913004EDF85 /* DiscoveryList.swift in Sources */,
