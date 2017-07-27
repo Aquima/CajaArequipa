@@ -16,6 +16,7 @@
 		49898F3F1F29ABC40009C1BC /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49898F3E1F29ABC40009C1BC /* ChangePasswordViewController.swift */; };
 		49898F411F29BB7B0009C1BC /* RecoveryPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49898F401F29BB7B0009C1BC /* RecoveryPasswordViewController.swift */; };
 		49898F441F29BE590009C1BC /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49898F431F29BE590009C1BC /* RecoveryView.swift */; };
+		49898F471F29DBA40009C1BC /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49898F461F29DBA40009C1BC /* ChangePasswordView.swift */; };
 		49D158F31EA1DCB9008B3A1D /* CommentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D158F21EA1DCB9008B3A1D /* CommentList.swift */; };
 		852852706EDE0174E42F847C /* Pods_cajaarequipaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E65EA6B9F44FF3F761DDF6B3 /* Pods_cajaarequipaTests.framework */; };
 		C41EB7C31ECE4A2300E08C53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C41EB7B51ECE4A2300E08C53 /* Assets.xcassets */; };
@@ -129,6 +130,7 @@
 		49898F3E1F29ABC40009C1BC /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		49898F401F29BB7B0009C1BC /* RecoveryPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoveryPasswordViewController.swift; sourceTree = "<group>"; };
 		49898F431F29BE590009C1BC /* RecoveryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
+		49898F461F29DBA40009C1BC /* ChangePasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		49D158F21EA1DCB9008B3A1D /* CommentList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentList.swift; sourceTree = "<group>"; };
 		745E5F6E62CB945070D4C77D /* Pods_cajaarequipaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cajaarequipaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89D8291F308BD7921772B1F0 /* Pods-cajaarequipaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cajaarequipaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cajaarequipaTests/Pods-cajaarequipaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -288,6 +290,14 @@
 			path = RecoveryView;
 			sourceTree = "<group>";
 		};
+		49898F451F29DB910009C1BC /* ChangePasswordView */ = {
+			isa = PBXGroup;
+			children = (
+				49898F461F29DBA40009C1BC /* ChangePasswordView.swift */,
+			);
+			path = ChangePasswordView;
+			sourceTree = "<group>";
+		};
 		49D158F11EA1DAFE008B3A1D /* CommentView */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +424,7 @@
 		F011B0D91E804A65005E5F55 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				49898F451F29DB910009C1BC /* ChangePasswordView */,
 				49898F421F29BE470009C1BC /* RecoveryView */,
 				C4A288971EC547230086BD76 /* DetailPhoto */,
 				F0C181C71EAEB98D00B26841 /* SearchView */,
@@ -906,6 +917,7 @@
 				F0F8FADE1E8409F30009CC52 /* GlobalConstants.swift in Sources */,
 				F0F8FACB1E8361D70009CC52 /* NavigationCustomViewController.swift in Sources */,
 				C41EB7CE1ECE4A2300E08C53 /* FusumaViewController.swift in Sources */,
+				49898F471F29DBA40009C1BC /* ChangePasswordView.swift in Sources */,
 				F0506BAA1E8D7AC30012C33A /* FooterPhoto.swift in Sources */,
 				F09AF73B1E9015E8004EDF85 /* UserTableViewCell.swift in Sources */,
 				49898F441F29BE590009C1BC /* RecoveryView.swift in Sources */,

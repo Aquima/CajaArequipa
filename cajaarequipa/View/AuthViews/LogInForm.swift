@@ -197,15 +197,7 @@ class LogInForm: UIView, UITextFieldDelegate {
 
         btnEnter.isHidden = true
         delegate?.callLogIn(email: email!, password: password!)
-//        if inputTextMail.text != "" && inputTextPassword.text != "" {
-//             btnEnter.isHidden = true
-//
-//           
-//
-//        }else{
-//            sender.isHidden = true
-//         //   sender.isHidden = false
-//        }
+
         
     }
     func pressRegisterOn(sender:UIButton){
